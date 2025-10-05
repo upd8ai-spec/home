@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>upd8ai — Update Your Intelligence</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f1724;            /* dark bg for hero */
+      --muted:#64748b;
+      --accent:#5eead4;        /* mint */
+      --accent-2:#60a5fa;     /* blue */
+      --card:#0b1220;
+      --glass: rgba(255,255,255,0.04);
+      --white: #ffffff;
+      --radius: 14px;
+      --maxw:1200px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;}
+    body{background:#0a0f1a;color:#e6eef8;line-height:1.45}
+    .container{max-width:var(--maxw);margin:0 auto;padding:28px;}
+    /* NAV */
+    header.site{background:linear-gradient(180deg,var(--bg) 0%, #081022 60%);padding:28px 0 36px}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand .logo{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent-2),var(--accent));display:flex;align-items:center;justify-content:center;font-weight:800;color:#07203b;}
+    .brand .title{font-weight:700;font-size:1.05rem}
+    nav.links{display:flex;gap:18px;align-items:center}
+    nav.links a{color:rgba(255,255,255,0.88);text-decoration:none;font-weight:600}
+    .cta-btn{background:var(--accent-2);color:#041224;padding:10px 16px;border-radius:10px;font-weight:700;border:none;cursor:pointer}
+    .ghost{border:1px solid rgba(255,255,255,0.06);padding:9px 14px;border-radius:10px;color:var(--muted);background:transparent}
+    /* HERO */
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;padding:60px 0}
+    .hero-left h1{font-size:2.6rem;margin:0 0 14px;line-height:1.03;color:#eaf6ff}
+    .hero-left p{color:var(--muted);font-size:1.05rem;margin:0 0 22px;max-width:720px}
+    .hero-ctas{display:flex;gap:14px;align-items:center}
+    .pill{display:inline-flex;align-items:center;gap:10px;padding:8px 12px;background:rgba(255,255,255,0.03);border-radius:999px;font-weight:600;color:var(--accent-2)}
+    .hero-right{display:flex;justify-content:center}
+    .mock{width:100%;max-width:420px;border-radius:18px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border:1px solid rgba(255,255,255,0.04)}
+    .mock img{width:100%;border-radius:10px;display:block}
+    /* FEATURES */
+    section.features{padding:60px 0;background:linear-gradient(180deg,#071028 0%, #041122 100%)}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:22px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+    .card h3{margin:0 0 10px;color:var(--accent-2)}
+    .card p{margin:0;color:var(--muted);font-size:0.95rem}
+    .card ul{margin-top:12px;padding-left:18px;color:var(--muted)}
+    /* USP strip */
+    .usp{display:flex;gap:18px;margin-top:36px;align-items:center;justify-content:space-between}
+    .usp .item{flex:1;padding:14px;background:rgba(255,255,255,0.02);border-radius:10px;text-align:center}
+    .usp .item h4{margin:0;font-size:1.15rem}
+    .usp .item p{color:var(--muted);margin-top:6px}
+    /* Pricing / CTA strip */
+    .cta-strip{display:flex;gap:18px;margin-top:40px;background:linear-gradient(90deg, rgba(96,165,250,0.06), rgba(94,234,212,0.02));padding:18px;border-radius:12px;align-items:center}
+    .cta-strip .left{flex:1}
+    .cta-strip .right{display:flex;gap:12px}
+    /* FOOTER */
+    footer{padding:38px 0 80px;background:#020617;color:rgba(255,255,255,0.6)}
+    footer .foot-grid{display:flex;gap:24px;align-items:flex-start}
+    footer .col{flex:1}
+    small.muted{color:var(--muted)}
+    /* Responsive */
+    @media (max-width:980px){
+      .hero{grid-template-columns:1fr; text-align:center}
+      nav.links{display:none}
+      .grid{grid-template-columns:1fr}
+      .usp{flex-direction:column}
+      .hero-left h1{font-size:2rem}
+    }
+    @media (max-width:520px){
+      .hero-left h1{font-size:1.6rem}
+      .pill{display:none}
+    }
+  </style>
+</head>
+<body>
+  <header class="site">
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo">U8</div>
+        <div class="title">upd8ai</div>
+      </div>
+
+      <nav class="links" aria-label="Main navigation">
+        <a href="#services">Services</a>
+        <a href="#pilot">Pilot</a>
+        <a href="#pricing">Pricing</a>
+        <button class="ghost">Contact</button>
+      </nav>
+      <div style="display:flex;gap:12px;align-items:center">
+        <button class="cta-btn">Join Early Access</button>
+      </div>
+    </div>
+
+    <div class="container hero">
+      <div class="hero-left">
+        <div class="pill">Coming Soon • Early Access</div>
+        <h1>Update your intelligence — <br>AI copilots for inbox, data & sales</h1>
+        <p>Build powerful automation with no code. Automate your inbox, clean and connect data from any source, and deploy a 24/7 sales chatbot that actually books meetings.</p>
+
+        <div class="hero-ctas">
+          <button class="cta-btn">Apply for Pilot</button>
+          <button class="ghost">Watch Demo (3m)</button>
+        </div>
+
+        <div class="usp" style="margin-top:20px">
+          <div class="item"><h4>⚡ Instant Setup</h4><p>90-day pilot to production</p></div>
+          <div class="item"><h4>🔒 Privacy-First</h4><p>Your data stays yours</p></div>
+          <div class="item"><h4>💸 Low Cost</h4><p>Free tiers & predictable billing</p></div>
+        </div>
+
+      </div>
+
+      <div class="hero-right">
+        <div class="mock" aria-hidden="true">
+          <!-- replace this image with your dashboard mock -->
+          <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=900&auto=format&fit=crop&ixlib=rb-4.0.3&s=7d0b5bee3dff6283e0f6b4b9b0d9e3b5" alt="dashboard mockup">
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="services" class="features">
+      <h2>What we’re launching</h2>
+
+      <div class="grid" role="list">
+        <div class="card" role="listitem">
+          <h3>AI Inbox & Calendar Management</h3>
+          <p>Automatically filter, summarize and respond to important emails while syncing meetings into your calendar—so teams and leaders stay focused.</p>
+          <ul>
+            <li>Smart triage & priority tagging</li>
+            <li>Auto-response templates & scheduling</li>
+            <li>Meeting summaries & action items</li>
+          </ul>
+        </div>
+
+        <div class="card" role="listitem">
+          <h3>Multimodal Automation & Data Clean-Up</h3>
+          <p>Upload documents, spreadsheets and images. Our workflows clean, dedupe, standardize and enrich your dataset — ready for search and automation.</p>
+          <ul>
+            <li>CSV/Excel normalization & enrichment</li>
+            <li>OCR for scanned documents & receipts</li>
+            <li>Automated workflows with n8n + Supabase</li>
+          </ul>
+        </div>
+
+        <div class="card" role="listitem">
+          <h3>Sales Chatbot & Appointment Platform</h3>
+          <p>Conversational bot that qualifies leads, books appointments and hands off to reps — integrated with Calendly, Google Calendar and CRMs.</p>
+          <ul>
+            <li>Website & WhatsApp connectors</li>
+            <li>Auto scheduling + meeting reminders</li>
+            <li>Lead scoring & CRM sync</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cta-strip" style="margin-top:28px">
+        <div class="left">
+          <strong style="font-size:1.05rem">Ready to transform workflows?</strong>
+          <div class="muted small">Apply now for a limited early access pilot — seats are limited.</div>
+        </div>
+        <div class="right">
+          <button class="cta-btn">Apply for Pilot</button>
+          <button class="ghost">Contact Sales</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="pilot" style="padding:40px 0">
+      <h2>Pilot — How it works</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:22px">
+        <div class="card">
+          <h3>1. Discovery</h3>
+          <p>We review your use case, data and goals. Simple intake call — no tech required.</p>
+        </div>
+        <div class="card">
+          <h3>2. Implementation</h3>
+          <p>We set up ingestion, build the n8n flows, and connect your LLMs and vector DB.</p>
+        </div>
+        <div class="card">
+          <h3>3. Go Live</h3>
+          <p>Launch the assistant, train users, and iterate with measurable KPIs.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing" style="padding:40px 0">
+      <h2>Pricing (Early Access)</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:22px">
+        <div class="card">
+          <h3>Basic</h3>
+          <p><strong>$9.99 / mo</strong></p>
+          <p class="muted">For individuals</p>
+          <ul><li>500 queries</li><li>Email triage</li></ul>
+        </div>
+        <div class="card">
+          <h3>Standard</h3>
+          <p><strong>$19 / mo</strong></p>
+          <p class="muted">Small teams</p>
+          <ul><li>2 seats</li><li>Multimodal ingestion</li></ul>
+        </div>
+        <div class="card">
+          <h3>Expert</h3>
+          <p><strong>$49 / mo</strong></p>
+          <p class="muted">Growing teams</p>
+          <ul><li>10 seats</li><li>Priority onboarding</li></ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container foot-grid">
+      <div class="col">
+        <div style="display:flex;gap:12px;align-items:center">
+          <div style="width:46px;height:46px;border-radius:10px;background:linear-gradient(135deg,var(--accent-2),var(--accent));display:flex;align-items:center;justify-content:center;font-weight:800;color:#041224">U8</div>
+          <div>
+            <strong>upd8ai</strong><div class="muted">Update Your Intelligence</div>
+          </div>
+        </div>
+        <p style="margin-top:14px;color:var(--muted)">Build smarter systems that automate inboxes, clean data, and convert more leads — without hiring a dev team.</p>
+      </div>
+
+      <div class="col" style="display:flex;flex-direction:column;gap:8px">
+        <div><strong>Product</strong></div>
+        <a href="#services" style="color:rgba(255,255,255,0.9);text-decoration:none">Services</a>
+        <a href="#pilot" style="color:rgba(255,255,255,0.9);text-decoration:none">Pilot</a>
+        <a href="#pricing" style="color:rgba(255,255,255,0.9);text-decoration:none">Pricing</a>
+      </div>
+
+      <div class="col">
+        <div><strong>Contact</strong></div>
+        <div style="margin-top:6px">hello@upd8ai.space</div>
+        <div style="margin-top:8px"><small class="muted">© 2025 upd8ai.space</small></div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
