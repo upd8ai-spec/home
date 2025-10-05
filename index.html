@@ -3,170 +3,240 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Upd8ai - Empower Your Workflow</title>
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- AOS (Animate On Scroll) -->
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
+  <title>Upd8ai – Empower Your Workflow</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <style>
-    /* Gradient text for emphasis */
-    .gradient-text {
-      background: linear-gradient(90deg, #6366f1, #06b6d4);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    body { background-color: #f9fafb; color: #111827; font-family: 'Inter', sans-serif; }
+    .gradient-text { background: linear-gradient(90deg, #6366f1, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .modal { display: none; position: fixed; z-index: 50; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; }
+    .modal-content { background: white; padding: 2rem; border-radius: 1rem; max-width: 600px; width: 90%; animation: fadeInUp 0.3s ease; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px);} to { opacity: 1; transform: translateY(0);} }
+
+    /* Floating Navbar */
+    .floating-nav {
+      position: fixed; top: -80px; left: 0; right: 0;
+      background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      transition: top 0.4s ease;
+      z-index: 100;
     }
-    /* Hover animation for cards */
-    .hover-lift:hover {
-      transform: translateY(-8px);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    .floating-nav.visible { top: 0; }
+
+    /* Sticky CTA */
+    .sticky-cta {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: linear-gradient(90deg, #6366f1, #8b5cf6);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 9999px;
+      box-shadow: 0 10px 20px rgba(99,102,241,0.3);
+      font-weight: 600;
+      transition: all 0.3s ease;
+      z-index: 90;
+    }
+    .sticky-cta:hover { transform: scale(1.05); box-shadow: 0 10px 25px rgba(99,102,241,0.4); }
+
+    /* Hero Background Pattern */
+    .hero-bg {
+      background: radial-gradient(circle at 20% 20%, #e0e7ff 0%, #f9fafb 80%), url('https://www.transparenttextures.com/patterns/cubes.png');
+      background-size: cover;
     }
   </style>
 </head>
+<body class="overflow-x-hidden">
 
-<body class="bg-gray-50 text-gray-900 font-sans scroll-smooth">
+  <!-- Primary Navbar -->
+  <header id="mainNav" class="fixed w-full bg-white shadow-sm z-40">
+    <div class="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
+      <div class="text-2xl font-bold gradient-text">Upd8ai</div>
+      <nav class="space-x-6 text-sm font-medium">
+        <a href="#about" class="hover:text-indigo-600">About</a>
+        <a href="#services" class="hover:text-indigo-600">Services</a>
+        <a href="#expertise" class="hover:text-indigo-600">Expertise</a>
+        <a href="#training" class="hover:text-indigo-600">Training</a>
+        <a href="#contact" class="hover:text-indigo-600">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Floating Navbar -->
+  <div id="floatNav" class="floating-nav">
+    <div class="max-w-7xl mx-auto flex justify-between items-center px-6 py-3">
+      <div class="text-lg font-semibold gradient-text">Upd8ai</div>
+      <nav class="space-x-5 text-sm font-medium">
+        <a href="#about" class="hover:text-indigo-600">About</a>
+        <a href="#services" class="hover:text-indigo-600">Services</a>
+        <a href="#expertise" class="hover:text-indigo-600">Expertise</a>
+        <a href="#training" class="hover:text-indigo-600">Training</a>
+        <a href="#contact" class="hover:text-indigo-600">Contact</a>
+      </nav>
+    </div>
+  </div>
+
   <!-- Hero Section -->
-  <section class="relative bg-gradient-to-br from-indigo-50 via-white to-cyan-50 min-h-screen flex items-center">
-    <div class="container mx-auto px-6 text-center lg:text-left lg:px-20" data-aos="fade-up">
-      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold gradient-text mb-6">
-        Empower Your Workflow with Upd8ai
-      </h1>
-      <p class="text-lg sm:text-xl lg:text-2xl mb-8 text-gray-700">
+  <section class="pt-32 pb-24 text-center hero-bg relative overflow-hidden" data-aos="fade-up">
+    <div class="absolute inset-0 bg-gradient-to-b from-indigo-50/70 to-white/90"></div>
+    <div class="relative z-10">
+      <h1 class="text-5xl md:text-6xl font-extrabold gradient-text mb-6">Empower Your Workflow with Upd8ai</h1>
+      <p class="text-lg md:text-xl text-gray-700 mb-10 px-6 max-w-3xl mx-auto">
         AI Inbox, Automation, and Smart Chatbots — Simplifying AI for Businesses, Educators & Startups.
       </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-        <a href="#services" class="px-6 py-3 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700 transition">Explore Services</a>
-        <a href="#contact" class="px-6 py-3 border border-indigo-600 text-indigo-600 rounded-lg shadow hover:bg-indigo-50 transition">Contact Us</a>
+      <div class="space-x-4">
+        <a href="#services" class="bg-indigo-600 text-white px-6 py-3 rounded-full hover:bg-indigo-700 transition">Explore Services</a>
+        <a href="#contact" class="border border-indigo-600 text-indigo-600 px-6 py-3 rounded-full hover:bg-indigo-50 transition">Contact Us</a>
       </div>
     </div>
   </section>
 
   <!-- About Section -->
-  <section id="about" class="py-20">
-    <div class="container mx-auto px-6 text-center" data-aos="fade-up">
-      <h2 class="text-3xl sm:text-4xl font-bold gradient-text mb-4">Your AI Co-Pilot for Everyday Growth</h2>
-      <p class="text-gray-700 text-lg sm:text-xl max-w-2xl mx-auto">
-        Upd8ai empowers startups, colleges, and enterprises to adopt AI practically. From workshops to automation platforms, we turn AI concepts into real impact.
-      </p>
-    </div>
+  <section id="about" class="py-20 text-center" data-aos="fade-up">
+    <h2 class="text-3xl md:text-4xl font-bold mb-6 gradient-text">Your AI Co-Pilot for Everyday Growth</h2>
+    <p class="max-w-3xl mx-auto text-gray-600">
+      Upd8ai empowers startups, colleges, and enterprises to adopt AI practically. 
+      From workshops to automation platforms, we turn AI concepts into real impact.
+    </p>
   </section>
 
   <!-- Services Section -->
-  <section id="services" class="py-20 bg-gray-100">
-    <div class="container mx-auto px-6" data-aos="fade-up">
-      <h2 class="text-3xl sm:text-4xl font-bold gradient-text text-center mb-12">Our Core Services</h2>
-      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        <!-- Service Card 1 -->
-        <div class="bg-white p-6 rounded-xl shadow hover-lift" data-aos="fade-up" data-aos-delay="100">
-          <div class="text-indigo-600 mb-4 text-4xl">📥</div>
-          <h3 class="text-xl font-semibold mb-2">AI Inbox & Calendar Management</h3>
-          <p class="text-gray-700">Smart assistant to handle scheduling, follow-ups, and prioritization seamlessly.</p>
-        </div>
-        <!-- Service Card 2 -->
-        <div class="bg-white p-6 rounded-xl shadow hover-lift" data-aos="fade-up" data-aos-delay="200">
-          <div class="text-indigo-600 mb-4 text-4xl">⚡</div>
-          <h3 class="text-xl font-semibold mb-2">Multimodal AI Automation & Data Cleanup</h3>
-          <p class="text-gray-700">Connect PDFs, images, URLs, and text into a seamless RAG workflow. Automate extraction & cleanup.</p>
-        </div>
-        <!-- Service Card 3 -->
-        <div class="bg-white p-6 rounded-xl shadow hover-lift" data-aos="fade-up" data-aos-delay="300">
-          <div class="text-indigo-600 mb-4 text-4xl">🤖</div>
-          <h3 class="text-xl font-semibold mb-2">Sales Chatbot & Appointment Platform</h3>
-          <p class="text-gray-700">Engage leads 24/7, book appointments, and integrate directly with your CRM or calendar.</p>
-        </div>
+  <section id="services" class="py-20 bg-gray-50" data-aos="fade-up">
+    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 gradient-text">Our Core Services</h2>
+    <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 px-6">
+      <div class="bg-white p-8 rounded-2xl shadow hover:shadow-lg transition transform hover:-translate-y-2 cursor-pointer" onclick="openModal('modal1')">
+        <img src="https://cdn-icons-png.flaticon.com/512/9754/9754562.png" alt="AI Inbox" class="w-20 mx-auto mb-4">
+        <h3 class="text-xl font-semibold mb-4">AI Inbox & Calendar Management</h3>
+        <p class="text-gray-600">Smart assistant to handle scheduling, follow-ups, and prioritization seamlessly.</p>
+      </div>
+      <div class="bg-white p-8 rounded-2xl shadow hover:shadow-lg transition transform hover:-translate-y-2 cursor-pointer" onclick="openModal('modal2')">
+        <img src="https://cdn-icons-png.flaticon.com/512/9790/9790354.png" alt="Automation" class="w-20 mx-auto mb-4">
+        <h3 class="text-xl font-semibold mb-4">Multimodal AI Automation & Data Cleanup</h3>
+        <p class="text-gray-600">Connect PDFs, images, URLs, and text into a seamless RAG workflow. Automate extraction & cleanup.</p>
+      </div>
+      <div class="bg-white p-8 rounded-2xl shadow hover:shadow-lg transition transform hover:-translate-y-2 cursor-pointer" onclick="openModal('modal3')">
+        <img src="https://cdn-icons-png.flaticon.com/512/9730/9730708.png" alt="Chatbot" class="w-20 mx-auto mb-4">
+        <h3 class="text-xl font-semibold mb-4">Sales Chatbot & Appointment Platform</h3>
+        <p class="text-gray-600">Engage leads 24/7, book appointments, and integrate directly with your CRM or calendar.</p>
       </div>
     </div>
   </section>
 
   <!-- Expertise Section -->
-  <section id="expertise" class="py-20">
-    <div class="container mx-auto px-6" data-aos="fade-up">
-      <h2 class="text-3xl sm:text-4xl font-bold gradient-text text-center mb-12">Our Expertise</h2>
-      <div class="grid gap-8 sm:grid-cols-2">
-        <div class="bg-white p-6 rounded-xl shadow hover-lift">
-          <h3 class="text-xl font-semibold mb-2">AI Workshops & Online Courses</h3>
-          <p class="text-gray-700">Tailored masterclasses for students, professionals, and startups to master AI practically.</p>
-        </div>
-        <div class="bg-white p-6 rounded-xl shadow hover-lift">
-          <h3 class="text-xl font-semibold mb-2">Strategic AI Consulting & Automation</h3>
-          <p class="text-gray-700">From n8n workflows to Gemini LLM integration — we provide end-to-end automation solutions.</p>
-        </div>
-        <div class="bg-white p-6 rounded-xl shadow hover-lift">
-          <h3 class="text-xl font-semibold mb-2">Rapid AI Prototyping & MVP Development</h3>
-          <p class="text-gray-700">Build AI proof-of-concepts and pilots fast to validate ideas and save development time.</p>
-        </div>
-        <div class="bg-white p-6 rounded-xl shadow hover-lift">
-          <h3 class="text-xl font-semibold mb-2">Auditing, Enhancements & Maintenance</h3>
-          <p class="text-gray-700">Optimize pipelines, improve quality, and ensure smooth AI operations for your business.</p>
-        </div>
+  <section id="expertise" class="py-20" data-aos="fade-up">
+    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 gradient-text">Our Expertise</h2>
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 px-6">
+      <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+        <img src="https://cdn-icons-png.flaticon.com/512/1178/1178481.png" alt="Workshop" class="w-16 mb-3">
+        <h4 class="font-semibold mb-2">AI Workshops & Online Courses</h4>
+        <p class="text-gray-600">Tailored masterclasses for students, professionals, and startups to master AI practically.</p>
+      </div>
+      <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+        <img src="https://cdn-icons-png.flaticon.com/512/875/875601.png" alt="Consulting" class="w-16 mb-3">
+        <h4 class="font-semibold mb-2">Strategic AI Consulting & Custom Automation</h4>
+        <p class="text-gray-600">From n8n workflows to Gemini LLM integration — we provide end-to-end automation solutions.</p>
+      </div>
+      <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+        <img src="https://cdn-icons-png.flaticon.com/512/1118/1118833.png" alt="Prototype" class="w-16 mb-3">
+        <h4 class="font-semibold mb-2">Rapid AI Prototyping & MVP Development</h4>
+        <p class="text-gray-600">Build AI proof-of-concepts and pilots fast to validate ideas and save development time.</p>
+      </div>
+      <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+        <img src="https://cdn-icons-png.flaticon.com/512/4789/4789708.png" alt="Audit" class="w-16 mb-3">
+        <h4 class="font-semibold mb-2">Auditing, Enhancements & Maintenance</h4>
+        <p class="text-gray-600">Optimize pipelines, improve quality, and ensure smooth AI operations for your business.</p>
       </div>
     </div>
   </section>
 
-  <!-- Tools, Training, and Webinar Confidence Section -->
-  <section id="confidence" class="py-20 bg-gray-100">
-    <div class="container mx-auto px-6" data-aos="fade-up">
-      <h2 class="text-3xl sm:text-4xl font-bold gradient-text text-center mb-12">Training, Webinars & Tools We Excel In</h2>
-      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 text-center">
-        <div class="bg-white p-6 rounded-xl shadow hover-lift">
-          <h3 class="text-xl font-semibold mb-2">Training & Webinars</h3>
-          <p class="text-gray-700">Interactive sessions on AI Automation, Prompt Engineering, n8n Workflows, and Multimodal AI systems.</p>
-        </div>
-        <div class="bg-white p-6 rounded-xl shadow hover-lift">
-          <h3 class="text-xl font-semibold mb-2">Tool Expertise</h3>
-          <p class="text-gray-700">Hands-on expertise in OpenAI API, Google Gemini, Zapier, n8n, Airtable, and cloud-based RAG setups.</p>
-        </div>
-        <div class="bg-white p-6 rounded-xl shadow hover-lift">
-          <h3 class="text-xl font-semibold mb-2">Enterprise Confidence</h3>
-          <p class="text-gray-700">Trusted by startup founders, educators, and automation teams for rapid AI enablement.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Integrations Section -->
-  <section id="integrations" class="py-20">
-    <div class="container mx-auto px-6 text-center" data-aos="fade-up">
-      <h2 class="text-3xl sm:text-4xl font-bold gradient-text mb-6">Works with Tools You Already Use</h2>
-      <p class="text-gray-700 mb-8">We integrate seamlessly with your favorite productivity, finance, and AI tools.</p>
-      <div class="flex flex-wrap justify-center gap-6 text-gray-600 font-medium">
-        <span>Google Workspace</span>
-        <span>Slack</span>
-        <span>Notion</span>
-        <span>n8n</span>
-        <span>Zapier</span>
-        <span>OpenAI</span>
-        <span>Gemini</span>
-        <span>Airtable</span>
-      </div>
+  <!-- Training Section -->
+  <section id="training" class="py-20 bg-gray-50" data-aos="fade-up">
+    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 gradient-text">Training, Webinars & Tool Mastery</h2>
+    <div class="max-w-5xl mx-auto text-center text-gray-600 px-6">
+      <p class="mb-4">We don’t just build AI — we train teams to use it effectively.</p>
+      <ul class="grid md:grid-cols-2 gap-4 text-left max-w-3xl mx-auto">
+        <li><strong>n8n Automation Workflows</strong> – Build end-to-end processes visually.</li>
+        <li><strong>OpenAI, Gemini & Claude</strong> – Real-world prompt engineering mastery.</li>
+        <li><strong>Zapier & Make</strong> – Cross-platform AI & workflow integration.</li>
+        <li><strong>Data Cleaning & Retrieval (RAG)</strong> – Connect documents, APIs, and images seamlessly.</li>
+      </ul>
     </div>
   </section>
 
   <!-- Contact Section -->
-  <section id="contact" class="py-20">
-    <div class="container mx-auto px-6 text-center" data-aos="fade-up">
-      <h2 class="text-3xl sm:text-4xl font-bold gradient-text mb-4">Let's Build the Future, Together</h2>
-      <p class="text-gray-700 text-lg sm:text-xl mb-8">
-        Reach out to bring AI into your workflows, classrooms, or startups. Let’s co-create the next big thing.
-      </p>
-      <a href="mailto:upd8ai@gmail.com" class="px-6 py-3 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700 transition">Contact Us</a>
-    </div>
+  <section id="contact" class="py-20 text-center" data-aos="fade-up">
+    <h2 class="text-3xl md:text-4xl font-bold mb-6 gradient-text">Let's Build the Future, Together</h2>
+    <p class="text-gray-600 mb-8">Reach out to bring AI into your workflows, classrooms, or startups. Let’s co-create the next big thing.</p>
+    <a href="mailto:upd8ai@gmail.com" class="bg-indigo-600 text-white px-8 py-3 rounded-full hover:bg-indigo-700 transition">Contact Us</a>
   </section>
 
   <!-- Footer -->
-  <footer class="bg-gray-200 py-6 text-center text-gray-700">
-    &copy; 2025 Upd8ai. All rights reserved. Email:
-    <a href="mailto:upd8ai@gmail.com" class="text-indigo-600 hover:underline">upd8ai@gmail.com</a>
+  <footer class="bg-white py-6 text-center text-gray-500 text-sm border-t">
+    &copy; 2025 Upd8ai. All rights reserved. Email: upd8ai@gmail.com
   </footer>
 
-  <!-- Initialize AOS -->
+  <!-- Sticky CTA -->
+  <a href="#contact" class="sticky-cta">Hire Us</a>
+
+  <!-- Modals -->
+  <div id="modal1" class="modal flex">
+    <div class="modal-content">
+      <h3 class="text-2xl font-semibold mb-4 gradient-text">AI Inbox & Calendar Management</h3>
+      <p class="text-gray-600 mb-4">
+        Upd8ai’s AI Inbox intelligently organizes emails, follow-ups, and meetings. Integrated with your calendar, it automates prioritization, rescheduling, and reminders.
+      </p>
+      <ul class="list-disc list-inside text-gray-600">
+        <li>Smart prioritization using AI context analysis.</li>
+        <li>Automatic follow-ups & scheduling suggestions.</li>
+        <li>Integration with Gmail, Outlook, and Google Calendar.</li>
+      </ul>
+      <button onclick="closeModal('modal1')" class="mt-6 px-6 py-2 bg-indigo-600 text-white rounded-full hover:bg-indigo-700">Close</button>
+    </div>
+  </div>
+
+  <div id="modal2" class="modal flex">
+    <div class="modal-content">
+      <h3 class="text-2xl font-semibold mb-4 gradient-text">Multimodal AI Automation & Data Cleanup</h3>
+      <p class="text-gray-600 mb-4">
+        We design AI-driven workflows that can understand text, images, PDFs, and URLs — transforming scattered data into structured insights.
+      </p>
+      <ul class="list-disc list-inside text-gray-600">
+        <li>RAG-based multimodal document parsing.</li>
+        <li>Custom workflows built in n8n or Zapier.</li>
+        <li>Automated data cleaning & enrichment pipelines.</li>
+      </ul>
+      <button onclick="closeModal('modal2')" class="mt-6 px-6 py-2 bg-indigo-600 text-white rounded-full hover:bg-indigo-700">Close</button>
+    </div>
+  </div>
+
+  <div id="modal3" class="modal flex">
+    <div class="modal-content">
+      <h3 class="text-2xl font-semibold mb-4 gradient-text">Sales Chatbot & Appointment Platform</h3>
+      <p class="text-gray-600 mb-4">
+        Upd8ai’s AI chatbot helps you engage customers 24/7 — capturing leads, answering queries, and booking meetings automatically.
+      </p>
+      <ul class="list-disc list-inside text-gray-600">
+        <li>Custom conversational design & CRM integration.</li>
+        <li>Smart appointment booking via Google Calendar.</li>
+        <li>Built using GPT-based or local AI agents.</li>
+      </ul>
+      <button onclick="closeModal('modal3')" class="mt-6 px-6 py-2 bg-indigo-600 text-white rounded-full hover:bg-indigo-700">Close</button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
-    AOS.init({
-      duration: 1000,
-      once: true
+    AOS.init({ duration: 1000, once: true });
+    function openModal(id){ document.getElementById(id).style.display='flex'; }
+    function closeModal(id){ document.getElementById(id).style.display='none'; }
+
+    // Floating navbar
+    const floatNav = document.getElementById('floatNav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 200) floatNav.classList.add('visible');
+      else floatNav.classList.remove('visible');
     });
   </script>
+
 </body>
 </html>
