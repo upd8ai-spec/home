@@ -162,7 +162,7 @@
     </div>
   </section>
 
- <!-- Contact Section -->
+<!-- Contact Section -->
 <section id="contact" class="py-20 text-center bg-gray-50" data-aos="fade-up">
   <h2 class="text-3xl md:text-4xl font-bold mb-6 gradient-text">
     Let's Build the Future, Together
@@ -172,33 +172,35 @@
     Let’s co-create the next big thing.
   </p>
 
-  <!-- Contact Tally Embed Form -->
+  <!-- Tally Embed Container -->
   <div class="max-w-3xl mx-auto rounded-2xl shadow-xl overflow-hidden border border-gray-200 bg-white">
     <iframe 
-      data-tally-src="https://tally.so/embed/mZqJ7z?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" 
-      loading="lazy" 
+      src="https://tally.so/embed/mZqJ7z?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" 
       width="100%" 
       height="500" 
       frameborder="0" 
       marginheight="0" 
       marginwidth="0" 
-      title="Upd8ai Contact Form">
+      title="Upd8ai Contact Form"
+      class="w-full"
+      allowfullscreen>
     </iframe>
   </div>
-
-  <script>
-    var d=document, w="https://tally.so/widgets/embed.js", v=function(){
-      if("Tally" in window) Tally.loadEmbeds();
-      else {
-        var s=d.createElement("script");
-        s.src=w; s.onload=Tally.loadEmbeds; d.body.appendChild(s);
-      }
-    };
-    if(d.readyState=="complete") v();
-    else window.addEventListener("load", v);
-  </script>
 </section>
 
+<!-- Load Tally Embed Script (must be after section) -->
+<script>
+  (function(){
+    var d=document, w="https://tally.so/widgets/embed.js";
+    if(!d.getElementById("tally-embed-js")){
+      var s=d.createElement("script");
+      s.id="tally-embed-js";
+      s.src=w;
+      s.onload=function(){ if("Tally" in window) Tally.loadEmbeds(); };
+      d.body.appendChild(s);
+    } else if("Tally" in window) Tally.loadEmbeds();
+  })();
+</script>
   <!-- Footer -->
   <footer class="bg-white py-6 text-center text-gray-500 text-sm border-t">
     &copy; 2025 Upd8ai. All rights reserved. Email: upd8ai@gmail.com
