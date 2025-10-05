@@ -1,38 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Upd8ai - Empower Your Workflow</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- AOS.js CDN -->
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <!-- AOS (Animate On Scroll) -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <!-- Custom CSS -->
+
   <style>
-    /* Gradient Text */
+    /* Gradient text for emphasis */
     .gradient-text {
       background: linear-gradient(90deg, #6366f1, #06b6d4);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    /* Card Hover Effect */
+    /* Hover animation for cards */
     .hover-lift:hover {
-      transform: translateY(-10px);
-      transition: transform 0.3s ease;
+      transform: translateY(-8px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
     }
   </style>
 </head>
-<body class="bg-gray-50 text-gray-900 font-sans scroll-smooth">
 
+<body class="bg-gray-50 text-gray-900 font-sans scroll-smooth">
   <!-- Hero Section -->
   <section class="relative bg-gradient-to-br from-indigo-50 via-white to-cyan-50 min-h-screen flex items-center">
     <div class="container mx-auto px-6 text-center lg:text-left lg:px-20" data-aos="fade-up">
       <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold gradient-text mb-6">
         Empower Your Workflow with Upd8ai
       </h1>
-      <p class="text-lg sm:text-xl lg:text-2xl mb-8">
+      <p class="text-lg sm:text-xl lg:text-2xl mb-8 text-gray-700">
         AI Inbox, Automation, and Smart Chatbots — Simplifying AI for Businesses, Educators & Startups.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
@@ -89,7 +90,7 @@
           <p class="text-gray-700">Tailored masterclasses for students, professionals, and startups to master AI practically.</p>
         </div>
         <div class="bg-white p-6 rounded-xl shadow hover-lift">
-          <h3 class="text-xl font-semibold mb-2">Strategic AI Consulting & Custom Automation</h3>
+          <h3 class="text-xl font-semibold mb-2">Strategic AI Consulting & Automation</h3>
           <p class="text-gray-700">From n8n workflows to Gemini LLM integration — we provide end-to-end automation solutions.</p>
         </div>
         <div class="bg-white p-6 rounded-xl shadow hover-lift">
@@ -104,23 +105,41 @@
     </div>
   </section>
 
-  <!-- Testimonials Section -->
-  <section id="testimonials" class="py-20 bg-gray-100">
+  <!-- Tools, Training, and Webinar Confidence Section -->
+  <section id="confidence" class="py-20 bg-gray-100">
     <div class="container mx-auto px-6" data-aos="fade-up">
-      <h2 class="text-3xl sm:text-4xl font-bold gradient-text text-center mb-12">What Our Clients & Learners Say</h2>
-      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        <div class="bg-white p-6 rounded-xl shadow hover-lift" data-aos="fade-up" data-aos-delay="100">
-          <p class="text-gray-700 mb-4">"Upd8ai helped our team automate repetitive tasks in just days. The AI inbox integration is a game-changer!"</p>
-          <span class="font-semibold">– Ramesh K., Startup Founder</span>
+      <h2 class="text-3xl sm:text-4xl font-bold gradient-text text-center mb-12">Training, Webinars & Tools We Excel In</h2>
+      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 text-center">
+        <div class="bg-white p-6 rounded-xl shadow hover-lift">
+          <h3 class="text-xl font-semibold mb-2">Training & Webinars</h3>
+          <p class="text-gray-700">Interactive sessions on AI Automation, Prompt Engineering, n8n Workflows, and Multimodal AI systems.</p>
         </div>
-        <div class="bg-white p-6 rounded-xl shadow hover-lift" data-aos="fade-up" data-aos-delay="200">
-          <p class="text-gray-700 mb-4">"The AI workshops were eye-opening. Even non-technical staff could immediately apply AI in their workflow."</p>
-          <span class="font-semibold">– Priya S., College Faculty</span>
+        <div class="bg-white p-6 rounded-xl shadow hover-lift">
+          <h3 class="text-xl font-semibold mb-2">Tool Expertise</h3>
+          <p class="text-gray-700">Hands-on expertise in OpenAI API, Google Gemini, Zapier, n8n, Airtable, and cloud-based RAG setups.</p>
         </div>
-        <div class="bg-white p-6 rounded-xl shadow hover-lift" data-aos="fade-up" data-aos-delay="300">
-          <p class="text-gray-700 mb-4">"Rapid prototyping with Upd8ai allowed us to test new AI features without months of development. Incredible support!"</p>
-          <span class="font-semibold">– Anil M., Product Manager</span>
+        <div class="bg-white p-6 rounded-xl shadow hover-lift">
+          <h3 class="text-xl font-semibold mb-2">Enterprise Confidence</h3>
+          <p class="text-gray-700">Trusted by startup founders, educators, and automation teams for rapid AI enablement.</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Integrations Section -->
+  <section id="integrations" class="py-20">
+    <div class="container mx-auto px-6 text-center" data-aos="fade-up">
+      <h2 class="text-3xl sm:text-4xl font-bold gradient-text mb-6">Works with Tools You Already Use</h2>
+      <p class="text-gray-700 mb-8">We integrate seamlessly with your favorite productivity, finance, and AI tools.</p>
+      <div class="flex flex-wrap justify-center gap-6 text-gray-600 font-medium">
+        <span>Google Workspace</span>
+        <span>Slack</span>
+        <span>Notion</span>
+        <span>n8n</span>
+        <span>Zapier</span>
+        <span>OpenAI</span>
+        <span>Gemini</span>
+        <span>Airtable</span>
       </div>
     </div>
   </section>
@@ -138,7 +157,8 @@
 
   <!-- Footer -->
   <footer class="bg-gray-200 py-6 text-center text-gray-700">
-    &copy; 2025 Upd8ai. All rights reserved. Email: <a href="mailto:upd8ai@gmail.com" class="text-indigo-600 hover:underline">upd8ai@gmail.com</a>
+    &copy; 2025 Upd8ai. All rights reserved. Email:
+    <a href="mailto:upd8ai@gmail.com" class="text-indigo-600 hover:underline">upd8ai@gmail.com</a>
   </footer>
 
   <!-- Initialize AOS -->
