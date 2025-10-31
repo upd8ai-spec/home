@@ -26,21 +26,23 @@
     }
     .floating-nav.visible { top: 0; }
 
-    /* Sticky CTA */
-    .sticky-cta {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: linear-gradient(90deg, #6366f1, #8b5cf6);
-      color: white;
-      padding: 0.75rem 1.5rem;
-      border-radius: 9999px;
-      box-shadow: 0 10px 20px rgba(99,102,241,0.3);
-      font-weight: 600;
-      transition: all 0.3s ease;
-      z-index: 90;
-    }
-    .sticky-cta:hover { transform: scale(1.05); box-shadow: 0 10px 25px rgba(99,102,241,0.4); }
+  /* Sticky CTA (Left Bottom) */
+  .sticky-cta {
+  position: fixed;
+  bottom: 20px;
+  left: 20px; /* changed from right: 20px; */
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+  font-weight: 600;
+  transition: all 0.3s ease;
+  z-index: 90;
+  }
+
+  .sticky-cta:hover { transform: scale(1.05); box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+  }
 
     /* Hero Background Pattern */
     .hero-bg {
@@ -219,40 +221,8 @@
     &copy; 2025 Upd8ai. All rights reserved. Email: upd8ai@gmail.com
   </footer>
 
-<!-- Aura Chat Configuration -->
-  <script type="module">
-    import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
-
-    createChat({
-      webhookUrl: 'https://n8n.srv980852.hstgr.cloud/webhook/465bc199-cacc-4a3c-a91f-fc348ca5ce4e/chat',
-      webhookConfig: {
-        method: 'POST',
-        headers: {}
-      },
-      target: '#n8n-chat',
-      mode: 'window',
-      chatInputKey: 'chatInput',
-      chatSessionKey: 'sessionId',
-      loadPreviousSession: true,
-      metadata: {},
-      showWelcomeScreen: false,
-      defaultLanguage: 'en',
-      initialMessages: [
-        'Hi there! 👋',
-        'My name is Aura. How can I assist you today?'
-      ],
-      i18n: {
-        en: {
-          title: 'Hi there! 👋',
-          subtitle: "I'm Aura — here to help you anytime, 24/7.",
-          footer: '',
-          getStarted: 'Start a New Chat',
-          inputPlaceholder: 'Type your question...',
-        },
-      },
-      enableStreaming: false,
-    });
-  </script>
+<!-- Sticky CTA -->
+  <a href="#contact" class="sticky-cta">Hire Us</a>
 
   <!-- Modals -->
   <div id="modal1" class="modal flex">
