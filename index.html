@@ -1,296 +1,364 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Upd8ai – Empower Your Workflow</title>
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/128/11873/11873677.png" />
-  <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/128/11873/11873677.png" />
-  <meta name="theme-color" content="#6366f1">
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  <style>
-    body { background-color: #f9fafb; color: #111827; font-family: 'Inter', sans-serif; }
-    .gradient-text { background: linear-gradient(90deg, #6366f1, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .modal { display: none; position: fixed; z-index: 50; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; }
-    .modal-content { background: white; padding: 2rem; border-radius: 1rem; max-width: 600px; width: 90%; animation: fadeInUp 0.3s ease; }
-    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px);} to { opacity: 1; transform: translateY(0);} }
-
-    /* Floating Navbar */
-    .floating-nav {
-      position: fixed; top: -80px; left: 0; right: 0;
-      background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      transition: top 0.4s ease;
-      z-index: 100;
-    }
-    .floating-nav.visible { top: 0; }
-
-  /* Sticky CTA (Left Bottom) */
-  .sticky-cta {
-  position: fixed;
-  bottom: 20px;
-  left: 20px; /* changed from right: 20px; */
-  background: linear-gradient(90deg, #6366f1, #8b5cf6);
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border-radius: 9999px;
-  box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
-  font-weight: 600;
-  transition: all 0.3s ease;
-  z-index: 90;
-  }
-
-  .sticky-cta:hover { transform: scale(1.05); box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
-  }
-
-    /* Hero Background Pattern */
-    .hero-bg {
-      background: radial-gradient(circle at 20% 20%, #e0e7ff 0%, #f9fafb 80%), url('https://www.transparenttextures.com/patterns/cubes.png');
-      background-size: cover;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abhishek Singh | Management Consulting & AI Architecture</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        slate: {
+                            850: '#151e2e',
+                            950: '#020617',
+                        },
+                        brand: {
+                            gold: '#fbbf24',
+                            blue: '#3b82f6',
+                        }
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px)",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #020617; color: #f8fafc; }
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+        }
+        .tech-badge {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #fbbf24 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .bg-grid {
+            background-size: 40px 40px;
+        }
+    </style>
 </head>
-<body class="overflow-x-hidden">
+<body class="antialiased selection:bg-blue-500/30 selection:text-blue-200">
 
-  <!-- Primary Navbar -->
-  <header id="mainNav" class="fixed w-full bg-white shadow-sm z-40">
-    <div class="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
-      <!-- LOGO + TEXT -->
-      <div class="flex items-center space-x-2">
-        <img src="https://cdn-icons-png.flaticon.com/128/11873/11873677.png" alt="Upd8ai Logo" class="w-10 h-10">
-        <div class="text-2xl font-bold gradient-text">Upd8ai</div>
-      </div>
-      <nav class="space-x-6 text-sm font-medium">
-        <a href="#about" class="hover:text-indigo-600">About</a>
-        <a href="#services" class="hover:text-indigo-600">Services</a>
-        <a href="#expertise" class="hover:text-indigo-600">Expertise</a>
-        <a href="#training" class="hover:text-indigo-600">Training</a>
-        <a href="#contact" class="hover:text-indigo-600">Contact</a>
-      </nav>
+    <nav class="fixed w-full z-50 glass-panel border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded flex items-center justify-center font-bold text-white">A</div>
+                    <span class="text-xl font-bold tracking-tight">Abhishek<span class="text-slate-400">Singh</span></span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#consulting" class="text-sm font-medium hover:text-blue-400 transition-colors">Management Consulting</a>
+                    <a href="#technical" class="text-sm font-medium hover:text-blue-400 transition-colors">Technical Acumen</a>
+                    <a href="#experience" class="text-sm font-medium hover:text-blue-400 transition-colors">Experience</a>
+                    <a href="#contact" class="text-sm font-medium hover:text-purple-400 transition-colors"><i class="fas fa-envelope mr-1"></i> Contact</a>
+                </div>
+                <a href="#contact" class="hidden md:block px-5 py-2.5 bg-white text-slate-900 font-bold rounded text-sm hover:bg-blue-50 transition-all shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+                    Hire for Impact
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <div class="absolute inset-0 bg-grid grid-pattern opacity-20 pointer-events-none"></div>
+        <div class="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[100px]"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[100px]"></div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-yellow-500/20 bg-yellow-500/5 text-yellow-400 text-xs font-bold uppercase tracking-widest mb-8">
+                <span class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></span>
+                Strategic Vision &bull; Technical Execution
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-8 leading-[1.1]">
+                The Consultant Who<br>
+                <span class="gradient-text">Can Read The Code.</span>
+            </h1>
+            
+            <p class="mt-4 max-w-3xl mx-auto text-xl text-slate-400 leading-relaxed">
+                I don't just advise on strategy; I architect the technical reality. 
+                Bridging the gap between <strong>Boardroom Strategy</strong> and <strong>IDE Execution</strong> for startups and enterprises.
+                Backed by <span class="text-white font-semibold">Big 4 Experience</span>, <span class="text-white font-semibold">Army Discipline</span>, and <span class="text-white font-semibold">Agentic AI</span>.
+            </p>
+
+            <div class="mt-12 flex flex-col sm:flex-row justify-center gap-5">
+                <a href="#consulting" class="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg transition-all shadow-lg hover:shadow-blue-500/25 flex items-center justify-center gap-2">
+                    <i class="fas fa-chess"></i> View Strategic Consulting
+                </a>
+                <a href="#technical" class="px-8 py-4 glass-panel hover:bg-white/5 text-white font-semibold rounded-lg transition-all border border-white/10 flex items-center justify-center gap-2">
+                    <i class="fas fa-code"></i> View Tech Stack
+                </a>
+            </div>
+        </div>
     </div>
-  </header>
 
-  <!-- Floating Navbar -->
-  <div id="floatNav" class="floating-nav">
-    <div class="max-w-7xl mx-auto flex justify-between items-center px-6 py-3">
-      <!-- LOGO + TEXT -->
-      <div class="flex items-center space-x-2">
-        <img src="https://cdn-icons-png.flaticon.com/128/11873/11873677.png" alt="Upd8ai Logo" class="w-8 h-8">
-        <div class="text-lg font-semibold gradient-text">Upd8ai</div>
-      </div>
-      <nav class="space-x-5 text-sm font-medium">
-        <a href="#about" class="hover:text-indigo-600">About</a>
-        <a href="#services" class="hover:text-indigo-600">Services</a>
-        <a href="#expertise" class="hover:text-indigo-600">Expertise</a>
-        <a href="#training" class="hover:text-indigo-600">Training</a>
-        <a href="#contact" class="hover:text-indigo-600">Contact</a>
-      </nav>
+    <div id="consulting" class="py-20 bg-slate-900/50 border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center gap-4 mb-12">
+                <div class="w-12 h-12 rounded-lg bg-blue-900/30 flex items-center justify-center border border-blue-500/30 text-blue-400 text-xl">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <div>
+                    <h2 class="text-3xl font-bold text-white">Management Consulting Capabilities</h2>
+                    <p class="text-slate-400">Delivering predictability in high-stakes environments.</p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass-panel p-8 rounded-xl hover:border-blue-500/30 transition-all group">
+                    <h3 class="text-xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors">Strategic Program Management</h3>
+                    <p class="text-slate-400 text-sm mb-6 leading-relaxed">
+                        Orchestrating complex digital transformations (Greenfield/Brownfield) across geographies. Specializing in recovering stalled programs and driving them to Go-Live.
+                    </p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start text-sm text-slate-300"><i class="fas fa-check text-blue-500 mt-1 mr-3"></i> <span>SAP S/4HANA Implementation</span></li>
+                        <li class="flex items-start text-sm text-slate-300"><i class="fas fa-check text-blue-500 mt-1 mr-3"></i> <span>Agile Release Train (ART)</span></li>
+                        <li class="flex items-start text-sm text-slate-300"><i class="fas fa-check text-blue-500 mt-1 mr-3"></i> <span>Cross-functional Leadership</span></li>
+                    </ul>
+                </div>
+
+                <div class="glass-panel p-8 rounded-xl hover:border-blue-500/30 transition-all group">
+                    <h3 class="text-xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors">Financial Governance (FP&A)</h3>
+                    <p class="text-slate-400 text-sm mb-6 leading-relaxed">
+                        Ensuring ROI on every digital dollar. I manage large-scale budgets and implement rigorous financial controls to prevent scope creep and cash burn.
+                    </p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start text-sm text-slate-300"><i class="fas fa-check text-blue-500 mt-1 mr-3"></i> <span>Budget Management (> INR 50 Cr)</span></li>
+                        <li class="flex items-start text-sm text-slate-300"><i class="fas fa-check text-blue-500 mt-1 mr-3"></i> <span>WIP/OPEX Tracking</span></li>
+                        <li class="flex items-start text-sm text-slate-300"><i class="fas fa-check text-blue-500 mt-1 mr-3"></i> <span>Profitability Analysis</span></li>
+                    </ul>
+                </div>
+
+                <div class="glass-panel p-8 rounded-xl hover:border-blue-500/30 transition-all group">
+                    <h3 class="text-xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors">GTM & Process Engineering</h3>
+                    <p class="text-slate-400 text-sm mb-6 leading-relaxed">
+                        Accelerating time-to-market using AI-driven research and structuring "Mission Command" style operational processes for startups and scale-ups.
+                    </p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start text-sm text-slate-300"><i class="fas fa-check text-blue-500 mt-1 mr-3"></i> <span>AI-Driven GTM Execution</span></li>
+                        <li class="flex items-start text-sm text-slate-300"><i class="fas fa-check text-blue-500 mt-1 mr-3"></i> <span>Process Improvement & Lineage</span></li>
+                        <li class="flex items-start text-sm text-slate-300"><i class="fas fa-check text-blue-500 mt-1 mr-3"></i> <span>Stakeholder & Client Management</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 
+    <div id="technical" class="py-20 relative overflow-hidden">
+        <div class="absolute right-0 top-20 w-1/3 h-full bg-blue-900/5 -skew-x-12 pointer-events-none"></div>
 
-  <!-- Hero Section -->
-  <section class="pt-32 pb-24 text-center hero-bg relative overflow-hidden" data-aos="fade-up">
-    <div class="absolute inset-0 bg-gradient-to-b from-indigo-50/70 to-white/90"></div>
-    <div class="relative z-10">
-      <h1 class="text-5xl md:text-6xl font-extrabold gradient-text mb-6">Empower Your Workflow with Upd8ai</h1>
-      <p class="text-lg md:text-xl text-gray-700 mb-10 px-6 max-w-3xl mx-auto">
-        AI Inbox, Automation, and Smart Chatbots — Simplifying AI for Businesses, Educators & Startups.
-      </p>
-      <div class="space-x-4">
-        <a href="#services" class="bg-indigo-600 text-white px-6 py-3 rounded-full hover:bg-indigo-700 transition">Explore Services</a>
-        <a href="#contact" class="border border-indigo-600 text-indigo-600 px-6 py-3 rounded-full hover:bg-indigo-50 transition">Contact Us</a>
-      </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex items-center gap-4 mb-12 justify-end text-right">
+                <div>
+                    <h2 class="text-3xl font-bold text-white">Technical Acumen</h2>
+                    <p class="text-slate-400">Hands-on engineering capabilities.</p>
+                </div>
+                <div class="w-12 h-12 rounded-lg bg-purple-900/30 flex items-center justify-center border border-purple-500/30 text-purple-400 text-xl">
+                    <i class="fas fa-microchip"></i>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="space-y-8">
+                    <div>
+                        <h3 class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">AI & Automation Engineering</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tech-badge px-3 py-1 rounded text-sm">LLMs & LangChain</span>
+                            <span class="tech-badge px-3 py-1 rounded text-sm">Multi-Agent Systems</span>
+                            <span class="tech-badge px-3 py-1 rounded text-sm">n8n & Zapier</span>
+                            <span class="tech-badge px-3 py-1 rounded text-sm">Google AI Studio</span>
+                            <span class="tech-badge px-3 py-1 rounded text-sm">Agentic RAG Systems</span>
+                            <span class="tech-badge px-3 py-1 rounded text-sm">GitHub Copilot</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">SAP & ERP Architecture</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tech-badge px-3 py-1 rounded text-sm text-purple-400 border-purple-500/20 bg-purple-500/10">SAP S/4HANA (Modules: PP, MM, SD, FICO)</span>
+                            <span class="tech-badge px-3 py-1 rounded text-sm text-purple-400 border-purple-500/20 bg-purple-500/10">SAP Cloud ALM</span>
+                            <span class="tech-badge px-3 py-1 rounded text-sm text-purple-400 border-purple-500/20 bg-purple-500/10">SAP BTP & SAC</span>
+                            <span class="tech-badge px-3 py-1 rounded text-sm text-purple-400 border-purple-500/20 bg-purple-500/10">EWM & GRC</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">Data, Analytics & DevOps</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tech-badge px-3 py-1 rounded text-sm text-emerald-400 border-emerald-500/20 bg-emerald-500/10">Azure DevOps</span>
+                            <span class="tech-badge px-3 py-1 rounded text-sm text-emerald-400 border-emerald-500/20 bg-emerald-500/10">Power BI & SQL</span>
+                            <span class="tech-badge px-3 py-1 rounded text-sm text-emerald-400 border-emerald-500/20 bg-emerald-500/10">Python Automations</span>
+                            <span class="tech-badge px-3 py-1 rounded text-sm text-emerald-400 border-emerald-500/20 bg-emerald-500/10">Postman (API)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="glass-panel p-6 rounded-xl border-l-4 border-l-purple-500">
+                        <h4 class="text-lg font-bold text-white mb-2">Technical Project Governance</h4>
+                        <p class="text-slate-400 text-sm">
+                            I don't rely on manual updates. I build <strong>AI-driven project governance</strong> systems using predictive task tracking and automated risk scoring via Azure DevOps and SAP CALM.
+                        </p>
+                    </div>
+                    <div class="glass-panel p-6 rounded-xl border-l-4 border-l-blue-500">
+                        <h4 class="text-lg font-bold text-white mb-2">Automated QA & Testing</h4>
+                        <p class="text-slate-400 text-sm">
+                            Reduced SIT/UAT cycle times by deploying AI-based testing accelerators for test case generation, defect triaging, and script automation.
+                        </p>
+                    </div>
+                    <div class="glass-panel p-6 rounded-xl border-l-4 border-l-green-500">
+                        <h4 class="text-lg font-bold text-white mb-2">Data Migration at Scale</h4>
+                        <p class="text-slate-400 text-sm">
+                            Managed the migration of <strong>11 TB of data</strong> using structured configuration checks and AI-based validation for master data cleansing and deduplication.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </section>
 
-  <!-- About Section -->
-  <section id="about" class="py-20 text-center" data-aos="fade-up">
-    <h2 class="text-3xl md:text-4xl font-bold mb-6 gradient-text">Your AI Co-Pilot for Everyday Growth</h2>
-    <p class="max-w-3xl mx-auto text-gray-600">
-      Upd8ai empowers startups, colleges, and enterprises to adopt AI practically. 
-      From workshops to automation platforms, we turn AI concepts into real impact.
-    </p>
-  </section>
+    <div id="experience" class="py-20 bg-slate-900">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center text-white mb-16">The Execution Track Record</h2>
+            
+            <div class="relative border-l border-slate-700 ml-4 md:ml-0 space-y-12">
+                <div class="ml-10 relative group">
+                    <span class="flex absolute -left-[45px] top-0 justify-center items-center w-8 h-8 bg-brand-gold rounded-full ring-8 ring-slate-900 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-building text-slate-900 text-xs"></i>
+                    </span>
+                    <div class="glass-panel p-6 rounded-lg hover:bg-slate-800 transition-colors">
+                        <div class="flex flex-col md:flex-row justify-between md:items-center mb-2">
+                            <h3 class="text-xl font-bold text-white">Senior Consultant</h3>
+                            <span class="text-brand-gold text-sm font-mono">PwC India (2025-Present)</span>
+                        </div>
+                        <p class="text-sm text-slate-400 mb-4 font-semibold">Client: Global Pharmaceutical Enterprise</p>
+                        <ul class="list-disc list-inside text-slate-400 text-sm space-y-2">
+                            <li>Leading <strong>INR 50+ Cr</strong> Greenfield S/4HANA program.</li>
+                            <li>Utilizing GenAI for blueprint drafting and BRD documentation, improving efficiency by <strong>40-60%</strong>.</li>
+                            <li>Managing modules: PP, MM, QM, SD, EWM, FICO, GRC in a GxP regulated environment.</li>
+                        </ul>
+                    </div>
+                </div>
 
-  <!-- Services Section -->
-  <section id="services" class="py-20 bg-gray-50" data-aos="fade-up">
-    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 gradient-text">Our Core Services</h2>
-    <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 px-6">
-      <div class="bg-white p-8 rounded-2xl shadow hover:shadow-lg transition transform hover:-translate-y-2 cursor-pointer" onclick="openModal('modal1')">
-        <img src="https://cdn-icons-png.flaticon.com/512/9754/9754562.png" alt="AI Inbox" class="w-20 mx-auto mb-4">
-        <h3 class="text-xl font-semibold mb-4">AI Inbox & Calendar Management</h3>
-        <p class="text-gray-600">Smart assistant to handle scheduling, follow-ups, and prioritization seamlessly.</p>
-      </div>
-      <div class="bg-white p-8 rounded-2xl shadow hover:shadow-lg transition transform hover:-translate-y-2 cursor-pointer" onclick="openModal('modal2')">
-        <img src="https://cdn-icons-png.flaticon.com/512/9730/9730304.png" alt="Automation" class="w-20 mx-auto mb-4">
-        <h3 class="text-xl font-semibold mb-4">Multimodal AI Automation & Data Cleanup</h3>
-        <p class="text-gray-600">Connect PDFs, images, URLs, and text into a seamless RAG workflow. Automate extraction & cleanup.</p>
-      </div>
-      <div class="bg-white p-8 rounded-2xl shadow hover:shadow-lg transition transform hover:-translate-y-2 cursor-pointer" onclick="openModal('modal3')">
-        <img src="https://cdn-icons-png.flaticon.com/512/9730/9730708.png" alt="Chatbot" class="w-20 mx-auto mb-4">
-        <h3 class="text-xl font-semibold mb-4">Sales Chatbot & Appointment Platform</h3>
-        <p class="text-gray-600">Engage leads 24/7, book appointments, and integrate directly with your CRM or calendar.</p>
-      </div>
+                <div class="ml-10 relative group">
+                    <span class="flex absolute -left-[45px] top-0 justify-center items-center w-8 h-8 bg-slate-700 rounded-full ring-8 ring-slate-900 group-hover:bg-blue-600 transition-colors">
+                        <i class="fas fa-chart-line text-white text-xs"></i>
+                    </span>
+                    <div class="glass-panel p-6 rounded-lg hover:bg-slate-800 transition-colors">
+                        <div class="flex flex-col md:flex-row justify-between md:items-center mb-2">
+                            <h3 class="text-xl font-bold text-white">Consultant (TPM & BA)</h3>
+                            <span class="text-slate-500 text-sm font-mono">Deloitte South Asia (2023-2025)</span>
+                        </div>
+                        <p class="text-sm text-slate-400 mb-4 font-semibold">Client: Retail Conglomerate (India & UAE)</p>
+                        <ul class="list-disc list-inside text-slate-400 text-sm space-y-2">
+                            <li>Orchestrated full lifecycle (Blueprint to Hypercare) for <strong>500+ impacted resources</strong>.</li>
+                            <li>Managed budgets > INR 50 Cr and SIT cycles with <strong>22,000+ test cases</strong>.</li>
+                            <li>Awarded "Live the Dot" twice for delivery excellence.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="ml-10 relative group">
+                    <span class="flex absolute -left-[45px] top-0 justify-center items-center w-8 h-8 bg-slate-700 rounded-full ring-8 ring-slate-900 group-hover:bg-blue-600 transition-colors">
+                        <i class="fas fa-university text-white text-xs"></i>
+                    </span>
+                    <div class="glass-panel p-6 rounded-lg hover:bg-slate-800 transition-colors">
+                        <div class="flex flex-col md:flex-row justify-between md:items-center mb-2">
+                            <h3 class="text-xl font-bold text-white">Associate Consultant</h3>
+                            <span class="text-slate-500 text-sm font-mono">KPMG Global Services (2022-2023)</span>
+                        </div>
+                        <p class="text-sm text-slate-400 mb-4 font-semibold">Clients: UK Asset Management & US Intl. Bank</p>
+                        <ul class="list-disc list-inside text-slate-400 text-sm space-y-2">
+                            <li>Delivered RegTech initiatives (MiFID II, Data Forensics) valued > <strong>$5M</strong>.</li>
+                            <li>Practiced rigorous PMO governance using RAID logs and RACI matrices.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="ml-10 relative group">
+                    <span class="flex absolute -left-[45px] top-0 justify-center items-center w-8 h-8 bg-green-700 rounded-full ring-8 ring-slate-900 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-shield-alt text-white text-xs"></i>
+                    </span>
+                    <div class="glass-panel p-6 rounded-lg border-l-4 border-l-green-600 hover:bg-slate-800 transition-colors">
+                        <div class="flex flex-col md:flex-row justify-between md:items-center mb-2">
+                            <h3 class="text-xl font-bold text-white">Officer Cadet (Permanent Commission)</h3>
+                            <span class="text-slate-500 text-sm font-mono">Indian Army (2017-2019)</span>
+                        </div>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Specialized in technical operations and resource management. This experience built the foundation of my leadership style: <strong>Mission Command, Operational Readiness, and High-Stakes Decision Making</strong>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </section>
 
-  <!-- Expertise Section -->
-  <section id="expertise" class="py-20" data-aos="fade-up">
-    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 gradient-text">Our Expertise</h2>
-    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 px-6">
-      <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
-        <img src="https://cdn-icons-png.flaticon.com/512/1178/1178481.png" alt="Workshop" class="w-16 mb-3">
-        <h4 class="font-semibold mb-2">AI Workshops & Online Courses</h4>
-        <p class="text-gray-600">Tailored masterclasses for students, professionals, and startups to master AI practically.</p>
-      </div>
-      <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
-        <img src="https://cdn-icons-png.flaticon.com/512/875/875601.png" alt="Consulting" class="w-16 mb-3">
-        <h4 class="font-semibold mb-2">Strategic AI Consulting & Custom Automation</h4>
-        <p class="text-gray-600">From n8n workflows to Gemini LLM integration — we provide end-to-end automation solutions.</p>
-      </div>
-      <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
-        <img src="https://cdn-icons-png.flaticon.com/512/1118/1118833.png" alt="Prototype" class="w-16 mb-3">
-        <h4 class="font-semibold mb-2">Rapid AI Prototyping & MVP Development</h4>
-        <p class="text-gray-600">Build AI proof-of-concepts and pilots fast to validate ideas and save development time.</p>
-      </div>
-      <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
-        <img src="https://cdn-icons-png.flaticon.com/512/4789/4789708.png" alt="Audit" class="w-16 mb-3">
-        <h4 class="font-semibold mb-2">Auditing, Enhancements & Maintenance</h4>
-        <p class="text-gray-600">Optimize pipelines, improve quality, and ensure smooth AI operations for your business.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Training Section -->
-  <section id="training" class="py-20 bg-gray-50" data-aos="fade-up">
-    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 gradient-text">Training, Webinars & Tool Mastery</h2>
-    <div class="max-w-5xl mx-auto text-center text-gray-600 px-6">
-      <p class="mb-4">We don’t just build AI — we train teams to use it effectively.</p>
-      <ul class="grid md:grid-cols-2 gap-4 text-left max-w-3xl mx-auto">
-        <li><strong>n8n Automation Workflows</strong> – Build end-to-end processes visually.</li>
-        <li><strong>OpenAI, Gemini & Claude</strong> – Real-world prompt engineering mastery.</li>
-        <li><strong>Zapier & Make</strong> – Cross-platform AI & workflow integration.</li>
-        <li><strong>Data Cleaning & Retrieval (RAG)</strong> – Connect documents, APIs, and images seamlessly.</li>
-      </ul>
-    </div>
-  </section>
-
-<!-- Contact Section -->
-<section id="contact" class="py-20 text-center bg-gray-50" data-aos="fade-up">
-  <h2 class="text-3xl md:text-4xl font-bold mb-6 gradient-text">
-    Let's Build the Future, Together
-  </h2>
-  <p class="text-gray-600 mb-8 max-w-2xl mx-auto">
-    Reach out to bring AI into your workflows, classrooms, or startups. 
-    Let’s co-create the next big thing.
-  </p>
-
-  <!-- Tally Embed Container -->
-  <div class="max-w-3xl mx-auto rounded-2xl shadow-xl overflow-hidden border border-gray-200 bg-white">
-    <iframe 
-      src="https://tally.so/embed/mZqJ7z?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" 
-      width="100%" 
-      height="500" 
-      frameborder="0" 
-      marginheight="0" 
-      marginwidth="0" 
-      title="Upd8ai Contact Form"
-      class="w-full"
-      allowfullscreen>
-    </iframe>
-  </div>
-</section>
-
-<!-- Load Tally Embed Script (must be after section) -->
-<script>
-  (function(){
-    var d=document, w="https://tally.so/widgets/embed.js";
-    if(!d.getElementById("tally-embed-js")){
-      var s=d.createElement("script");
-      s.id="tally-embed-js";
-      s.src=w;
-      s.onload=function(){ if("Tally" in window) Tally.loadEmbeds(); };
-      d.body.appendChild(s);
-    } else if("Tally" in window) Tally.loadEmbeds();
-  })();
-</script>
-  <!-- Footer -->
-  <footer class="bg-white py-6 text-center text-gray-500 text-sm border-t">
-    &copy; 2025 Upd8ai. All rights reserved. Email: upd8ai@gmail.com
-  </footer>
-
-<!-- Sticky CTA -->
-  <a href="#contact" class="sticky-cta">Hire Us</a>
-
-  <!-- Modals -->
-  <div id="modal1" class="modal flex">
-    <div class="modal-content">
-      <h3 class="text-2xl font-semibold mb-4 gradient-text">AI Inbox & Calendar Management</h3>
-      <p class="text-gray-600 mb-4">
-        Upd8ai’s AI Inbox intelligently organizes emails, follow-ups, and meetings. Integrated with your calendar, it automates prioritization, rescheduling, and reminders.
-      </p>
-      <ul class="list-disc list-inside text-gray-600">
-        <li>Smart prioritization using AI context analysis.</li>
-        <li>Automatic follow-ups & scheduling suggestions.</li>
-        <li>Integration with Gmail, Outlook, and Google Calendar.</li>
-      </ul>
-      <button onclick="closeModal('modal1')" class="mt-6 px-6 py-2 bg-indigo-600 text-white rounded-full hover:bg-indigo-700">Close</button>
-    </div>
-  </div>
-
-  <div id="modal2" class="modal flex">
-    <div class="modal-content">
-      <h3 class="text-2xl font-semibold mb-4 gradient-text">Multimodal AI Automation & Data Cleanup</h3>
-      <p class="text-gray-600 mb-4">
-        We design AI-driven workflows that can understand text, images, PDFs, and URLs — transforming scattered data into structured insights.
-      </p>
-      <ul class="list-disc list-inside text-gray-600">
-        <li>RAG-based multimodal document parsing.</li>
-        <li>Custom workflows built in n8n or Zapier.</li>
-        <li>Automated data cleaning & enrichment pipelines.</li>
-      </ul>
-      <button onclick="closeModal('modal2')" class="mt-6 px-6 py-2 bg-indigo-600 text-white rounded-full hover:bg-indigo-700">Close</button>
-    </div>
-  </div>
-
-  <div id="modal3" class="modal flex">
-    <div class="modal-content">
-      <h3 class="text-2xl font-semibold mb-4 gradient-text">Sales Chatbot & Appointment Platform</h3>
-      <p class="text-gray-600 mb-4">
-        Upd8ai’s AI chatbot helps you engage customers 24/7 — capturing leads, answering queries, and booking meetings automatically.
-      </p>
-      <ul class="list-disc list-inside text-gray-600">
-        <li>Custom conversational design & CRM integration.</li>
-        <li>Smart appointment booking via Google Calendar.</li>
-        <li>Built using GPT-based or local AI agents.</li>
-      </ul>
-      <button onclick="closeModal('modal3')" class="mt-6 px-6 py-2 bg-indigo-600 text-white rounded-full hover:bg-indigo-700">Close</button>
-    </div>
-  </div>
-
-  <!-- Scripts -->
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>
-    AOS.init({ duration: 1000, once: true });
-    function openModal(id){ document.getElementById(id).style.display='flex'; }
-    function closeModal(id){ document.getElementById(id).style.display='none'; }
-
-    // Floating navbar
-    const floatNav = document.getElementById('floatNav');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 200) floatNav.classList.add('visible');
-      else floatNav.classList.remove('visible');
-    });
-  </script>
-
-  <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+    <div id="contact" class="py-24 relative overflow-hidden bg-slate-950">
+        <div class="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent pointer-events-none"></div>
+        <div class="relative max-w-4xl mx-auto text-center px-4">
+            <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">Ready to Scale?</h2>
+            <p class="text-xl text-slate-400 mb-10 max-w-2xl mx-auto">
+                I am available for Management Consulting engagements (Startups & Enterprises) requiring high-impact leadership and technical precision.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-6">
+                <a href="mailto:abhishektes3188@gmail.com" class="group flex items-center justify-center px-8 py-4 bg-white text-slate-900 font-bold rounded-lg hover:bg-slate-200 transition-all shadow-xl">
+                    <i class="fas fa-envelope mr-3 text-blue-600 group-hover:scale-110 transition-transform"></i> abhishektes3188@gmail.com
+                </a>
+                <a href="https://linkedin.com/in/abhishek-singh-9452a9180/" target="_blank" class="group flex items-center justify-center px-8 py-4 bg-[#0077b5] text-white font-bold rounded-lg hover:bg-[#006097] transition-all shadow-xl">
+                    <i class="fab fa-linkedin mr-3 text-white group-hover:scale-110 transition-transform"></i> LinkedIn Profile
+                </a>
+            </div>
+            <p class="text-xl text-slate-400 mb-10 max-w-2xl mx-auto">
+            </p>
+            <div class="max-w-3xl mx-auto rounded-2xl shadow-xl overflow-hidden border border-white/10 bg-slate-900/50 backdrop-blur-md">
+              <iframe 
+                src="https://tally.so/embed/mZqJ7z?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" 
+                width="100%" 
+                height="500" 
+                frameborder="0" 
+                marginheight="0" 
+                marginwidth="0" 
+                title="Upd8ai Contact Form"
+                class="w-full"
+                allowfullscreen>
+              </iframe>
+            </div>
+            <div class="mt-16 border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-slate-500 text-sm">
+                <p>&copy; 2025 Abhishek Singh. All Rights Reserved.</p>
+                <div class="flex gap-4 mt-4 md:mt-0">
+                    <span><i class="fas fa-map-marker-alt mr-2"></i>Bangalore, India</span>
+                    <span><i class="fas fa-globe mr-2"></i>Global Remote Capable</span>
+                </div>
+                  <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
   
-  <script type="module">
-	  import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
-	  createChat({		webhookUrl: 'https://n8n.srv980852.hstgr.cloud/webhook/465bc199-cacc-4a3c-a91f-fc348ca5ce4e/chat'	});
-  </script>
+                  <script type="module">
+                	  import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+                	  createChat({		webhookUrl: 'https://n8n.srv980852.hstgr.cloud/webhook/465bc199-cacc-4a3c-a91f-fc348ca5ce4e/chat'	});
+                  </script>
+                </div>
+        </div>
+    </div>
 
 </body>
 </html>
