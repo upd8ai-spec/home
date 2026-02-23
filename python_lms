@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python → AI Agents LMS</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #08080f;
+  --surface: #111118;
+  --card: #16161f;
+  --border: #1f1f30;
+  --accent1: #00ffaa;
+  --accent2: #7c3aed;
+  --accent3: #f59e0b;
+  --accent4: #ef4444;
+  --accent5: #3b82f6;
+  --pink: #ec4899;
+  --text: #e2e8f0;
+  --muted: #556;
+  --mono: 'Space Mono', monospace;
+  --sans: 'Syne', sans-serif;
+}
+body { background: var(--bg); color: var(--text); font-family: var(--sans); min-height: 100vh; overflow-x: hidden; }
+
+/* ===== TOP NAV / HUD ===== */
+.hud {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(8,8,15,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 24px;
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+}
+.hud-logo { font-weight: 800; font-size: 15px; color: var(--accent1); letter-spacing: -0.5px; margin-right: auto; white-space: nowrap; }
+.hud-logo span { color: var(--text); }
+
+/* XP Bar */
+.xp-bar-wrap { display: flex; align-items: center; gap: 8px; }
+.xp-label { font-family: var(--mono); font-size: 10px; color: var(--accent3); white-space: nowrap; }
+.xp-track { width: 100px; height: 6px; background: var(--border); border-radius: 10px; overflow: hidden; }
+.xp-fill { height: 100%; background: linear-gradient(90deg, var(--accent3), var(--pink)); border-radius: 10px; transition: width 0.5s; }
+
+/* Streak */
+.streak-badge { display: flex; align-items: center; gap: 5px; font-family: var(--mono); font-size: 11px; color: var(--accent3); }
+.streak-fire { font-size: 16px; }
+
+/* Global Progress */
+.global-progress { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.gp-ring { width: 32px; height: 32px; }
+
+/* Timer button */
+.timer-btn {
+  font-family: var(--mono); font-size: 12px;
+  padding: 6px 14px; border-radius: 6px;
+  border: 1px solid var(--accent5); color: var(--accent5);
+  background: transparent; cursor: pointer;
+  transition: all 0.2s; white-space: nowrap;
+}
+.timer-btn:hover, .timer-btn.active { background: var(--accent5); color: #000; }
+.timer-btn.running { border-color: var(--accent4); color: var(--accent4); animation: pulse-border 1s infinite; }
+.timer-btn.running:hover { background: var(--accent4); color: #000; }
+
+/* ===== POMODORO MODAL ===== */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity 0.2s;
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+.modal {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 32px; width: 340px;
+  position: relative; transform: scale(0.95); transition: transform 0.2s;
+}
+.modal-overlay.open .modal { transform: scale(1); }
+.modal-close {
+  position: absolute; top: 14px; right: 16px;
+  background: none; border: none; color: var(--muted); font-size: 20px;
+  cursor: pointer; line-height: 1;
+}
+.modal-title { font-size: 1.1rem; font-weight: 800; margin-bottom: 6px; color: var(--accent5); }
+.modal-subtitle { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-bottom: 24px; }
+
+.timer-display {
+  font-family: var(--mono); font-size: 4rem; font-weight: 700;
+  text-align: center; letter-spacing: -2px;
+  color: var(--text); margin-bottom: 6px;
+}
+.timer-mode-label {
+  text-align: center; font-family: var(--mono); font-size: 11px;
+  color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px;
+}
+.timer-progress-ring { display: block; margin: 0 auto 20px; }
+.timer-controls { display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; }
+.t-btn {
+  font-family: var(--mono); font-size: 12px; padding: 8px 18px;
+  border-radius: 8px; border: 1px solid var(--border);
+  color: var(--text); background: var(--surface); cursor: pointer;
+  transition: all 0.15s;
+}
+.t-btn.primary { border-color: var(--accent5); color: var(--accent5); }
+.t-btn.primary:hover { background: var(--accent5); color: #000; }
+.t-btn:hover { border-color: var(--text); }
+.timer-modes { display: flex; gap: 8px; justify-content: center; }
+.tmode-btn {
+  font-family: var(--mono); font-size: 10px; padding: 4px 12px;
+  border-radius: 20px; border: 1px solid var(--border);
+  color: var(--muted); background: none; cursor: pointer;
+}
+.tmode-btn.active { border-color: var(--accent1); color: var(--accent1); }
+.sessions-count { text-align: center; font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 12px; }
+
+/* ===== HERO ===== */
+.hero { padding: 60px 40px 40px; text-align: center; position: relative; overflow: hidden; }
+.hero::before {
+  content: ''; position: absolute; top: -150px; left: 50%; transform: translateX(-50%);
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(0,255,170,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+.tag {
+  display: inline-block; font-family: var(--mono); font-size: 10px;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--accent1); border: 1px solid var(--accent1);
+  padding: 3px 12px; margin-bottom: 18px;
+}
+h1 { font-size: clamp(2rem, 5vw, 4rem); font-weight: 800; line-height: 1.05; letter-spacing: -2px; }
+h1 span { color: var(--accent1); }
+.subtitle { font-family: var(--mono); font-size: 13px; color: var(--muted); margin-top: 12px; }
+
+/* Overall Progress Bar */
+.overall-progress-section {
+  max-width: 860px; margin: 0 auto; padding: 0 24px 32px;
+}
+.op-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.op-title { font-family: var(--mono); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+.op-pct { font-family: var(--mono); font-size: 20px; font-weight: 700; color: var(--accent1); }
+.op-track { height: 8px; background: var(--border); border-radius: 10px; overflow: hidden; }
+.op-fill { height: 100%; border-radius: 10px; background: linear-gradient(90deg, var(--accent1), var(--accent5)); transition: width 0.6s cubic-bezier(0.4,0,0.2,1); }
+.phase-progress-pills { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+.ppp { flex: 1; min-width: 40px; height: 4px; border-radius: 4px; background: var(--border); position: relative; }
+.ppp-fill { height: 100%; border-radius: 4px; transition: width 0.4s; }
+
+/* ===== PATH ===== */
+.path { max-width: 860px; margin: 0 auto; padding: 0 24px 80px; position: relative; }
+.path::before {
+  content: ''; position: absolute; left: 52px; top: 0; bottom: 0;
+  width: 1px; background: linear-gradient(to bottom, transparent, var(--border) 8%, var(--border) 92%, transparent);
+}
+
+/* ===== PHASE ===== */
+.phase { position: relative; margin-bottom: 10px; opacity: 0; transform: translateX(-16px); }
+.phase.visible { animation: slideIn 0.45s ease forwards; }
+
+.phase-header {
+  display: flex; align-items: center; gap: 16px;
+  cursor: pointer; padding: 18px 20px 18px 0; user-select: none;
+}
+.phase-num {
+  width: 56px; height: 56px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-weight: 700; font-size: 16px;
+  flex-shrink: 0; z-index: 1; border: 2px solid;
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+}
+/* Completion ring overlay */
+.phase-num svg.ring {
+  position: absolute; inset: -4px;
+  width: calc(100% + 8px); height: calc(100% + 8px);
+  transform: rotate(-90deg);
+}
+.phase-header:hover .phase-num { transform: scale(1.08); }
+.phase.completed .phase-num::after {
+  content: '✓'; position: absolute; font-size: 22px; font-family: var(--sans);
+}
+.phase.completed .phase-num-inner { opacity: 0; }
+.phase-meta { flex: 1; }
+.phase-title { font-size: 1.2rem; font-weight: 800; letter-spacing: -0.5px; }
+.phase-subtitle { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-top: 2px; letter-spacing: 1px; }
+.phase-right { display: flex; align-items: center; gap: 10px; }
+.phase-duration { font-family: var(--mono); font-size: 11px; padding: 3px 10px; border-radius: 20px; border: 1px solid; white-space: nowrap; }
+.phase-prog { font-family: var(--mono); font-size: 11px; color: var(--muted); white-space: nowrap; }
+.chevron { width: 18px; height: 18px; transition: transform 0.3s; color: var(--muted); flex-shrink: 0; }
+.phase.open .chevron { transform: rotate(180deg); }
+
+.phase-body { display: none; padding: 0 0 20px 72px; }
+.phase.open .phase-body { display: block; animation: expand 0.28s ease; }
+
+/* ===== TOPIC CHECKLIST ===== */
+.section-label {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 10px; margin-top: 4px;
+}
+.checklist { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.check-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px 14px; cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+.check-item:hover { border-color: rgba(255,255,255,0.1); }
+.check-item.done { background: rgba(0,255,170,0.04); border-color: rgba(0,255,170,0.2); }
+.check-box {
+  width: 20px; height: 20px; border-radius: 6px; border: 2px solid var(--border);
+  flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+  margin-top: 1px; transition: all 0.2s; background: var(--surface);
+}
+.check-item.done .check-box { background: var(--accent1); border-color: var(--accent1); }
+.check-tick { width: 12px; height: 12px; opacity: 0; transition: opacity 0.15s; }
+.check-item.done .check-tick { opacity: 1; }
+.check-content { flex: 1; }
+.check-name { font-size: 13px; font-weight: 700; transition: color 0.2s; }
+.check-item.done .check-name { color: var(--muted); text-decoration: line-through; }
+.check-desc { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 3px; line-height: 1.5; }
+.check-xp { font-family: var(--mono); font-size: 10px; color: var(--accent3); margin-left: auto; white-space: nowrap; padding-left: 8px; }
+
+/* Phase XP reward */
+.phase-xp-bar { margin-bottom: 14px; }
+.pxb-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.pxb-label { font-family: var(--mono); font-size: 10px; color: var(--muted); }
+.pxb-val { font-family: var(--mono); font-size: 11px; color: var(--accent3); }
+.pxb-track { height: 5px; background: var(--border); border-radius: 4px; overflow: hidden; }
+.pxb-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--accent3), var(--pink)); transition: width 0.4s; }
+
+/* Resources */
+.resources { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+.res-tag {
+  font-family: var(--mono); font-size: 11px; padding: 3px 10px;
+  border-radius: 4px; background: var(--surface); color: var(--muted);
+  border: 1px solid var(--border);
+}
+
+/* Project box */
+.project-box {
+  padding: 14px 16px; border-radius: 10px; border-left: 3px solid;
+  background: rgba(255,255,255,0.02); margin-bottom: 14px;
+}
+.project-label { font-family: var(--mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 5px; opacity: 0.7; }
+.project-name { font-weight: 700; font-size: 13px; }
+
+/* Notes */
+.notes-wrap { margin-top: 4px; }
+.notes-label { font-family: var(--mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.notes-area {
+  width: 100%; min-height: 80px; background: var(--surface);
+  border: 1px solid var(--border); border-radius: 8px;
+  color: var(--text); font-family: var(--mono); font-size: 12px;
+  padding: 10px 12px; resize: vertical; outline: none;
+  transition: border-color 0.2s;
+}
+.notes-area:focus { border-color: var(--accent2); }
+.notes-saved { font-family: var(--mono); font-size: 10px; color: var(--accent1); margin-top: 4px; opacity: 0; transition: opacity 0.3s; }
+.notes-saved.show { opacity: 1; }
+
+/* ===== COLOR THEMES ===== */
+.p1 .phase-num { color: var(--accent1); border-color: var(--accent1); background: rgba(0,255,170,0.06); }
+.p1 .phase-title, .p1 .phase-prog { color: var(--accent1); }
+.p1 .phase-duration { color: var(--accent1); border-color: var(--accent1); }
+.p1 .project-box { border-color: var(--accent1); }
+.p1 .project-label { color: var(--accent1); }
+.p1 .ppp-fill, .p1 .pxb-fill { background: var(--accent1); }
+.p1 .ring-circle { stroke: var(--accent1); }
+
+.p2 .phase-num { color: var(--accent5); border-color: var(--accent5); background: rgba(59,130,246,0.06); }
+.p2 .phase-title, .p2 .phase-prog { color: var(--accent5); }
+.p2 .phase-duration { color: var(--accent5); border-color: var(--accent5); }
+.p2 .project-box { border-color: var(--accent5); }
+.p2 .project-label { color: var(--accent5); }
+.p2 .ppp-fill, .p2 .pxb-fill { background: var(--accent5); }
+.p2 .ring-circle { stroke: var(--accent5); }
+
+.p3 .phase-num { color: var(--accent2); border-color: var(--accent2); background: rgba(124,58,237,0.06); }
+.p3 .phase-title, .p3 .phase-prog { color: var(--accent2); }
+.p3 .phase-duration { color: var(--accent2); border-color: var(--accent2); }
+.p3 .project-box { border-color: var(--accent2); }
+.p3 .project-label { color: var(--accent2); }
+.p3 .ppp-fill, .p3 .pxb-fill { background: var(--accent2); }
+.p3 .ring-circle { stroke: var(--accent2); }
+
+.p4 .phase-num { color: var(--accent3); border-color: var(--accent3); background: rgba(245,158,11,0.06); }
+.p4 .phase-title, .p4 .phase-prog { color: var(--accent3); }
+.p4 .phase-duration { color: var(--accent3); border-color: var(--accent3); }
+.p4 .project-box { border-color: var(--accent3); }
+.p4 .project-label { color: var(--accent3); }
+.p4 .ppp-fill, .p4 .pxb-fill { background: var(--accent3); }
+.p4 .ring-circle { stroke: var(--accent3); }
+
+.p5 .phase-num { color: var(--accent4); border-color: var(--accent4); background: rgba(239,68,68,0.06); }
+.p5 .phase-title, .p5 .phase-prog { color: var(--accent4); }
+.p5 .phase-duration { color: var(--accent4); border-color: var(--accent4); }
+.p5 .project-box { border-color: var(--accent4); }
+.p5 .project-label { color: var(--accent4); }
+.p5 .ppp-fill, .p5 .pxb-fill { background: var(--accent4); }
+.p5 .ring-circle { stroke: var(--accent4); }
+
+.p6 .phase-num { color: var(--pink); border-color: var(--pink); background: rgba(236,72,153,0.06); }
+.p6 .phase-title, .p6 .phase-prog { color: var(--pink); }
+.p6 .phase-duration { color: var(--pink); border-color: var(--pink); }
+.p6 .project-box { border-color: var(--pink); }
+.p6 .project-label { color: var(--pink); }
+.p6 .ppp-fill, .p6 .pxb-fill { background: var(--pink); }
+.p6 .ring-circle { stroke: var(--pink); }
+
+/* Completed phase */
+.phase.completed .phase-num { opacity: 0.9; }
+
+/* ===== TOAST ===== */
+.toast {
+  position: fixed; bottom: 24px; right: 24px; z-index: 300;
+  background: var(--card); border: 1px solid var(--accent1);
+  border-radius: 10px; padding: 12px 18px;
+  font-family: var(--mono); font-size: 12px; color: var(--accent1);
+  transform: translateY(80px); opacity: 0;
+  transition: transform 0.3s, opacity 0.3s;
+  max-width: 280px;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+
+/* ===== ANIMATIONS ===== */
+@keyframes slideIn { from { opacity: 0; transform: translateX(-16px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes expand { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse-border { 0%,100% { box-shadow: none; } 50% { box-shadow: 0 0 0 3px rgba(239,68,68,0.2); } }
+@keyframes xp-pop { 0% { transform: scale(1); } 50% { transform: scale(1.3); } 100% { transform: scale(1); } }
+.xp-pop { animation: xp-pop 0.4s ease; }
+
+/* ===== STACK BANNER ===== */
+.stack-banner { max-width: 860px; margin: 0 auto; padding: 0 24px 32px; }
+.stack-title { font-family: var(--mono); font-size: 10px; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; margin-bottom: 10px; }
+.stack-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+.stack-chip { padding: 5px 12px; border-radius: 6px; font-family: var(--mono); font-size: 11px; border: 1px solid var(--border); background: var(--surface); color: var(--text); transition: all 0.2s; cursor: default; }
+.stack-chip:hover { border-color: var(--accent1); color: var(--accent1); }
+
+/* Responsive */
+@media (max-width: 640px) {
+  .hero { padding: 48px 20px 32px; }
+  .path { padding: 0 16px 60px; }
+  .path::before { left: 40px; }
+  .phase-num { width: 44px; height: 44px; font-size: 13px; }
+  .phase-body { padding-left: 60px; }
+  .hud { gap: 10px; }
+  .xp-track { width: 70px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HUD -->
+<div class="hud">
+  <div class="hud-logo">PY<span>→</span>AI</div>
+
+  <div class="streak-badge">
+    <span class="streak-fire">🔥</span>
+    <span id="streak-num">0</span>d streak
+  </div>
+
+  <div class="xp-bar-wrap">
+    <div class="xp-label">LVL <span id="xp-level">1</span> · <span id="xp-cur">0</span>/<span id="xp-max">100</span> XP</div>
+    <div class="xp-track"><div class="xp-fill" id="xp-fill" style="width:0%"></div></div>
+  </div>
+
+  <div class="global-progress">
+    <span id="hud-pct">0%</span> done
+  </div>
+
+  <button class="timer-btn" id="timer-hud-btn" onclick="openTimer()">⏱ Focus Timer</button>
+</div>
+
+<!-- POMODORO MODAL -->
+<div class="modal-overlay" id="timer-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeTimer()">✕</button>
+    <div class="modal-title">Focus Timer</div>
+    <div class="modal-subtitle">// deep work · pomodoro technique</div>
+
+    <svg class="timer-progress-ring" width="140" height="140" viewBox="0 0 140 140">
+      <circle cx="70" cy="70" r="60" fill="none" stroke="#1f1f30" stroke-width="8"/>
+      <circle id="timer-ring" cx="70" cy="70" r="60" fill="none" stroke="#3b82f6" stroke-width="8"
+        stroke-dasharray="376.99" stroke-dashoffset="0"
+        stroke-linecap="round" transform="rotate(-90 70 70)"/>
+      <text x="70" y="66" text-anchor="middle" font-family="'Space Mono',monospace" font-size="28" font-weight="700" fill="#e2e8f0" id="timer-display-svg">25:00</text>
+      <text x="70" y="86" text-anchor="middle" font-family="'Space Mono',monospace" font-size="10" fill="#556" id="timer-mode-svg">FOCUS</text>
+    </svg>
+
+    <div class="timer-modes">
+      <button class="tmode-btn active" onclick="setMode('focus',25)" id="mode-focus">Focus 25m</button>
+      <button class="tmode-btn" onclick="setMode('short',5)" id="mode-short">Break 5m</button>
+      <button class="tmode-btn" onclick="setMode('long',15)" id="mode-long">Long 15m</button>
+    </div>
+
+    <div class="timer-controls" style="margin-top:20px">
+      <button class="t-btn" onclick="resetTimer()">Reset</button>
+      <button class="t-btn primary" id="start-stop-btn" onclick="toggleTimer()">▶ Start</button>
+    </div>
+
+    <div class="sessions-count">Sessions today: <span id="sessions-done">0</span> 🍅 · Total: <span id="sessions-total">0</span></div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="tag">LMS · Learning Path 2025</div>
+  <h1>Python for <span>AI Agents</span><br>&amp; Automation</h1>
+  <p class="subtitle">// track · time · complete · master //</p>
+</div>
+
+<!-- OVERALL PROGRESS -->
+<div class="overall-progress-section">
+  <div class="op-header">
+    <span class="op-title">Overall Progress</span>
+    <span class="op-pct" id="overall-pct">0%</span>
+  </div>
+  <div class="op-track"><div class="op-fill" id="overall-fill" style="width:0%"></div></div>
+  <div class="phase-progress-pills" id="pills-row"></div>
+</div>
+
+<!-- STACK BANNER -->
+<div class="stack-banner">
+  <div class="stack-title">// Core Stack You'll Master</div>
+  <div class="stack-grid">
+    <span class="stack-chip">Python 3.12</span><span class="stack-chip">OpenAI / Anthropic SDK</span>
+    <span class="stack-chip">LangChain</span><span class="stack-chip">LangGraph</span>
+    <span class="stack-chip">FastAPI</span><span class="stack-chip">CrewAI</span>
+    <span class="stack-chip">Celery + Redis</span><span class="stack-chip">PostgreSQL</span>
+    <span class="stack-chip">Docker</span><span class="stack-chip">Fly.io / Railway</span>
+    <span class="stack-chip">GitHub Actions</span><span class="stack-chip">Pydantic</span>
+    <span class="stack-chip">Playwright</span><span class="stack-chip">Langfuse</span>
+  </div>
+</div>
+
+<!-- PATH -->
+<div class="path" id="path-container"></div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ==================== DATA ====================
+const PHASES = [
+  {
+    id:'p1', cls:'p1', num:'01', title:'Python Foundations — Fast',
+    sub:'// skip the fluff, learn what matters for AI dev', dur:'1–2 weeks',
+    topics:[
+      {id:'p1t1', name:'Variables, Types & Control Flow', desc:'Lists, dicts, sets. Loops, conditions, comprehensions. f-strings.', xp:10},
+      {id:'p1t2', name:'Functions & Modules', desc:'*args, **kwargs, decorators. Import system. Virtual envs with uv.', xp:10},
+      {id:'p1t3', name:'OOP & Dataclasses', desc:'Classes, inheritance, dataclasses. Pydantic models — critical for AI apps.', xp:15},
+      {id:'p1t4', name:'Async Python', desc:'async/await, asyncio basics. Non-blocking I/O for API calls.', xp:20},
+      {id:'p1t5', name:'Error Handling & Typing', desc:'try/except, custom exceptions. Type hints, mypy, logging.', xp:10},
+      {id:'p1t6', name:'File I/O & HTTP APIs', desc:'Read/write JSON, CSV. httpx / requests. .env & secrets management.', xp:10},
+    ],
+    resources:['📖 Python Crash Course Ch1–9','▶ Corey Schafer YouTube','🔧 uv package manager','📦 Pydantic docs'],
+    project:'CLI Tool — fetch & summarize Hacker News top stories using a public API',
+    projectLabel:'🚀 Phase Project'
+  },
+  {
+    id:'p2', cls:'p2', num:'02', title:'LLM APIs & Prompt Engineering',
+    sub:'// talk to models like a pro, build your first AI app', dur:'1–2 weeks',
+    topics:[
+      {id:'p2t1', name:'OpenAI & Anthropic SDKs', desc:'Chat completions, streaming, token counting, rate limits & retries.', xp:15},
+      {id:'p2t2', name:'Prompt Engineering', desc:'System prompts, chain-of-thought, few-shot examples, structured output.', xp:20},
+      {id:'p2t3', name:'Structured Outputs', desc:'JSON mode, Pydantic + instructor library. Parse reliable LLM responses.', xp:15},
+      {id:'p2t4', name:'Embeddings & Semantic Search', desc:'Text → vectors. Cosine similarity. Semantic search basics.', xp:15},
+      {id:'p2t5', name:'Tool Use / Function Calling', desc:'Define tools, let LLM decide when to call them. Core agent primitive.', xp:25},
+      {id:'p2t6', name:'Cost & Latency Optimization', desc:'Model selection, caching, prompt compression. Budget guardrails.', xp:10},
+    ],
+    resources:['📖 Anthropic Prompt Engineering docs','📦 instructor library','▶ OpenAI Cookbook','📦 LiteLLM (multi-provider)'],
+    project:'AI Email Classifier — reads inbox, tags emails, drafts replies with structured JSON output',
+    projectLabel:'🚀 Phase Project'
+  },
+  {
+    id:'p3', cls:'p3', num:'03', title:'AI Agents & Orchestration',
+    sub:'// build agents that think, plan, and act autonomously', dur:'2–3 weeks',
+    topics:[
+      {id:'p3t1', name:'Agent Fundamentals', desc:'ReAct loop: Reason → Act → Observe. Memory types: in-context, external.', xp:20},
+      {id:'p3t2', name:'LangChain Agents', desc:'LCEL chains, agents with tools, memory. RunnableSequence pattern.', xp:20},
+      {id:'p3t3', name:'LangGraph', desc:'State machines for agents. Nodes, edges, cycles. Interrupt & human-in-loop.', xp:30},
+      {id:'p3t4', name:'CrewAI / Multi-Agent', desc:'Agents with roles & goals. Hierarchical and sequential crews.', xp:25},
+      {id:'p3t5', name:'RAG Systems', desc:'Vector DBs: Chroma, Pinecone. Chunking strategies. Hybrid search.', xp:25},
+      {id:'p3t6', name:'Agent Memory & State', desc:'Short-term context, long-term Redis store, episodic summaries.', xp:20},
+    ],
+    resources:['📖 LangGraph docs + tutorials','📖 CrewAI docs','▶ Andrew Ng AI Agents course','📦 ChromaDB'],
+    project:'Research Agent — given a topic, browses web, reads docs, synthesizes a report with citations',
+    projectLabel:'🚀 Phase Project'
+  },
+  {
+    id:'p4', cls:'p4', num:'04', title:'Backend & API Development',
+    sub:'// wrap your AI in a real production API', dur:'2 weeks',
+    topics:[
+      {id:'p4t1', name:'FastAPI Deep Dive', desc:'Routers, dependency injection, middleware, lifespan events. Async endpoints.', xp:20},
+      {id:'p4t2', name:'Streaming Responses', desc:'StreamingResponse + SSE for real-time LLM output. WebSocket basics.', xp:20},
+      {id:'p4t3', name:'Auth & Security', desc:'JWT tokens, OAuth2, API keys. Rate limiting. Input validation.', xp:20},
+      {id:'p4t4', name:'Database Layer', desc:'SQLModel / SQLAlchemy + PostgreSQL. Async DB with asyncpg. Migrations.', xp:25},
+      {id:'p4t5', name:'Background Tasks', desc:'Celery + Redis for long-running agent tasks. Task queues. Webhooks.', xp:25},
+      {id:'p4t6', name:'Testing', desc:'pytest, httpx test client. Mock LLM calls. Async test patterns.', xp:15},
+    ],
+    resources:['📖 FastAPI official docs','📖 SQLModel docs','📦 Celery + Redis','▶ ArjanCodes YouTube'],
+    project:'AI API Service — FastAPI backend with streaming chat + async agent task endpoint with auth',
+    projectLabel:'🚀 Phase Project'
+  },
+  {
+    id:'p5', cls:'p5', num:'05', title:'Automation & Integrations',
+    sub:'// connect agents to the real world', dur:'2 weeks',
+    topics:[
+      {id:'p5t1', name:'Web Scraping & Browsing', desc:'httpx + BeautifulSoup. Playwright for JS sites. Responsible scraping.', xp:15},
+      {id:'p5t2', name:'Third-Party APIs', desc:'Notion, Slack, Gmail, GitHub APIs. OAuth flows. Webhook receivers.', xp:20},
+      {id:'p5t3', name:'Scheduled Jobs', desc:'APScheduler, cron patterns. Celery Beat for recurring agent tasks.', xp:15},
+      {id:'p5t4', name:'Document Processing', desc:'PDFs (pdfplumber), DOCX, images (PIL). Multimodal inputs to agents.', xp:15},
+      {id:'p5t5', name:'MCP (Model Context Protocol)', desc:'Build MCP servers. Expose your tools to Claude/Cursor natively.', xp:25},
+      {id:'p5t6', name:'Observability & Tracing', desc:'LangSmith / Langfuse tracing. Log agent decisions. Eval pipelines.', xp:20},
+    ],
+    resources:['📖 Playwright Python docs','📖 MCP specification','📦 Langfuse','📖 APScheduler docs'],
+    project:'Automation Pipeline — agent monitors Slack, scrapes URLs, summarizes & posts daily digest',
+    projectLabel:'🚀 Phase Project'
+  },
+  {
+    id:'p6', cls:'p6', num:'06', title:'Deployment & Production',
+    sub:'// ship it, scale it, monitor it', dur:'2 weeks',
+    topics:[
+      {id:'p6t1', name:'Docker & Containers', desc:'Dockerfile for FastAPI. Multi-stage builds. docker-compose for local stack.', xp:20},
+      {id:'p6t2', name:'Cloud Deployment', desc:'Fly.io or Railway for FastAPI. Managed Postgres. Secrets via env vars.', xp:25},
+      {id:'p6t3', name:'CI/CD Pipeline', desc:'GitHub Actions: test → lint → build → deploy on push to main.', xp:25},
+      {id:'p6t4', name:'Environment Management', desc:'Dev / staging / prod configs. Feature flags. Zero-downtime deploys.', xp:15},
+      {id:'p6t5', name:'Monitoring & Alerts', desc:'Sentry for errors. Prometheus + Grafana. Uptime monitoring. LLM cost alerts.', xp:20},
+      {id:'p6t6', name:'Scaling Patterns', desc:'Horizontal scaling. Worker autoscaling. Redis caching. CDN for assets.', xp:20},
+    ],
+    resources:['📖 Fly.io docs','📖 GitHub Actions docs','📖 Docker official docs','📦 Sentry Python SDK'],
+    project:'Full AI SaaS — multi-agent app with FastAPI backend, real auth, deployed on Fly.io with CI/CD & monitoring',
+    projectLabel:'🚀 Capstone'
+  }
+];
+
+// ==================== STATE ====================
+const LS_KEY = 'pyai_lms_v2';
+let state = { checked:{}, notes:{}, xp:0, sessions:0, sessionsTotal:0, streak:0, lastDay:null };
+
+async function loadState() {
+  try {
+    const result = await window.storage.get(LS_KEY);
+    if(result && result.value) {
+      const s = JSON.parse(result.value);
+      if(s) state = {...state,...s};
+    }
+  } catch(e) {}
+}
+function saveState() {
+  try { window.storage.set(LS_KEY, JSON.stringify(state)); } catch(e){}
+}
+
+// ==================== XP SYSTEM ====================
+const XP_PER_LEVEL = 100;
+function addXP(amount) {
+  state.xp += amount;
+  saveState();
+  renderXP();
+  const xpEl = document.getElementById('xp-fill');
+  xpEl.classList.remove('xp-pop');
+  setTimeout(()=>xpEl.classList.add('xp-pop'),10);
+}
+function renderXP() {
+  const level = Math.floor(state.xp / XP_PER_LEVEL) + 1;
+  const cur = state.xp % XP_PER_LEVEL;
+  document.getElementById('xp-level').textContent = level;
+  document.getElementById('xp-cur').textContent = cur;
+  document.getElementById('xp-max').textContent = XP_PER_LEVEL;
+  document.getElementById('xp-fill').style.width = (cur/XP_PER_LEVEL*100)+'%';
+}
+
+// ==================== STREAK ====================
+function checkStreak() {
+  const today = new Date().toDateString();
+  if(state.lastDay === today) return;
+  const yesterday = new Date(Date.now()-86400000).toDateString();
+  if(state.lastDay === yesterday) state.streak++;
+  else if(state.lastDay !== today) state.streak = 1;
+  state.lastDay = today;
+  saveState();
+}
+function renderStreak() {
+  document.getElementById('streak-num').textContent = state.streak;
+}
+
+// ==================== PROGRESS ====================
+function getTotalTopics() {
+  return PHASES.reduce((a,p)=>a+p.topics.length,0);
+}
+function getCheckedCount() {
+  return Object.values(state.checked).filter(Boolean).length;
+}
+function getPhaseProgress(phase) {
+  const done = phase.topics.filter(t=>state.checked[t.id]).length;
+  return { done, total: phase.topics.length, pct: phase.topics.length ? done/phase.topics.length : 0 };
+}
+function renderProgress() {
+  const total = getTotalTopics();
+  const done = getCheckedCount();
+  const pct = total ? Math.round(done/total*100) : 0;
+  document.getElementById('overall-pct').textContent = pct+'%';
+  document.getElementById('overall-fill').style.width = pct+'%';
+  document.getElementById('hud-pct').textContent = pct+'%';
+
+  // Pills
+  PHASES.forEach((p,i) => {
+    const pill = document.getElementById('pill-'+p.id);
+    if(!pill) return;
+    const {pct} = getPhaseProgress(p);
+    pill.querySelector('.ppp-fill').style.width = (pct*100)+'%';
+  });
+
+  // Phase progress labels
+  PHASES.forEach(p => {
+    const el = document.getElementById('prog-'+p.id);
+    if(!el) return;
+    const {done,total} = getPhaseProgress(p);
+    el.textContent = done+'/'+total;
+  });
+
+  // Phase completion rings
+  PHASES.forEach(p => {
+    const ring = document.getElementById('ring-'+p.id);
+    if(!ring) return;
+    const {pct} = getPhaseProgress(p);
+    const c = 2*Math.PI*26; // r=26
+    ring.style.strokeDashoffset = c*(1-pct);
+    // completed
+    const phaseEl = document.getElementById('phase-el-'+p.id);
+    if(phaseEl) {
+      if(pct===1) phaseEl.classList.add('completed');
+      else phaseEl.classList.remove('completed');
+    }
+  });
+
+  // Phase XP bars
+  PHASES.forEach(p => {
+    const bar = document.getElementById('pxbar-'+p.id);
+    if(!bar) return;
+    const {pct} = getPhaseProgress(p);
+    bar.style.width = (pct*100)+'%';
+  });
+}
+
+// ==================== RENDER PHASES ====================
+function renderPhases() {
+  const container = document.getElementById('path-container');
+  const pillsRow = document.getElementById('pills-row');
+
+  PHASES.forEach((p,i) => {
+    // Pill
+    const pill = document.createElement('div');
+    pill.className = 'ppp '+p.cls;
+    pill.id = 'pill-'+p.id;
+    pill.title = p.title;
+    pill.innerHTML = `<div class="ppp-fill ${p.cls}-fill"></div>`;
+    pillsRow.appendChild(pill);
+
+    const phaseEl = document.createElement('div');
+    phaseEl.className = `phase ${p.cls}`;
+    phaseEl.id = 'phase-el-'+p.id;
+    phaseEl.dataset.delay = i;
+
+    const totalXP = p.topics.reduce((a,t)=>a+t.xp,0);
+    const {done,total,pct} = getPhaseProgress(p);
+    const ringC = 2*Math.PI*26;
+
+    phaseEl.innerHTML = `
+      <div class="phase-header" onclick="togglePhase('${p.id}')">
+        <div class="phase-num">
+          <svg class="ring" viewBox="0 0 64 64" style="position:absolute;inset:-4px;width:calc(100% + 8px);height:calc(100% + 8px);transform:rotate(-90deg)">
+            <circle cx="32" cy="32" r="26" fill="none" stroke="#1f1f30" stroke-width="3"/>
+            <circle id="ring-${p.id}" cx="32" cy="32" r="26" fill="none" class="ring-circle" stroke-width="3"
+              stroke-dasharray="${ringC.toFixed(2)}" stroke-dashoffset="${(ringC*(1-pct)).toFixed(2)}"
+              stroke-linecap="round" style="transition:stroke-dashoffset 0.5s"/>
+          </svg>
+          <span class="phase-num-inner">${p.num}</span>
+        </div>
+        <div class="phase-meta">
+          <div class="phase-title">${p.title}</div>
+          <div class="phase-subtitle">${p.sub}</div>
+        </div>
+        <div class="phase-right">
+          <span class="phase-prog" id="prog-${p.id}">${done}/${total}</span>
+          <span class="phase-duration">${p.dur}</span>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+      </div>
+      <div class="phase-body" id="body-${p.id}">
+        <div class="phase-xp-bar">
+          <div class="pxb-row">
+            <span class="pxb-label">Phase XP Progress</span>
+            <span class="pxb-val" id="pxb-val-${p.id}">${Math.round(pct*totalXP)}/${totalXP} XP</span>
+          </div>
+          <div class="pxb-track"><div class="pxb-fill" id="pxbar-${p.id}" style="width:${pct*100}%"></div></div>
+        </div>
+
+        <div class="section-label">// Topics Checklist</div>
+        <div class="checklist" id="cl-${p.id}">
+          ${p.topics.map(t=>`
+            <div class="check-item ${state.checked[t.id]?'done':''}" id="ci-${t.id}" onclick="toggleCheck('${t.id}','${p.id}',${t.xp})">
+              <div class="check-box">
+                <svg class="check-tick" viewBox="0 0 12 12" fill="none" stroke="#00ffaa" stroke-width="2.5" stroke-linecap="round">
+                  <polyline points="2,6 5,9 10,3"/>
+                </svg>
+              </div>
+              <div class="check-content">
+                <div class="check-name">${t.name}</div>
+                <div class="check-desc">${t.desc}</div>
+              </div>
+              <div class="check-xp">+${t.xp} XP</div>
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="section-label">// Resources</div>
+        <div class="resources">${p.resources.map(r=>`<span class="res-tag">${r}</span>`).join('')}</div>
+
+        <div class="project-box">
+          <div class="project-label">${p.projectLabel}</div>
+          <div class="project-name">${p.project}</div>
+        </div>
+
+        <div class="notes-wrap">
+          <div class="notes-label">// Your Notes</div>
+          <textarea class="notes-area" id="notes-${p.id}" placeholder="Add your notes, links, questions..."
+            onInput="scheduleNoteSave('${p.id}')">${state.notes[p.id]||''}</textarea>
+          <div class="notes-saved" id="ns-${p.id}">✓ Saved</div>
+        </div>
+      </div>
+    `;
+    container.appendChild(phaseEl);
+  });
+
+  // Open first phase
+  document.getElementById('phase-el-p1').classList.add('open');
+
+  // Scroll animation
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const d = parseInt(e.target.dataset.delay||0);
+        setTimeout(()=>e.target.classList.add('visible'), d*70);
+        obs.unobserve(e.target);
+      }
+    });
+  },{threshold:0.08});
+  document.querySelectorAll('.phase').forEach(el=>obs.observe(el));
+}
+
+// ==================== INTERACTIONS ====================
+function togglePhase(id) {
+  const el = document.getElementById('phase-el-'+id);
+  el.classList.toggle('open');
+}
+
+function toggleCheck(tid, pid, xpVal) {
+  const wasChecked = state.checked[tid];
+  state.checked[tid] = !wasChecked;
+  const ci = document.getElementById('ci-'+tid);
+  ci.classList.toggle('done', state.checked[tid]);
+
+  if(state.checked[tid]) {
+    addXP(xpVal);
+    checkStreak();
+    showToast(`+${xpVal} XP · ${getMotivation()}`);
+  } else {
+    state.xp = Math.max(0, state.xp - xpVal);
+    renderXP();
+  }
+
+  saveState();
+  renderProgress();
+  renderStreak();
+  updatePhaseXPBar(pid);
+}
+
+function updatePhaseXPBar(pid) {
+  const phase = PHASES.find(p=>p.id===pid);
+  if(!phase) return;
+  const {pct} = getPhaseProgress(phase);
+  const totalXP = phase.topics.reduce((a,t)=>a+t.xp,0);
+  const earnedXP = Math.round(phase.topics.filter(t=>state.checked[t.id]).reduce((a,t)=>a+t.xp,0));
+  const bar = document.getElementById('pxbar-'+pid);
+  const val = document.getElementById('pxb-val-'+pid);
+  if(bar) bar.style.width = (pct*100)+'%';
+  if(val) val.textContent = `${earnedXP}/${totalXP} XP`;
+}
+
+const MOTIVATIONS = ['Keep going!','Crushing it!','You are on fire!','Level up!','Unstoppable!','Legend!','Lets go!'];
+function getMotivation(){ return MOTIVATIONS[Math.floor(Math.random()*MOTIVATIONS.length)]; }
+
+// Notes
+let noteTimers = {};
+function scheduleNoteSave(pid) {
+  clearTimeout(noteTimers[pid]);
+  noteTimers[pid] = setTimeout(()=>{
+    state.notes[pid] = document.getElementById('notes-'+pid).value;
+    saveState();
+    const ns = document.getElementById('ns-'+pid);
+    ns.classList.add('show');
+    setTimeout(()=>ns.classList.remove('show'),1500);
+  }, 600);
+}
+
+// Toast
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 2500);
+}
+
+// ==================== TIMER ====================
+let timerInterval = null;
+let timerSeconds = 25*60;
+let timerTotal = 25*60;
+let timerRunning = false;
+let timerMode = 'focus';
+
+function openTimer() {
+  document.getElementById('timer-modal').classList.add('open');
+}
+function closeTimer() {
+  document.getElementById('timer-modal').classList.remove('open');
+}
+
+document.getElementById('timer-modal').addEventListener('click', function(e){
+  if(e.target === this) closeTimer();
+});
+
+function setMode(mode, minutes) {
+  if(timerRunning) return;
+  timerMode = mode;
+  timerSeconds = minutes*60;
+  timerTotal = minutes*60;
+  document.querySelectorAll('.tmode-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('mode-'+mode).classList.add('active');
+  document.getElementById('timer-mode-svg').textContent = mode==='focus'?'FOCUS':mode==='short'?'SHORT BREAK':'LONG BREAK';
+  updateTimerDisplay();
+  updateTimerRing();
+}
+
+function toggleTimer() {
+  if(timerRunning) {
+    clearInterval(timerInterval);
+    timerRunning = false;
+    document.getElementById('start-stop-btn').textContent = '▶ Start';
+    document.getElementById('timer-hud-btn').classList.remove('running');
+  } else {
+    timerRunning = true;
+    document.getElementById('start-stop-btn').textContent = '⏸ Pause';
+    document.getElementById('timer-hud-btn').classList.add('running');
+    timerInterval = setInterval(()=>{
+      timerSeconds--;
+      if(timerSeconds <= 0) {
+        clearInterval(timerInterval);
+        timerRunning = false;
+        document.getElementById('start-stop-btn').textContent = '▶ Start';
+        document.getElementById('timer-hud-btn').classList.remove('running');
+        if(timerMode==='focus') {
+          state.sessions++;
+          state.sessionsTotal++;
+          saveState();
+          document.getElementById('sessions-done').textContent = state.sessions;
+          document.getElementById('sessions-total').textContent = state.sessionsTotal;
+          addXP(15);
+          showToast('🍅 Focus session done! +15 XP');
+          checkStreak();
+          renderStreak();
+        }
+        timerSeconds = timerTotal;
+      }
+      updateTimerDisplay();
+      updateTimerRing();
+    },1000);
+  }
+}
+
+function resetTimer() {
+  clearInterval(timerInterval);
+  timerRunning = false;
+  timerSeconds = timerTotal;
+  document.getElementById('start-stop-btn').textContent = '▶ Start';
+  document.getElementById('timer-hud-btn').classList.remove('running');
+  updateTimerDisplay();
+  updateTimerRing();
+}
+
+function updateTimerDisplay() {
+  const m = Math.floor(timerSeconds/60).toString().padStart(2,'0');
+  const s = (timerSeconds%60).toString().padStart(2,'0');
+  document.getElementById('timer-display-svg').textContent = m+':'+s;
+  // Update HUD button
+  if(timerRunning) {
+    document.getElementById('timer-hud-btn').textContent = '⏱ '+m+':'+s;
+  } else {
+    document.getElementById('timer-hud-btn').textContent = '⏱ Focus Timer';
+  }
+}
+
+function updateTimerRing() {
+  const ring = document.getElementById('timer-ring');
+  const circumference = 2*Math.PI*60; // r=60
+  const progress = timerSeconds/timerTotal;
+  ring.style.strokeDashoffset = circumference*(1-progress);
+  // color by mode
+  ring.style.stroke = timerMode==='focus'?'#3b82f6':timerMode==='short'?'#00ffaa':'#7c3aed';
+}
+
+// ==================== INIT ====================
+(async function init() {
+  await loadState();
+  checkStreak();
+
+  // Reset daily sessions if new day
+  const today = new Date().toDateString();
+  if(state.lastSessionDay !== today) { state.sessions = 0; state.lastSessionDay = today; saveState(); }
+
+  renderPhases();
+  renderProgress();
+  renderXP();
+  renderStreak();
+
+  document.getElementById('sessions-done').textContent = state.sessions||0;
+  document.getElementById('sessions-total').textContent = state.sessionsTotal||0;
+  updateTimerDisplay();
+  updateTimerRing();
+})();
+</script>
+</body>
+</html>
