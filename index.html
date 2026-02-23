@@ -1,364 +1,1159 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abhishek Singh | Management Consulting & AI Architecture</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                    },
-                    colors: {
-                        slate: {
-                            850: '#151e2e',
-                            950: '#020617',
-                        },
-                        brand: {
-                            gold: '#fbbf24',
-                            blue: '#3b82f6',
-                        }
-                    },
-                    backgroundImage: {
-                        'grid-pattern': "linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px)",
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        body { background-color: #020617; color: #f8fafc; }
-        .glass-panel {
-            background: rgba(30, 41, 59, 0.4);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(148, 163, 184, 0.1);
-        }
-        .tech-badge {
-            background: rgba(59, 130, 246, 0.1);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            color: #60a5fa;
-            font-family: 'JetBrains Mono', monospace;
-        }
-        .gradient-text {
-            background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #fbbf24 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .bg-grid {
-            background-size: 40px 40px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abhishek Singh | Senior PM · AI Architect · SAP S/4HANA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #060912;
+    --surface: #0d1526;
+    --surface2: #111c32;
+    --border: rgba(99,179,237,0.12);
+    --border2: rgba(99,179,237,0.06);
+    --gold: #f0b429;
+    --gold2: #ffd97d;
+    --cyan: #4dd9e0;
+    --blue: #4a9eff;
+    --purple: #9b8df8;
+    --text: #e8edf5;
+    --muted: #7a8ba8;
+    --dim: #3d4f6a;
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'Outfit', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.025;
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(6,9,18,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border2);
+    height: 68px;
+    display: flex; align-items: center;
+  }
+  .nav-inner {
+    max-width: 1280px; margin: 0 auto; padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    width: 100%;
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    font-family: var(--font-display); font-weight: 800; font-size: 1.1rem;
+    letter-spacing: -0.02em; color: var(--text); text-decoration: none;
+  }
+  .logo-mark {
+    width: 34px; height: 34px;
+    background: linear-gradient(135deg, var(--blue), var(--purple));
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem; font-weight: 800; color: #fff;
+    box-shadow: 0 0 20px rgba(74,158,255,0.3);
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.8rem; font-weight: 500; color: var(--muted);
+    text-decoration: none; letter-spacing: 0.05em; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    padding: 8px 20px;
+    background: var(--gold);
+    color: #0a0a0a;
+    font-family: var(--font-display); font-weight: 700; font-size: 0.8rem;
+    border-radius: 6px; text-decoration: none; letter-spacing: 0.02em;
+    transition: all 0.2s;
+    box-shadow: 0 0 24px rgba(240,180,41,0.25);
+  }
+  .nav-cta:hover { background: var(--gold2); transform: translateY(-1px); box-shadow: 0 0 32px rgba(240,180,41,0.4); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    position: relative; overflow: hidden;
+    padding: 120px 2rem 80px;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; pointer-events: none;
+  }
+  .orb {
+    position: absolute; border-radius: 50%;
+    filter: blur(80px); opacity: 0.5;
+    animation: float 8s ease-in-out infinite;
+  }
+  .orb-1 { width: 600px; height: 600px; background: radial-gradient(circle, rgba(74,158,255,0.15), transparent 70%); top: -10%; left: -10%; animation-delay: 0s; }
+  .orb-2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(155,141,248,0.12), transparent 70%); bottom: 0; right: 10%; animation-delay: -3s; }
+  .orb-3 { width: 300px; height: 300px; background: radial-gradient(circle, rgba(77,217,224,0.08), transparent 70%); top: 30%; left: 50%; animation-delay: -6s; }
+  @keyframes float { 0%,100% { transform: translateY(0px) scale(1); } 50% { transform: translateY(-30px) scale(1.05); } }
+
+  /* Grid lines */
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(99,179,237,0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(99,179,237,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .hero-inner { max-width: 1280px; margin: 0 auto; position: relative; z-index: 2; }
+
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 14px; border-radius: 100px;
+    border: 1px solid rgba(240,180,41,0.25);
+    background: rgba(240,180,41,0.06);
+    font-family: var(--font-mono); font-size: 0.7rem; color: var(--gold);
+    letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 28px;
+  }
+  .eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(3.2rem, 7vw, 6.5rem);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: 28px;
+  }
+  .hero-title .line2 { display: block; }
+  .hero-title .accent {
+    background: linear-gradient(90deg, var(--cyan) 0%, var(--blue) 40%, var(--purple) 80%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-title .gold-accent {
+    background: linear-gradient(90deg, var(--gold) 0%, var(--gold2) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    max-width: 640px; font-size: 1.1rem; color: var(--muted); line-height: 1.7;
+    margin-bottom: 40px; font-weight: 400;
+  }
+  .hero-sub strong { color: var(--text); font-weight: 500; }
+
+  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 64px; }
+  .btn-primary {
+    padding: 14px 32px; background: var(--blue);
+    color: #fff; font-family: var(--font-display); font-weight: 700; font-size: 0.9rem;
+    border-radius: 8px; text-decoration: none; letter-spacing: 0.02em;
+    transition: all 0.25s; display: flex; align-items: center; gap: 10px;
+    box-shadow: 0 8px 32px rgba(74,158,255,0.25);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(74,158,255,0.4); background: #5eabff; }
+  .btn-ghost {
+    padding: 14px 32px;
+    border: 1px solid var(--border);
+    color: var(--text); font-family: var(--font-display); font-weight: 600; font-size: 0.9rem;
+    border-radius: 8px; text-decoration: none; letter-spacing: 0.02em;
+    transition: all 0.25s; display: flex; align-items: center; gap: 10px;
+    background: rgba(255,255,255,0.02);
+  }
+  .btn-ghost:hover { border-color: var(--blue); background: rgba(74,158,255,0.06); transform: translateY(-2px); }
+  .btn-gold {
+    padding: 14px 32px; background: transparent;
+    border: 1.5px solid var(--gold);
+    color: var(--gold); font-family: var(--font-display); font-weight: 700; font-size: 0.9rem;
+    border-radius: 8px; text-decoration: none; letter-spacing: 0.02em;
+    transition: all 0.25s; display: flex; align-items: center; gap: 10px;
+  }
+  .btn-gold:hover { background: rgba(240,180,41,0.1); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(240,180,41,0.2); }
+
+  /* Stats bar */
+  .stats-bar {
+    display: flex; gap: 0; flex-wrap: wrap;
+    border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden;
+    background: rgba(13,21,38,0.6);
+    backdrop-filter: blur(12px);
+    max-width: 780px;
+  }
+  .stat {
+    flex: 1; min-width: 140px; padding: 20px 24px;
+    border-right: 1px solid var(--border);
+    transition: background 0.2s;
+  }
+  .stat:last-child { border-right: none; }
+  .stat:hover { background: rgba(74,158,255,0.04); }
+  .stat-num {
+    font-family: var(--font-display); font-size: 1.8rem; font-weight: 800;
+    color: var(--text); letter-spacing: -0.04em; line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-num span { color: var(--gold); }
+  .stat-label { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.05em; text-transform: uppercase; font-weight: 500; }
+
+  /* ── CERT STRIP ── */
+  .cert-strip {
+    padding: 24px 2rem;
+    background: var(--surface2);
+    border-top: 1px solid var(--border2); border-bottom: 1px solid var(--border2);
+    overflow: hidden; position: relative;
+  }
+  .cert-track {
+    display: flex; gap: 24px;
+    animation: scroll 30s linear infinite;
+    width: max-content;
+  }
+  @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+  .cert-item {
+    display: flex; align-items: center; gap: 10px; white-space: nowrap;
+    padding: 8px 20px; border-radius: 100px;
+    border: 1px solid var(--border);
+    background: rgba(74,158,255,0.05);
+    font-size: 0.78rem; font-family: var(--font-mono); color: var(--cyan);
+    letter-spacing: 0.04em;
+  }
+  .cert-item i { font-size: 0.7rem; }
+
+  /* ── SECTIONS ── */
+  section { padding: 100px 2rem; }
+  .section-inner { max-width: 1280px; margin: 0 auto; }
+  .section-label {
+    font-family: var(--font-mono); font-size: 0.7rem;
+    color: var(--gold); letter-spacing: 0.15em; text-transform: uppercase;
+    margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+  }
+  .section-label::before { content: '//'; opacity: 0.5; }
+  .section-title {
+    font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800; letter-spacing: -0.03em; color: var(--text); line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  .section-sub { color: var(--muted); font-size: 1.05rem; max-width: 560px; line-height: 1.7; margin-bottom: 60px; }
+
+  /* ── CARDS ── */
+  .glass {
+    background: rgba(13,21,38,0.5);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s;
+  }
+  .glass:hover { border-color: rgba(74,158,255,0.25); background: rgba(13,21,38,0.7); transform: translateY(-4px); box-shadow: 0 24px 48px rgba(0,0,0,0.3); }
+
+  /* ── CONSULTING GRID ── */
+  .consult-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .consult-card {
+    padding: 36px 32px;
+    position: relative; overflow: hidden;
+  }
+  .consult-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--blue), transparent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .consult-card:hover::before { opacity: 1; }
+  .card-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; margin-bottom: 24px;
+  }
+  .icon-blue { background: rgba(74,158,255,0.12); color: var(--blue); border: 1px solid rgba(74,158,255,0.2); }
+  .icon-purple { background: rgba(155,141,248,0.12); color: var(--purple); border: 1px solid rgba(155,141,248,0.2); }
+  .icon-cyan { background: rgba(77,217,224,0.12); color: var(--cyan); border: 1px solid rgba(77,217,224,0.2); }
+  .icon-gold { background: rgba(240,180,41,0.12); color: var(--gold); border: 1px solid rgba(240,180,41,0.2); }
+  .card-title { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: 12px; }
+  .card-body { color: var(--muted); font-size: 0.88rem; line-height: 1.7; margin-bottom: 20px; }
+  .card-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    padding: 4px 12px; border-radius: 100px; font-size: 0.72rem; font-weight: 500;
+    font-family: var(--font-mono);
+  }
+  .tag-blue { background: rgba(74,158,255,0.08); color: var(--blue); border: 1px solid rgba(74,158,255,0.15); }
+  .tag-purple { background: rgba(155,141,248,0.08); color: var(--purple); border: 1px solid rgba(155,141,248,0.15); }
+  .tag-cyan { background: rgba(77,217,224,0.08); color: var(--cyan); border: 1px solid rgba(77,217,224,0.15); }
+  .tag-gold { background: rgba(240,180,41,0.08); color: var(--gold); border: 1px solid rgba(240,180,41,0.15); }
+  .tag-green { background: rgba(52,211,153,0.08); color: #34d399; border: 1px solid rgba(52,211,153,0.15); }
+
+  /* ── TECH STACK ── */
+  #technical { background: var(--surface); }
+  .tech-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+  .tech-group { margin-bottom: 36px; }
+  .tech-group-label {
+    font-family: var(--font-mono); font-size: 0.68rem; color: var(--dim);
+    letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 14px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .tech-group-label::after { content: ''; flex: 1; height: 1px; background: var(--border2); }
+  .tech-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    padding: 6px 14px; border-radius: 6px; font-family: var(--font-mono);
+    font-size: 0.72rem; font-weight: 500; cursor: default; transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .chip:hover { transform: translateY(-2px); }
+  .chip-blue { background: rgba(74,158,255,0.1); color: #6fb3ff; border: 1px solid rgba(74,158,255,0.2); }
+  .chip-purple { background: rgba(155,141,248,0.1); color: #b4a9f9; border: 1px solid rgba(155,141,248,0.2); }
+  .chip-cyan { background: rgba(77,217,224,0.1); color: #6ddfe5; border: 1px solid rgba(77,217,224,0.2); }
+  .chip-green { background: rgba(52,211,153,0.1); color: #5eddb6; border: 1px solid rgba(52,211,153,0.2); }
+  .chip-gold { background: rgba(240,180,41,0.1); color: var(--gold); border: 1px solid rgba(240,180,41,0.2); }
+  .chip-red { background: rgba(252,129,74,0.1); color: #fc9a74; border: 1px solid rgba(252,129,74,0.2); }
+
+  /* Highlight cards on right */
+  .tech-highlight { display: flex; flex-direction: column; gap: 20px; }
+  .hl-card { padding: 24px 28px; border-radius: 14px; border-left: 3px solid; }
+  .hl-blue { border-left-color: var(--blue); background: linear-gradient(135deg, rgba(74,158,255,0.06), transparent); border: 1px solid rgba(74,158,255,0.12); border-left: 3px solid var(--blue); }
+  .hl-purple { border-left-color: var(--purple); background: linear-gradient(135deg, rgba(155,141,248,0.06), transparent); border: 1px solid rgba(155,141,248,0.12); border-left: 3px solid var(--purple); }
+  .hl-cyan { border-left-color: var(--cyan); background: linear-gradient(135deg, rgba(77,217,224,0.06), transparent); border: 1px solid rgba(77,217,224,0.12); border-left: 3px solid var(--cyan); }
+  .hl-gold { border-left-color: var(--gold); background: linear-gradient(135deg, rgba(240,180,41,0.06), transparent); border: 1px solid rgba(240,180,41,0.12); border-left: 3px solid var(--gold); }
+  .hl-card h4 { font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; color: var(--text); margin-bottom: 8px; }
+  .hl-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.65; }
+  .hl-card p strong { color: var(--text); }
+
+  /* ── EXPERIENCE TIMELINE ── */
+  #experience { background: var(--bg); }
+  .timeline { position: relative; padding-left: 40px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 1px; background: linear-gradient(to bottom, transparent, var(--border), var(--border), transparent);
+  }
+  .tl-item { position: relative; margin-bottom: 56px; }
+  .tl-dot {
+    position: absolute; left: -46px; top: 6px;
+    width: 14px; height: 14px; border-radius: 50%;
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 0 1px currentColor;
+    transition: all 0.3s;
+  }
+  .tl-dot-gold { background: var(--gold); color: var(--gold); box-shadow: 0 0 12px rgba(240,180,41,0.5), 0 0 0 1px var(--gold); }
+  .tl-dot-blue { background: var(--blue); color: var(--blue); box-shadow: 0 0 12px rgba(74,158,255,0.5), 0 0 0 1px var(--blue); }
+  .tl-dot-purple { background: var(--purple); color: var(--purple); box-shadow: 0 0 12px rgba(155,141,248,0.5), 0 0 0 1px var(--purple); }
+  .tl-dot-cyan { background: var(--cyan); color: var(--cyan); box-shadow: 0 0 12px rgba(77,217,224,0.5), 0 0 0 1px var(--cyan); }
+  .tl-dot-green { background: #34d399; color: #34d399; box-shadow: 0 0 12px rgba(52,211,153,0.5), 0 0 0 1px #34d399; }
+
+  .tl-card { padding: 32px; border-radius: 16px; }
+  .tl-card:hover .tl-dot { transform: scale(1.3); }
+  .tl-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; margin-bottom: 6px; }
+  .tl-title { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; color: var(--text); }
+  .tl-period { font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); padding: 4px 10px; border-radius: 100px; border: 1px solid var(--border); white-space: nowrap; }
+  .tl-company { font-size: 0.85rem; font-weight: 600; margin-bottom: 4px; }
+  .tl-client { font-size: 0.78rem; color: var(--muted); margin-bottom: 20px; font-style: italic; }
+  .tl-points { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .tl-points li {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 0.85rem; color: #9ab0c8; line-height: 1.65;
+  }
+  .tl-points li::before { content: '▸'; color: var(--blue); margin-top: 2px; flex-shrink: 0; font-size: 0.7rem; }
+  .tl-points li strong { color: var(--text); font-weight: 500; }
+
+  /* Impact badges */
+  .impact-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .impact-badge {
+    padding: 4px 12px; border-radius: 100px; font-size: 0.7rem; font-weight: 600;
+    font-family: var(--font-mono); display: flex; align-items: center; gap: 6px;
+  }
+
+  /* ── AI CHATBOT SECTION ── */
+  #ai-bot { background: var(--surface2); }
+  .bot-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .bot-feature { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
+  .bot-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.9rem; }
+  .bot-feature h4 { font-family: var(--font-display); font-weight: 700; font-size: 0.9rem; color: var(--text); margin-bottom: 4px; }
+  .bot-feature p { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+
+  /* ── PYTHON LMS CTA ── */
+  .lms-banner {
+    background: linear-gradient(135deg, rgba(77,217,224,0.08) 0%, rgba(74,158,255,0.06) 50%, rgba(155,141,248,0.08) 100%);
+    border: 1px solid rgba(77,217,224,0.2);
+    border-radius: 20px; padding: 48px 48px;
+    display: flex; align-items: center; justify-content: space-between; gap: 32px;
+    flex-wrap: wrap;
+    position: relative; overflow: hidden;
+  }
+  .lms-banner::before {
+    content: ''; position: absolute; top: -60px; right: -60px;
+    width: 220px; height: 220px;
+    background: radial-gradient(circle, rgba(77,217,224,0.12), transparent 70%);
+    border-radius: 50%;
+  }
+  .lms-banner-text h3 {
+    font-family: var(--font-display); font-size: 1.8rem; font-weight: 800;
+    color: var(--text); letter-spacing: -0.03em; margin-bottom: 10px;
+  }
+  .lms-banner-text h3 span { color: var(--cyan); }
+  .lms-banner-text p { color: var(--muted); font-size: 0.9rem; max-width: 480px; line-height: 1.7; }
+  .lms-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .btn-lms {
+    padding: 16px 36px;
+    background: linear-gradient(135deg, var(--cyan), var(--blue));
+    color: #fff; font-family: var(--font-display); font-weight: 800; font-size: 1rem;
+    border-radius: 10px; text-decoration: none; letter-spacing: 0.01em;
+    display: flex; align-items: center; gap: 12px; white-space: nowrap;
+    transition: all 0.25s; flex-shrink: 0;
+    box-shadow: 0 8px 32px rgba(74,158,255,0.25);
+    border: none; cursor: pointer;
+  }
+  .btn-lms:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(74,158,255,0.4); }
+  .btn-lms .snake { font-size: 1.3rem; }
+
+  /* ── PROJECTS ── */
+  #projects { background: var(--surface); }
+  .proj-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .proj-card { padding: 28px; border-radius: 14px; }
+  .proj-num { font-family: var(--font-mono); font-size: 0.65rem; color: var(--dim); margin-bottom: 16px; letter-spacing: 0.1em; }
+  .proj-name { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; color: var(--text); margin-bottom: 8px; }
+  .proj-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.65; margin-bottom: 16px; }
+  .proj-stack { display: flex; flex-wrap: wrap; gap: 6px; }
+
+  /* ── AWARDS ── */
+  #awards { background: var(--bg); }
+  .awards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .award-card { padding: 28px; border-radius: 14px; text-align: center; }
+  .award-emoji { font-size: 2.5rem; margin-bottom: 16px; display: block; }
+  .award-title { font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; color: var(--text); margin-bottom: 6px; }
+  .award-org { font-size: 0.78rem; color: var(--muted); margin-bottom: 4px; }
+  .award-year { font-family: var(--font-mono); font-size: 0.68rem; color: var(--gold); letter-spacing: 0.08em; }
+
+  /* ── CONTACT ── */
+  #contact { background: linear-gradient(180deg, var(--surface2) 0%, var(--bg) 100%); }
+  .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .contact-info h2 { font-family: var(--font-display); font-size: 2.8rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 20px; }
+  .contact-info p { color: var(--muted); line-height: 1.7; margin-bottom: 40px; }
+  .contact-links { display: flex; flex-direction: column; gap: 16px; }
+  .contact-link {
+    display: flex; align-items: center; gap: 16px; padding: 20px 24px;
+    border-radius: 12px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); transition: all 0.2s;
+    background: rgba(13,21,38,0.4);
+  }
+  .contact-link:hover { border-color: var(--blue); background: rgba(74,158,255,0.06); transform: translateX(4px); }
+  .contact-link-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .contact-link h4 { font-weight: 600; font-size: 0.88rem; margin-bottom: 2px; }
+  .contact-link p { font-size: 0.78rem; color: var(--muted); margin: 0; }
+
+  .tally-wrap {
+    border-radius: 16px; overflow: hidden; border: 1px solid var(--border);
+    background: rgba(13,21,38,0.6); backdrop-filter: blur(12px);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 32px 2rem; border-top: 1px solid var(--border2);
+    background: var(--bg);
+  }
+  .footer-inner {
+    max-width: 1280px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: gap;
+  }
+  .footer-text { font-size: 0.78rem; color: var(--dim); }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { font-size: 0.78rem; color: var(--dim); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--blue); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    .consult-grid, .proj-grid, .awards-grid { grid-template-columns: 1fr 1fr; }
+    .tech-layout, .bot-layout, .contact-layout { grid-template-columns: 1fr; }
+    .tech-layout { gap: 40px; }
+  }
+  @media (max-width: 768px) {
+    .nav-links, .nav-cta { display: none; }
+    .consult-grid, .proj-grid, .awards-grid { grid-template-columns: 1fr; }
+    .stats-bar { flex-direction: column; }
+    .stat { border-right: none; border-bottom: 1px solid var(--border); }
+    .stat:last-child { border-bottom: none; }
+    .lms-banner { padding: 32px 28px; }
+    .contact-layout { grid-template-columns: 1fr; gap: 40px; }
+    section { padding: 72px 1.25rem; }
+  }
+
+  /* Scroll reveal */
+  .reveal { opacity: 0; transform: translateY(32px); transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+</style>
 </head>
-<body class="antialiased selection:bg-blue-500/30 selection:text-blue-200">
+<body>
 
-    <nav class="fixed w-full z-50 glass-panel border-b border-white/5">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded flex items-center justify-center font-bold text-white">A</div>
-                    <span class="text-xl font-bold tracking-tight">Abhishek<span class="text-slate-400">Singh</span></span>
-                </div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#consulting" class="text-sm font-medium hover:text-blue-400 transition-colors">Management Consulting</a>
-                    <a href="#technical" class="text-sm font-medium hover:text-blue-400 transition-colors">Technical Acumen</a>
-                    <a href="#experience" class="text-sm font-medium hover:text-blue-400 transition-colors">Experience</a>
-                    <a href="#contact" class="text-sm font-medium hover:text-purple-400 transition-colors"><i class="fas fa-envelope mr-1"></i> Contact</a>
-                </div>
-                <a href="#contact" class="hidden md:block px-5 py-2.5 bg-white text-slate-900 font-bold rounded text-sm hover:bg-blue-50 transition-all shadow-[0_0_15px_rgba(255,255,255,0.1)]">
-                    Hire for Impact
-                </a>
-            </div>
-        </div>
-    </nav>
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <div class="logo-mark">A</div>
+      Abhishek<span style="color:var(--muted);">Singh</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#consulting">Consulting</a></li>
+      <li><a href="#technical">Tech Stack</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">AI Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Hire for Impact</a>
+  </div>
+</nav>
 
-    <div class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
-        <div class="absolute inset-0 bg-grid grid-pattern opacity-20 pointer-events-none"></div>
-        <div class="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[100px]"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[100px]"></div>
-
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-yellow-500/20 bg-yellow-500/5 text-yellow-400 text-xs font-bold uppercase tracking-widest mb-8">
-                <span class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></span>
-                Strategic Vision &bull; Technical Execution
-            </div>
-            
-            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-8 leading-[1.1]">
-                The Consultant Who<br>
-                <span class="gradient-text">Can Read The Code.</span>
-            </h1>
-            
-            <p class="mt-4 max-w-3xl mx-auto text-xl text-slate-400 leading-relaxed">
-                I don't just advise on strategy; I architect the technical reality. 
-                Bridging the gap between <strong>Boardroom Strategy</strong> and <strong>IDE Execution</strong> for startups and enterprises.
-                Backed by <span class="text-white font-semibold">Big 4 Experience</span>, <span class="text-white font-semibold">Army Discipline</span>, and <span class="text-white font-semibold">Agentic AI</span>.
-            </p>
-
-            <div class="mt-12 flex flex-col sm:flex-row justify-center gap-5">
-                <a href="#consulting" class="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg transition-all shadow-lg hover:shadow-blue-500/25 flex items-center justify-center gap-2">
-                    <i class="fas fa-chess"></i> View Strategic Consulting
-                </a>
-                <a href="#technical" class="px-8 py-4 glass-panel hover:bg-white/5 text-white font-semibold rounded-lg transition-all border border-white/10 flex items-center justify-center gap-2">
-                    <i class="fas fa-code"></i> View Tech Stack
-                </a>
-            </div>
-        </div>
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg">
+    <div class="hero-grid"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <span class="eyebrow-dot"></span>
+      Indian Army · Big 4 · Agentic AI · Open for Consulting
     </div>
-
-    <div id="consulting" class="py-20 bg-slate-900/50 border-y border-white/5">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center gap-4 mb-12">
-                <div class="w-12 h-12 rounded-lg bg-blue-900/30 flex items-center justify-center border border-blue-500/30 text-blue-400 text-xl">
-                    <i class="fas fa-briefcase"></i>
-                </div>
-                <div>
-                    <h2 class="text-3xl font-bold text-white">Management Consulting Capabilities</h2>
-                    <p class="text-slate-400">Delivering predictability in high-stakes environments.</p>
-                </div>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="glass-panel p-8 rounded-xl hover:border-blue-500/30 transition-all group">
-                    <h3 class="text-xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors">Strategic Program Management</h3>
-                    <p class="text-slate-400 text-sm mb-6 leading-relaxed">
-                        Orchestrating complex digital transformations (Greenfield/Brownfield) across geographies. Specializing in recovering stalled programs and driving them to Go-Live.
-                    </p>
-                    <ul class="space-y-3">
-                        <li class="flex items-start text-sm text-slate-300"><i class="fas fa-check text-blue-500 mt-1 mr-3"></i> <span>SAP S/4HANA Implementation</span></li>
-                        <li class="flex items-start text-sm text-slate-300"><i class="fas fa-check text-blue-500 mt-1 mr-3"></i> <span>Agile Release Train (ART)</span></li>
-                        <li class="flex items-start text-sm text-slate-300"><i class="fas fa-check text-blue-500 mt-1 mr-3"></i> <span>Cross-functional Leadership</span></li>
-                    </ul>
-                </div>
-
-                <div class="glass-panel p-8 rounded-xl hover:border-blue-500/30 transition-all group">
-                    <h3 class="text-xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors">Financial Governance (FP&A)</h3>
-                    <p class="text-slate-400 text-sm mb-6 leading-relaxed">
-                        Ensuring ROI on every digital dollar. I manage large-scale budgets and implement rigorous financial controls to prevent scope creep and cash burn.
-                    </p>
-                    <ul class="space-y-3">
-                        <li class="flex items-start text-sm text-slate-300"><i class="fas fa-check text-blue-500 mt-1 mr-3"></i> <span>Budget Management (> INR 50 Cr)</span></li>
-                        <li class="flex items-start text-sm text-slate-300"><i class="fas fa-check text-blue-500 mt-1 mr-3"></i> <span>WIP/OPEX Tracking</span></li>
-                        <li class="flex items-start text-sm text-slate-300"><i class="fas fa-check text-blue-500 mt-1 mr-3"></i> <span>Profitability Analysis</span></li>
-                    </ul>
-                </div>
-
-                <div class="glass-panel p-8 rounded-xl hover:border-blue-500/30 transition-all group">
-                    <h3 class="text-xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors">GTM & Process Engineering</h3>
-                    <p class="text-slate-400 text-sm mb-6 leading-relaxed">
-                        Accelerating time-to-market using AI-driven research and structuring "Mission Command" style operational processes for startups and scale-ups.
-                    </p>
-                    <ul class="space-y-3">
-                        <li class="flex items-start text-sm text-slate-300"><i class="fas fa-check text-blue-500 mt-1 mr-3"></i> <span>AI-Driven GTM Execution</span></li>
-                        <li class="flex items-start text-sm text-slate-300"><i class="fas fa-check text-blue-500 mt-1 mr-3"></i> <span>Process Improvement & Lineage</span></li>
-                        <li class="flex items-start text-sm text-slate-300"><i class="fas fa-check text-blue-500 mt-1 mr-3"></i> <span>Stakeholder & Client Management</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+    <h1 class="hero-title">
+      The PM Who<br>
+      <span class="accent">Reads the Code.</span><br>
+      <span class="line2 gold-accent">Builds the Future.</span>
+    </h1>
+    <p class="hero-sub">
+      Senior Program Manager with <strong>7+ years at PwC, Deloitte & KPMG</strong>.
+      I don't just manage delivery — I architect <strong>AI-augmented governance systems</strong>,
+      deploy enterprise chatbots, and build agentic workflows that make teams 40–60% faster.
+      <br><br>
+      <strong>INR 50+ Cr programs. 22,000+ test cases. Zero critical data loss.</strong>
+    </p>
+    <div class="hero-actions">
+      <a href="#consulting" class="btn-primary"><i class="fas fa-chess"></i> Strategic Consulting</a>
+      <a href="#technical" class="btn-ghost"><i class="fas fa-code"></i> Tech Stack</a>
+      <a href="python_lms.html" class="btn-gold"><span>🐍</span> Python AI Learning Path</a>
     </div>
-
-    <div id="technical" class="py-20 relative overflow-hidden">
-        <div class="absolute right-0 top-20 w-1/3 h-full bg-blue-900/5 -skew-x-12 pointer-events-none"></div>
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="flex items-center gap-4 mb-12 justify-end text-right">
-                <div>
-                    <h2 class="text-3xl font-bold text-white">Technical Acumen</h2>
-                    <p class="text-slate-400">Hands-on engineering capabilities.</p>
-                </div>
-                <div class="w-12 h-12 rounded-lg bg-purple-900/30 flex items-center justify-center border border-purple-500/30 text-purple-400 text-xl">
-                    <i class="fas fa-microchip"></i>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                <div class="space-y-8">
-                    <div>
-                        <h3 class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">AI & Automation Engineering</h3>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="tech-badge px-3 py-1 rounded text-sm">LLMs & LangChain</span>
-                            <span class="tech-badge px-3 py-1 rounded text-sm">Multi-Agent Systems</span>
-                            <span class="tech-badge px-3 py-1 rounded text-sm">n8n & Zapier</span>
-                            <span class="tech-badge px-3 py-1 rounded text-sm">Google AI Studio</span>
-                            <span class="tech-badge px-3 py-1 rounded text-sm">Agentic RAG Systems</span>
-                            <span class="tech-badge px-3 py-1 rounded text-sm">GitHub Copilot</span>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h3 class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">SAP & ERP Architecture</h3>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="tech-badge px-3 py-1 rounded text-sm text-purple-400 border-purple-500/20 bg-purple-500/10">SAP S/4HANA (Modules: PP, MM, SD, FICO)</span>
-                            <span class="tech-badge px-3 py-1 rounded text-sm text-purple-400 border-purple-500/20 bg-purple-500/10">SAP Cloud ALM</span>
-                            <span class="tech-badge px-3 py-1 rounded text-sm text-purple-400 border-purple-500/20 bg-purple-500/10">SAP BTP & SAC</span>
-                            <span class="tech-badge px-3 py-1 rounded text-sm text-purple-400 border-purple-500/20 bg-purple-500/10">EWM & GRC</span>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h3 class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">Data, Analytics & DevOps</h3>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="tech-badge px-3 py-1 rounded text-sm text-emerald-400 border-emerald-500/20 bg-emerald-500/10">Azure DevOps</span>
-                            <span class="tech-badge px-3 py-1 rounded text-sm text-emerald-400 border-emerald-500/20 bg-emerald-500/10">Power BI & SQL</span>
-                            <span class="tech-badge px-3 py-1 rounded text-sm text-emerald-400 border-emerald-500/20 bg-emerald-500/10">Python Automations</span>
-                            <span class="tech-badge px-3 py-1 rounded text-sm text-emerald-400 border-emerald-500/20 bg-emerald-500/10">Postman (API)</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="space-y-6">
-                    <div class="glass-panel p-6 rounded-xl border-l-4 border-l-purple-500">
-                        <h4 class="text-lg font-bold text-white mb-2">Technical Project Governance</h4>
-                        <p class="text-slate-400 text-sm">
-                            I don't rely on manual updates. I build <strong>AI-driven project governance</strong> systems using predictive task tracking and automated risk scoring via Azure DevOps and SAP CALM.
-                        </p>
-                    </div>
-                    <div class="glass-panel p-6 rounded-xl border-l-4 border-l-blue-500">
-                        <h4 class="text-lg font-bold text-white mb-2">Automated QA & Testing</h4>
-                        <p class="text-slate-400 text-sm">
-                            Reduced SIT/UAT cycle times by deploying AI-based testing accelerators for test case generation, defect triaging, and script automation.
-                        </p>
-                    </div>
-                    <div class="glass-panel p-6 rounded-xl border-l-4 border-l-green-500">
-                        <h4 class="text-lg font-bold text-white mb-2">Data Migration at Scale</h4>
-                        <p class="text-slate-400 text-sm">
-                            Managed the migration of <strong>11 TB of data</strong> using structured configuration checks and AI-based validation for master data cleansing and deduplication.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="stats-bar">
+      <div class="stat">
+        <div class="stat-num">50<span>+Cr</span></div>
+        <div class="stat-label">Budget Managed</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">22<span>K+</span></div>
+        <div class="stat-label">Test Cases (SIT/UAT)</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">11<span>TB</span></div>
+        <div class="stat-label">Data Migrated</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">7<span>+yr</span></div>
+        <div class="stat-label">Big 4 Delivery</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">700<span>+</span></div>
+        <div class="stat-label">Custom Developments</div>
+      </div>
     </div>
+  </div>
+</div>
 
-    <div id="experience" class="py-20 bg-slate-900">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-center text-white mb-16">The Execution Track Record</h2>
-            
-            <div class="relative border-l border-slate-700 ml-4 md:ml-0 space-y-12">
-                <div class="ml-10 relative group">
-                    <span class="flex absolute -left-[45px] top-0 justify-center items-center w-8 h-8 bg-brand-gold rounded-full ring-8 ring-slate-900 group-hover:scale-110 transition-transform">
-                        <i class="fas fa-building text-slate-900 text-xs"></i>
-                    </span>
-                    <div class="glass-panel p-6 rounded-lg hover:bg-slate-800 transition-colors">
-                        <div class="flex flex-col md:flex-row justify-between md:items-center mb-2">
-                            <h3 class="text-xl font-bold text-white">Senior Consultant</h3>
-                            <span class="text-brand-gold text-sm font-mono">PwC India (2025-Present)</span>
-                        </div>
-                        <p class="text-sm text-slate-400 mb-4 font-semibold">Client: Global Pharmaceutical Enterprise</p>
-                        <ul class="list-disc list-inside text-slate-400 text-sm space-y-2">
-                            <li>Leading <strong>INR 50+ Cr</strong> Greenfield S/4HANA program.</li>
-                            <li>Utilizing GenAI for blueprint drafting and BRD documentation, improving efficiency by <strong>40-60%</strong>.</li>
-                            <li>Managing modules: PP, MM, QM, SD, EWM, FICO, GRC in a GxP regulated environment.</li>
-                        </ul>
-                    </div>
-                </div>
+<!-- CERT STRIP -->
+<div class="cert-strip">
+  <div class="cert-track">
+    <div class="cert-item"><i class="fas fa-certificate"></i> ICP-ACC Agile Coach</div>
+    <div class="cert-item"><i class="fas fa-award"></i> ITIL v4 Foundation</div>
+    <div class="cert-item"><i class="fas fa-star"></i> Certified Scrum Master®</div>
+    <div class="cert-item"><i class="fas fa-bolt"></i> SAFe® 6 Agilist</div>
+    <div class="cert-item"><i class="fas fa-robot"></i> AI Generalist</div>
+    <div class="cert-item"><i class="fas fa-brain"></i> Generative AI Fundamentals</div>
+    <div class="cert-item"><i class="fas fa-shield-alt"></i> Indian Army — OTA Gaya</div>
+    <div class="cert-item"><i class="fas fa-graduation-cap"></i> B.Com (Hons.) Financial Markets</div>
+    <div class="cert-item"><i class="fas fa-code-branch"></i> GitHub Copilot Practitioner</div>
+    <!-- duplicate for infinite loop -->
+    <div class="cert-item"><i class="fas fa-certificate"></i> ICP-ACC Agile Coach</div>
+    <div class="cert-item"><i class="fas fa-award"></i> ITIL v4 Foundation</div>
+    <div class="cert-item"><i class="fas fa-star"></i> Certified Scrum Master®</div>
+    <div class="cert-item"><i class="fas fa-bolt"></i> SAFe® 6 Agilist</div>
+    <div class="cert-item"><i class="fas fa-robot"></i> AI Generalist</div>
+    <div class="cert-item"><i class="fas fa-brain"></i> Generative AI Fundamentals</div>
+    <div class="cert-item"><i class="fas fa-shield-alt"></i> Indian Army — OTA Gaya</div>
+    <div class="cert-item"><i class="fas fa-graduation-cap"></i> B.Com (Hons.) Financial Markets</div>
+    <div class="cert-item"><i class="fas fa-code-branch"></i> GitHub Copilot Practitioner</div>
+  </div>
+</div>
 
-                <div class="ml-10 relative group">
-                    <span class="flex absolute -left-[45px] top-0 justify-center items-center w-8 h-8 bg-slate-700 rounded-full ring-8 ring-slate-900 group-hover:bg-blue-600 transition-colors">
-                        <i class="fas fa-chart-line text-white text-xs"></i>
-                    </span>
-                    <div class="glass-panel p-6 rounded-lg hover:bg-slate-800 transition-colors">
-                        <div class="flex flex-col md:flex-row justify-between md:items-center mb-2">
-                            <h3 class="text-xl font-bold text-white">Consultant (TPM & BA)</h3>
-                            <span class="text-slate-500 text-sm font-mono">Deloitte South Asia (2023-2025)</span>
-                        </div>
-                        <p class="text-sm text-slate-400 mb-4 font-semibold">Client: Retail Conglomerate (India & UAE)</p>
-                        <ul class="list-disc list-inside text-slate-400 text-sm space-y-2">
-                            <li>Orchestrated full lifecycle (Blueprint to Hypercare) for <strong>500+ impacted resources</strong>.</li>
-                            <li>Managed budgets > INR 50 Cr and SIT cycles with <strong>22,000+ test cases</strong>.</li>
-                            <li>Awarded "Live the Dot" twice for delivery excellence.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="ml-10 relative group">
-                    <span class="flex absolute -left-[45px] top-0 justify-center items-center w-8 h-8 bg-slate-700 rounded-full ring-8 ring-slate-900 group-hover:bg-blue-600 transition-colors">
-                        <i class="fas fa-university text-white text-xs"></i>
-                    </span>
-                    <div class="glass-panel p-6 rounded-lg hover:bg-slate-800 transition-colors">
-                        <div class="flex flex-col md:flex-row justify-between md:items-center mb-2">
-                            <h3 class="text-xl font-bold text-white">Associate Consultant</h3>
-                            <span class="text-slate-500 text-sm font-mono">KPMG Global Services (2022-2023)</span>
-                        </div>
-                        <p class="text-sm text-slate-400 mb-4 font-semibold">Clients: UK Asset Management & US Intl. Bank</p>
-                        <ul class="list-disc list-inside text-slate-400 text-sm space-y-2">
-                            <li>Delivered RegTech initiatives (MiFID II, Data Forensics) valued > <strong>$5M</strong>.</li>
-                            <li>Practiced rigorous PMO governance using RAID logs and RACI matrices.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="ml-10 relative group">
-                    <span class="flex absolute -left-[45px] top-0 justify-center items-center w-8 h-8 bg-green-700 rounded-full ring-8 ring-slate-900 group-hover:scale-110 transition-transform">
-                        <i class="fas fa-shield-alt text-white text-xs"></i>
-                    </span>
-                    <div class="glass-panel p-6 rounded-lg border-l-4 border-l-green-600 hover:bg-slate-800 transition-colors">
-                        <div class="flex flex-col md:flex-row justify-between md:items-center mb-2">
-                            <h3 class="text-xl font-bold text-white">Officer Cadet (Permanent Commission)</h3>
-                            <span class="text-slate-500 text-sm font-mono">Indian Army (2017-2019)</span>
-                        </div>
-                        <p class="text-slate-400 text-sm leading-relaxed">
-                            Specialized in technical operations and resource management. This experience built the foundation of my leadership style: <strong>Mission Command, Operational Readiness, and High-Stakes Decision Making</strong>.
-                        </p>
-                    </div>
-                </div>
-            </div>
+<!-- CONSULTING -->
+<section id="consulting">
+  <div class="section-inner">
+    <div class="section-label">Management Consulting</div>
+    <h2 class="section-title">Boardroom Strategy.<br>Engineering Reality.</h2>
+    <p class="section-sub">Delivering predictability in high-stakes environments — from Greenfield SAP programs to AI-augmented PMO governance.</p>
+    <div class="consult-grid">
+      <div class="glass consult-card reveal">
+        <div class="card-icon icon-blue"><i class="fas fa-chess-king"></i></div>
+        <div class="card-title">Strategic Program Management</div>
+        <div class="card-body">Orchestrating complex SAP S/4HANA Greenfield & Brownfield implementations across geographies. Specializing in recovering stalled programs and driving them to Go-Live on budget.</div>
+        <div class="card-tags">
+          <span class="tag tag-blue">SAP S/4HANA</span>
+          <span class="tag tag-blue">Agile Release Train</span>
+          <span class="tag tag-blue">Cross-functional</span>
+          <span class="tag tag-blue">Cutover Management</span>
         </div>
-    </div>
-
-    <div id="contact" class="py-24 relative overflow-hidden bg-slate-950">
-        <div class="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent pointer-events-none"></div>
-        <div class="relative max-w-4xl mx-auto text-center px-4">
-            <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">Ready to Scale?</h2>
-            <p class="text-xl text-slate-400 mb-10 max-w-2xl mx-auto">
-                I am available for Management Consulting engagements (Startups & Enterprises) requiring high-impact leadership and technical precision.
-            </p>
-            
-            <div class="flex flex-col sm:flex-row justify-center gap-6">
-                <a href="mailto:abhishektes3188@gmail.com" class="group flex items-center justify-center px-8 py-4 bg-white text-slate-900 font-bold rounded-lg hover:bg-slate-200 transition-all shadow-xl">
-                    <i class="fas fa-envelope mr-3 text-blue-600 group-hover:scale-110 transition-transform"></i> abhishektes3188@gmail.com
-                </a>
-                <a href="https://linkedin.com/in/abhishek-singh-9452a9180/" target="_blank" class="group flex items-center justify-center px-8 py-4 bg-[#0077b5] text-white font-bold rounded-lg hover:bg-[#006097] transition-all shadow-xl">
-                    <i class="fab fa-linkedin mr-3 text-white group-hover:scale-110 transition-transform"></i> LinkedIn Profile
-                </a>
-            </div>
-            <p class="text-xl text-slate-400 mb-10 max-w-2xl mx-auto">
-            </p>
-            <div class="max-w-3xl mx-auto rounded-2xl shadow-xl overflow-hidden border border-white/10 bg-slate-900/50 backdrop-blur-md">
-              <iframe 
-                src="https://tally.so/embed/mZqJ7z?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" 
-                width="100%" 
-                height="500" 
-                frameborder="0" 
-                marginheight="0" 
-                marginwidth="0" 
-                title="Upd8ai Contact Form"
-                class="w-full"
-                allowfullscreen>
-              </iframe>
-            </div>
-            <div class="mt-16 border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-slate-500 text-sm">
-                <p>&copy; 2025 Abhishek Singh. All Rights Reserved.</p>
-                <div class="flex gap-4 mt-4 md:mt-0">
-                    <span><i class="fas fa-map-marker-alt mr-2"></i>Bangalore, India</span>
-                    <span><i class="fas fa-globe mr-2"></i>Global Remote Capable</span>
-                </div>
-                  <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
-  
-                  <script type="module">
-                	  import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
-                	  createChat({		webhookUrl: 'https://n8n.srv980852.hstgr.cloud/webhook/465bc199-cacc-4a3c-a91f-fc348ca5ce4e/chat'	});
-                  </script>
-                </div>
+      </div>
+      <div class="glass consult-card reveal reveal-delay-1">
+        <div class="card-icon icon-gold"><i class="fas fa-chart-bar"></i></div>
+        <div class="card-title">Financial Governance & FP&A</div>
+        <div class="card-body">Managing INR 50+ Cr budgets with rigorous WIP/OPEX tracking, profitability analysis, and financial controls that prevent scope creep and protect ROI on every digital dollar.</div>
+        <div class="card-tags">
+          <span class="tag tag-gold">Budget >INR 50 Cr</span>
+          <span class="tag tag-gold">WIP/OPEX Tracking</span>
+          <span class="tag tag-gold">BPC Forecasting</span>
         </div>
+      </div>
+      <div class="glass consult-card reveal reveal-delay-2">
+        <div class="card-icon icon-cyan"><i class="fas fa-rocket"></i></div>
+        <div class="card-title">AI-Driven GTM & Process Engineering</div>
+        <div class="card-body">Accelerating time-to-market using AI research, competitive analysis, and customer segmentation. Structuring Mission Command style operational processes for startups and scale-ups.</div>
+        <div class="card-tags">
+          <span class="tag tag-cyan">AI GTM Execution</span>
+          <span class="tag tag-cyan">Process Lineage</span>
+          <span class="tag tag-cyan">Data Governance</span>
+        </div>
+      </div>
+      <div class="glass consult-card reveal">
+        <div class="card-icon icon-purple"><i class="fas fa-balance-scale"></i></div>
+        <div class="card-title">Regulatory Compliance (BFSI)</div>
+        <div class="card-body">Deep expertise in MiFID II, EMIR, and SFTR regulatory reporting. Translating complex regulations into actionable business processes, BRDs, and audit-ready documentation for global clients.</div>
+        <div class="card-tags">
+          <span class="tag tag-purple">MiFID II</span>
+          <span class="tag tag-purple">EMIR / SFTR</span>
+          <span class="tag tag-purple">NFRR</span>
+          <span class="tag tag-purple">RegTech</span>
+        </div>
+      </div>
+      <div class="glass consult-card reveal reveal-delay-1">
+        <div class="card-icon icon-blue"><i class="fas fa-vial"></i></div>
+        <div class="card-title">FS, TS & Testing Governance (AI)</div>
+        <div class="card-body">Enabled & managed FS, TS, Transport Management, and Testing Documentation using AI-proprietary tools — automating test script creation, transport tracking, and SIT/UAT lifecycle governance at scale.</div>
+        <div class="card-tags">
+          <span class="tag tag-blue">Functional Spec (FS)</span>
+          <span class="tag tag-blue">Technical Spec (TS)</span>
+          <span class="tag tag-blue">Transport Mgmt</span>
+          <span class="tag tag-blue">22,000+ Test Cases</span>
+        </div>
+      </div>
+      <div class="glass consult-card reveal reveal-delay-2">
+        <div class="card-icon icon-gold"><i class="fas fa-sitemap"></i></div>
+        <div class="card-title">PMO Setup & Stakeholder Governance</div>
+        <div class="card-body">Building enterprise PMO frameworks with RAID logs, RACI matrices, project charters, and executive dashboards (Power BI/SQL) that deliver audit-readiness and senior leadership confidence.</div>
+        <div class="card-tags">
+          <span class="tag tag-gold">RAID Log / RACI</span>
+          <span class="tag tag-gold">Power BI</span>
+          <span class="tag tag-gold">WSR / Steer Co</span>
+        </div>
+      </div>
     </div>
+  </div>
+</section>
+
+<!-- TECHNICAL -->
+<section id="technical">
+  <div class="section-inner">
+    <div class="section-label">Technical Acumen</div>
+    <h2 class="section-title">Hands-On Engineering.<br>Not Just Oversight.</h2>
+    <p class="section-sub">I build the tools I govern — from AI automation pipelines to GitHub-powered QA systems.</p>
+    <div class="tech-layout">
+      <div>
+        <div class="tech-group">
+          <div class="tech-group-label">AI & Agentic Systems</div>
+          <div class="tech-chips">
+            <span class="chip chip-blue">LLMs (OpenAI · Gemini · Claude)</span>
+            <span class="chip chip-blue">LangChain</span>
+            <span class="chip chip-blue">Multi-Agent MCP</span>
+            <span class="chip chip-blue">Agentic RAG</span>
+            <span class="chip chip-blue">n8n</span>
+            <span class="chip chip-blue">Zapier</span>
+            <span class="chip chip-blue">Google AI Studio</span>
+            <span class="chip chip-blue">Prompt Engineering</span>
+          </div>
+        </div>
+        <div class="tech-group">
+          <div class="tech-group-label">GitHub & DevOps</div>
+          <div class="tech-chips">
+            <span class="chip chip-green">GitHub Copilot</span>
+            <span class="chip chip-green">GitHub Actions</span>
+            <span class="chip chip-green">CodeRabbit</span>
+            <span class="chip chip-green">Azure DevOps</span>
+            <span class="chip chip-green">CI/CD Pipelines</span>
+            <span class="chip chip-green">Pull Request QA</span>
+          </div>
+        </div>
+        <div class="tech-group">
+          <div class="tech-group-label">SAP Architecture</div>
+          <div class="tech-chips">
+            <span class="chip chip-purple">SAP S/4HANA</span>
+            <span class="chip chip-purple">PP · MM · SD · FICO</span>
+            <span class="chip chip-purple">QM · EWM · GRC</span>
+            <span class="chip chip-purple">SAP Cloud ALM</span>
+            <span class="chip chip-purple">BTP · SAC · DWC</span>
+            <span class="chip chip-purple">BPC · FS · TS</span>
+          </div>
+        </div>
+        <div class="tech-group">
+          <div class="tech-group-label">Data, Analytics & Automation</div>
+          <div class="tech-chips">
+            <span class="chip chip-cyan">Power BI</span>
+            <span class="chip chip-cyan">SQL</span>
+            <span class="chip chip-cyan">Python</span>
+            <span class="chip chip-cyan">Postman (API)</span>
+            <span class="chip chip-cyan">Anaplan</span>
+            <span class="chip chip-cyan">Alteryx</span>
+          </div>
+        </div>
+        <div class="tech-group">
+          <div class="tech-group-label">PM & Collaboration Tools</div>
+          <div class="tech-chips">
+            <span class="chip chip-gold">JIRA · Confluence</span>
+            <span class="chip chip-gold">Notion</span>
+            <span class="chip chip-gold">MS Project · Planview</span>
+            <span class="chip chip-gold">Slack</span>
+            <span class="chip chip-gold">Supabase</span>
+          </div>
+        </div>
+      </div>
+      <div class="tech-highlight">
+        <div class="hl-card hl-blue">
+          <h4><i class="fas fa-code-branch" style="color:var(--blue);margin-right:8px"></i>GitHub Copilot & CodeRabbit</h4>
+          <p>Applied for AI-assisted <strong>code review, test case generation, script refactoring</strong>, and clean technical documentation. CodeRabbit deployed for PR quality analysis and defect triaging across engineering teams.</p>
+        </div>
+        <div class="hl-card hl-purple">
+          <h4><i class="fas fa-brain" style="color:var(--purple);margin-right:8px"></i>AI-Driven Project Governance</h4>
+          <p>Built systems with <strong>predictive task tracking, automated risk scoring, milestone forecasting</strong>, and schedule variance analysis via Azure DevOps and SAP CALM — no manual status chasing.</p>
+        </div>
+        <div class="hl-card hl-cyan">
+          <h4><i class="fas fa-vials" style="color:var(--cyan);margin-right:8px"></i>AI Testing Accelerators</h4>
+          <p>Deployed AI-based test case generation, defect triaging, and impact analysis to manage <strong>22,000+ SIT/UAT cases</strong> — reducing cycle time significantly and improving defect leakage control.</p>
+        </div>
+        <div class="hl-card hl-gold">
+          <h4><i class="fas fa-database" style="color:var(--gold);margin-right:8px"></i>Data Migration at Scale</h4>
+          <p>Managed <strong>11 TB of structured data migration</strong> using AI-based validation for master data cleansing, deduplication, and cutover readiness — achieving zero critical data loss.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE TIMELINE -->
+<section id="experience">
+  <div class="section-inner">
+    <div class="section-label">Experience</div>
+    <h2 class="section-title">The Execution<br>Track Record.</h2>
+    <p class="section-sub">Every program. Every delivery. Every impact — documented.</p>
+
+    <div class="timeline">
+
+      <!-- PwC -->
+      <div class="tl-item reveal">
+        <span class="tl-dot tl-dot-gold"></span>
+        <div class="glass tl-card">
+          <div class="tl-header">
+            <div class="tl-title">Senior Consultant — SAP & Technical PM</div>
+            <span class="tl-period">Jun 2025 – Present</span>
+          </div>
+          <div class="tl-company" style="color:var(--gold)">PricewaterhouseCoopers India (PwC)</div>
+          <div class="tl-client">Client 1: Global Pharmaceutical MNC — Greenfield S/4HANA (INR 50+ Cr) &nbsp;|&nbsp; Client 2: Cement & Manufacturing Group — AMS, Enhancements & Upgrade</div>
+          <ul class="tl-points">
+            <li>Leading <strong>SAP S/4HANA Greenfield end-to-end</strong> for a Pharma MNC — Project Preparation → Fit/Gap → Blueprint → Realization → SIT/UAT → Cutover → Go-Live → Hypercare across PP, MM, QM, SD, EWM, FICO, GRC, BTP, SAC, DWC with GxP/CSV pharma compliance.</li>
+            <li>Enabled & managed <strong>FS, TS, Transport Management, and Testing Documentation</strong> using AI-proprietary tools developed with the internal AI team — automating test scripts, transport tracking, FS/TS authoring, and SIT/UAT governance; reduced manual documentation effort ~50%.</li>
+            <li><strong>Collaborating with PwC AI Team</strong> to deploy an enterprise AI Chatbot for business users — covering Ticket Handling, Intelligent Redirection, Issue Resolution, Escalation Management, Stakeholder Communication, and quick TAT optimization via LLM-backed conversational workflows; projected 40%+ helpdesk resolution time reduction.</li>
+            <li>Implemented <strong>AI-driven project governance</strong> — predictive task tracking, automated risk scoring, milestone forecasting via Azure DevOps & SAP CALM; GenAI for Blueprint drafting, BRD/FS/TS documentation, improving efficiency by <strong>40–60%</strong>.</li>
+            <li>Applied <strong>GitHub Copilot & CodeRabbit</strong> for AI-assisted code review, test case generation, script refactoring, and PR quality assurance — accelerating delivery quality and reducing review cycle time.</li>
+            <li>Managing AMS cycles for Cement MNC — CR delivery, system upgrades, periodic releases with AI-augmented root cause analysis ensuring business continuity.</li>
+          </ul>
+          <div class="impact-row">
+            <span class="impact-badge tag-gold">🏆 INR 50+ Cr Program</span>
+            <span class="impact-badge tag-blue">🤖 AI Chatbot Deployment</span>
+            <span class="impact-badge tag-cyan">40-60% Doc Efficiency</span>
+            <span class="impact-badge tag-green">GxP/CSV Compliant</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Deloitte -->
+      <div class="tl-item reveal">
+        <span class="tl-dot tl-dot-blue"></span>
+        <div class="glass tl-card">
+          <div class="tl-header">
+            <div class="tl-title">Consultant — Technical PM & Business Analyst</div>
+            <span class="tl-period">Oct 2023 – May 2025</span>
+          </div>
+          <div class="tl-company" style="color:var(--blue)">Deloitte South Asia Limited</div>
+          <div class="tl-client">Client: Large-Scale Retail Conglomerate — India & UAE &nbsp;|&nbsp; SAP S/4HANA Program (INR 50+ Cr · 5,000+ Resources · Multi-Geography)</div>
+          <ul class="tl-points">
+            <li>Led <strong>end-to-end SAP S/4HANA</strong> across PP, MM, SD, FICO, DM, GRC, SAC, LE, EWM, DWC, BPC, FS, TS — standardizing business processes across India & UAE and enabling a single source of truth for financial and operational data.</li>
+            <li>Enabled & managed <strong>FS, TS, Transport Management & Testing Documentation</strong> using AI-proprietary tools — automated test case management (22,000+ cases), transport tracking, FS/TS creation — significantly reducing defect leakage and testing cycle time.</li>
+            <li>Delivered <strong>S/4HANA data migration of 11 TB</strong> with 5,000+ impacted resources using structured configuration checks, WSR tracking, and AI-based risk mitigation — achieving zero critical data loss and clean cutover within committed timelines.</li>
+            <li>Delivered <strong>700+ custom developments</strong> in Design & Build phase; managed budgets >INR 50 Cr; executed full lifecycle Preparation → Hypercare. Recognized with <strong>Dot of Fame award (×2)</strong> for exceptional delivery performance.</li>
+            <li>Implemented <strong>BPC planning & forecasting, financial modelling, performance dashboards</strong> and automated reporting — giving finance leadership real-time visibility into WIP, OPEX, and profitability.</li>
+          </ul>
+          <div class="impact-row">
+            <span class="impact-badge tag-blue">⭐ Dot of Fame ×2</span>
+            <span class="impact-badge tag-gold">700+ Custom Dev</span>
+            <span class="impact-badge tag-cyan">11 TB — Zero Data Loss</span>
+            <span class="impact-badge tag-purple">22K+ Test Cases</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- KPMG -->
+      <div class="tl-item reveal">
+        <span class="tl-dot tl-dot-purple"></span>
+        <div class="glass tl-card">
+          <div class="tl-header">
+            <div class="tl-title">Associate Consultant — Technical PMO</div>
+            <span class="tl-period">Jul 2022 – Oct 2023</span>
+          </div>
+          <div class="tl-company" style="color:var(--purple)">KPMG Global Services Private Limited</div>
+          <div class="tl-client">Client 1: Asset Management & PE Firm (UK) · International Bank (USA) &nbsp;|&nbsp; Client 2: Healthcare Firm (AUS) — SAP DWC & FICO with Trade OMS & DMS Integration</div>
+          <ul class="tl-points">
+            <li>Managed <strong>MiFID II Trade Reporting, Data Forensics, and NFRR</strong> regulatory compliance — translating complex regulations into actionable business processes, enabling accurate regulatory submissions and reducing compliance risk exposure.</li>
+            <li>Delivered <strong>large-scale programs >$5M</strong> within timelines using RAID logs, RACI matrices, PMO frameworks — establishing governance standards that improved reporting accuracy and senior stakeholder confidence.</li>
+            <li>Supported <strong>SAP DWC & FICO</strong> with in-house Trade OMS and DMS integration for Australian Healthcare client — reducing reconciliation time and manual intervention across trading and operational systems.</li>
+          </ul>
+          <div class="impact-row">
+            <span class="impact-badge tag-purple">⭐ Rising Star 2022</span>
+            <span class="impact-badge tag-gold">$5M+ Delivered</span>
+            <span class="impact-badge tag-blue">MiFID II / EMIR</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Erznfield -->
+      <div class="tl-item reveal">
+        <span class="tl-dot tl-dot-cyan"></span>
+        <div class="glass tl-card">
+          <div class="tl-header">
+            <div class="tl-title">Business Consultant — PM & Business Analyst</div>
+            <span class="tl-period">Apr 2021 – Apr 2022</span>
+          </div>
+          <div class="tl-company" style="color:var(--cyan)">Erznfield Private Limited</div>
+          <div class="tl-client">In-house ERP Implementation — HR, Inventory, Cash Flow, Records Management</div>
+          <ul class="tl-points">
+            <li>Delivered full ERP implementation with ZOHO custom modules — retiring legacy manual processes, improving data accuracy, and reducing operational overhead across the organization.</li>
+            <li>Developed comprehensive change management strategy, UAT oversight, vendor coordination, and post-implementation support ensuring smooth end-user adoption.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Indian Army -->
+      <div class="tl-item reveal">
+        <span class="tl-dot tl-dot-green"></span>
+        <div class="glass tl-card" style="border-left: 3px solid #34d399;">
+          <div class="tl-header">
+            <div class="tl-title">Officer Cadet — Technology Transformation</div>
+            <span class="tl-period">Jan 2017 – May 2019</span>
+          </div>
+          <div class="tl-company" style="color:#34d399">Indian Army — OTA Gaya & Military College of EME, Secunderabad</div>
+          <ul class="tl-points">
+            <li>Specialized in technical operations, project management, and resource management within the Indian Army's technology transformation division — delivering initiatives within strict budget and operational constraints.</li>
+            <li>Built high-performing teams through structured communication, Mission Command leadership, and operational readiness — the foundation of every Big 4 delivery approach since.</li>
+            <li>Selected in merit at Service Selection Board (SSB): <strong>NDA (31 SSB) & Army TES (19 SSB)</strong>.</li>
+          </ul>
+          <div class="impact-row">
+            <span class="impact-badge tag-green">🎖️ SSB Merit — NDA & TES</span>
+            <span class="impact-badge tag-gold">Mission Command</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- AI CHATBOT / ENTERPRISE AI SECTION -->
+<section id="ai-bot">
+  <div class="section-inner">
+    <div class="section-label">Enterprise AI Deployment</div>
+    <h2 class="section-title">AI That Works.<br>Not Just Demos.</h2>
+    <p class="section-sub">Currently deploying production AI systems inside a global Pharma enterprise — real business impact, not proofs of concept.</p>
+    <div class="bot-layout">
+      <div>
+        <div class="bot-feature">
+          <div class="bot-icon icon-blue"><i class="fas fa-headset"></i></div>
+          <div>
+            <h4>Intelligent Ticket Handling</h4>
+            <p>AI Chatbot triages incoming support tickets, classifies urgency, and routes to the correct team — eliminating human bottlenecks in first-line IT support.</p>
+          </div>
+        </div>
+        <div class="bot-feature">
+          <div class="bot-icon icon-purple"><i class="fas fa-network-wired"></i></div>
+          <div>
+            <h4>Automated Redirection & Resolution</h4>
+            <p>LLM-backed workflows auto-resolve common SAP system issues, provide step-by-step guidance, and escalate to Tier-2 only when genuinely needed.</p>
+          </div>
+        </div>
+        <div class="bot-feature">
+          <div class="bot-icon icon-cyan"><i class="fas fa-escalator" style="font-family:inherit">⬆</i></div>
+          <div>
+            <h4>Escalation Management & Communication</h4>
+            <p>Automated escalation chains with proactive stakeholder communication — ensuring SLA compliance and reducing mean time to resolution by 40%+.</p>
+          </div>
+        </div>
+        <div class="bot-feature">
+          <div class="bot-icon icon-gold"><i class="fas fa-tachometer-alt"></i></div>
+          <div>
+            <h4>Quick TAT Optimization</h4>
+            <p>Conversational AI front-end reduces ticket-to-resolution time, freeing human agents for high-complexity issues while improving end-user satisfaction scores.</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="glass" style="padding:36px; border-radius:16px;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:28px;">
+            <div class="card-icon icon-blue" style="margin:0;width:40px;height:40px;"><i class="fas fa-robot"></i></div>
+            <div>
+              <div style="font-family:var(--font-display);font-weight:700;color:var(--text);font-size:1rem;">Enterprise AI Architecture</div>
+              <div style="font-size:0.75rem;color:var(--muted);font-family:var(--font-mono);">PwC Client Environment — Active Deployment</div>
+            </div>
+            <span class="impact-badge tag-green" style="margin-left:auto;white-space:nowrap;"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#34d399;margin-right:6px;animation:pulse 2s infinite;"></span>LIVE</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div style="padding:14px 18px;background:rgba(74,158,255,0.06);border:1px solid rgba(74,158,255,0.15);border-radius:10px;">
+              <div style="font-size:0.72rem;font-family:var(--font-mono);color:var(--blue);margin-bottom:4px;">STACK</div>
+              <div style="font-size:0.82rem;color:var(--text);">LLMs (OpenAI) · LangChain · n8n Workflows · MCP Agents · SAP Integration Layer</div>
+            </div>
+            <div style="padding:14px 18px;background:rgba(155,141,248,0.06);border:1px solid rgba(155,141,248,0.15);border-radius:10px;">
+              <div style="font-size:0.72rem;font-family:var(--font-mono);color:var(--purple);margin-bottom:4px;">USE CASES LIVE</div>
+              <div style="font-size:0.82rem;color:var(--text);">Ticket Triage · Auto-Resolution · Escalation Chains · Stakeholder Comms · TAT Reporting</div>
+            </div>
+            <div style="padding:14px 18px;background:rgba(77,217,224,0.06);border:1px solid rgba(77,217,224,0.15);border-radius:10px;">
+              <div style="font-size:0.72rem;font-family:var(--font-mono);color:var(--cyan);margin-bottom:4px;">PROJECTED IMPACT</div>
+              <div style="font-size:0.82rem;color:var(--text);">40%+ reduction in helpdesk resolution time · Tier-1 ticket deflection · 24/7 availability</div>
+            </div>
+            <div style="padding:14px 18px;background:rgba(240,180,41,0.06);border:1px solid rgba(240,180,41,0.15);border-radius:10px;">
+              <div style="font-size:0.72rem;font-family:var(--font-mono);color:var(--gold);margin-bottom:4px;">GOVERNANCE</div>
+              <div style="font-size:0.82rem;color:var(--text);">AI Explainability · Audit Logs · Ethical AI Framework · GxP-aware design</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PYTHON LMS BANNER -->
+<section style="padding:60px 2rem; background:var(--bg);">
+  <div class="section-inner">
+    <div class="lms-banner reveal">
+      <div class="lms-banner-text">
+        <h3>🐍 <span>Python AI</span> Learning Path</h3>
+        <p>A structured curriculum designed for consultants, PMs, and professionals who want to master Python, AI automation, and agentic systems — without a CS degree. Build real tools. Ship real automations.</p>
+        <div class="lms-tags">
+          <span class="chip chip-cyan">Python Fundamentals</span>
+          <span class="chip chip-blue">LLM Integration</span>
+          <span class="chip chip-purple">n8n & Automation</span>
+          <span class="chip chip-green">LangChain Agents</span>
+          <span class="chip chip-gold">Hands-On Projects</span>
+        </div>
+      </div>
+      <a href="python_lms.html" class="btn-lms">
+        <span class="snake">🐍</span> Start Learning
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- AI PROJECTS -->
+<section id="projects">
+  <div class="section-inner">
+    <div class="section-label">AI Project Portfolio</div>
+    <h2 class="section-title">Built. Not Just<br>Theorized.</h2>
+    <p class="section-sub">Real prototypes. Real automation. Hosted on GitHub.</p>
+    <div class="proj-grid">
+      <div class="glass proj-card reveal">
+        <div class="proj-num">01 / AutoBrief</div>
+        <div class="proj-name">AI Daily Assistant</div>
+        <div class="proj-desc">LLM-powered daily briefing assistant using n8n workflow automation to auto-generate summaries, action items, and decision logs from meeting notes and emails. Zero manual effort.</div>
+        <div class="proj-stack">
+          <span class="chip chip-blue">LLMs</span><span class="chip chip-blue">n8n</span><span class="chip chip-blue">Prompt Engineering</span><span class="chip chip-green">GitHub</span>
+        </div>
+      </div>
+      <div class="glass proj-card reveal reveal-delay-1">
+        <div class="proj-num">02 / Harvey AI</div>
+        <div class="proj-name">LegalTech RAG Prototype</div>
+        <div class="proj-desc">LegalTech AI prototype for document analysis and compliance flagging using Retrieval-Augmented Generation (RAG) architecture. Built on LangChain and OpenAI with custom document indexing.</div>
+        <div class="proj-stack">
+          <span class="chip chip-purple">RAG</span><span class="chip chip-purple">LangChain</span><span class="chip chip-purple">OpenAI</span><span class="chip chip-green">GitHub</span>
+        </div>
+      </div>
+      <div class="glass proj-card reveal reveal-delay-2">
+        <div class="proj-num">03 / AI PMO Toolkit</div>
+        <div class="proj-name">GitHub-Hosted PM Automation</div>
+        <div class="proj-desc">Reusable prompt libraries and n8n/Zapier automation templates for RAID log management, status report generation, risk scoring, and stakeholder communication — deployed across SAP delivery programs.</div>
+        <div class="proj-stack">
+          <span class="chip chip-gold">Prompt Library</span><span class="chip chip-gold">Zapier</span><span class="chip chip-gold">n8n</span><span class="chip chip-green">GitHub Actions</span>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:32px;text-align:center;">
+      <a href="https://github.com/abhishek-singh-pm" target="_blank" class="btn-ghost" style="display:inline-flex;width:auto;">
+        <i class="fab fa-github"></i> View All Projects on GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- AWARDS -->
+<section id="awards">
+  <div class="section-inner">
+    <div class="section-label">Recognition</div>
+    <h2 class="section-title">Recognized.<br>Rewarded. Repeated.</h2>
+    <div class="awards-grid">
+      <div class="glass award-card reveal">
+        <span class="award-emoji">⭐</span>
+        <div class="award-title">Dot of Fame (×2)</div>
+        <div class="award-org">Deloitte South Asia</div>
+        <div class="award-year">2024 · Exceptional Delivery</div>
+      </div>
+      <div class="glass award-card reveal reveal-delay-1">
+        <span class="award-emoji">🚀</span>
+        <div class="award-title">Rising Star</div>
+        <div class="award-org">KPMG Global Services</div>
+        <div class="award-year">2022 · Successful NFRR Adoption</div>
+      </div>
+      <div class="glass award-card reveal reveal-delay-2">
+        <span class="award-emoji">🎓</span>
+        <div class="award-title">Graduation Medallist</div>
+        <div class="award-org">Invertis University</div>
+        <div class="award-year">2021 · Top 5 Batch</div>
+      </div>
+      <div class="glass award-card reveal">
+        <span class="award-emoji">🎖️</span>
+        <div class="award-title">Designation Holder Cadet</div>
+        <div class="award-org">Officers Training Academy, Gaya</div>
+        <div class="award-year">2017 · Excellent Performer</div>
+      </div>
+      <div class="glass award-card reveal reveal-delay-1">
+        <span class="award-emoji">🏅</span>
+        <div class="award-title">SSB Merit — NDA & TES</div>
+        <div class="award-org">Services Selection Board</div>
+        <div class="award-year">2016 · NDA (31 SSB) & Army TES (19 SSB)</div>
+      </div>
+      <div class="glass award-card reveal reveal-delay-2">
+        <span class="award-emoji">📖</span>
+        <div class="award-title">Published Author</div>
+        <div class="award-org">Power Publisher</div>
+        <div class="award-year">2019 · 200+ Copies Sold</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="contact-layout">
+      <div class="contact-info">
+        <div class="section-label">Get in Touch</div>
+        <h2>Ready to<br><span style="background:linear-gradient(90deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Scale?</span></h2>
+        <p>Available for Management Consulting engagements — startups and enterprises requiring high-impact program leadership, AI automation architecture, and technical precision.</p>
+        <div class="contact-links">
+          <a href="mailto:abhishektes3188@gmail.com" class="contact-link">
+            <div class="contact-link-icon icon-blue"><i class="fas fa-envelope"></i></div>
+            <div>
+              <h4>Email</h4>
+              <p>abhishektes3188@gmail.com</p>
+            </div>
+          </a>
+          <a href="https://linkedin.com/in/abhishek-singh-9452a9180/" target="_blank" class="contact-link">
+            <div class="contact-link-icon" style="background:rgba(0,119,181,0.15);color:#0a66c2;border:1px solid rgba(0,119,181,0.2);"><i class="fab fa-linkedin"></i></div>
+            <div>
+              <h4>LinkedIn</h4>
+              <p>linkedin.com/in/abhishek-singh-9452a9180</p>
+            </div>
+          </a>
+          <a href="https://github.com/abhishek-singh-pm" target="_blank" class="contact-link">
+            <div class="contact-link-icon" style="background:rgba(255,255,255,0.06);color:#f0f6fc;border:1px solid rgba(255,255,255,0.1);"><i class="fab fa-github"></i></div>
+            <div>
+              <h4>GitHub</h4>
+              <p>github.com/abhishek-singh-pm</p>
+            </div>
+          </a>
+          <a href="python_lms.html" class="contact-link" style="border-color:rgba(77,217,224,0.2);">
+            <div class="contact-link-icon icon-cyan"><span style="font-size:1.1rem;">🐍</span></div>
+            <div>
+              <h4>Python AI Learning Path</h4>
+              <p>Structured curriculum for AI-powered consulting</p>
+            </div>
+          </a>
+        </div>
+        <div style="margin-top:24px;padding:16px 20px;background:rgba(255,255,255,0.02);border:1px solid var(--border2);border-radius:10px;display:flex;gap:16px;flex-wrap:wrap;">
+          <span style="font-size:0.78rem;color:var(--muted);"><i class="fas fa-map-marker-alt" style="color:var(--blue);margin-right:6px;"></i>Bengaluru, India</span>
+          <span style="font-size:0.78rem;color:var(--muted);"><i class="fas fa-globe" style="color:var(--cyan);margin-right:6px;"></i>Global Remote Capable</span>
+          <span style="font-size:0.78rem;color:var(--muted);"><i class="fas fa-phone" style="color:var(--gold);margin-right:6px;"></i>+91-7620098235</span>
+        </div>
+      </div>
+      <div>
+        <div class="tally-wrap">
+          <iframe
+            src="https://tally.so/embed/mZqJ7z?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+            width="100%" height="520" frameborder="0"
+            marginheight="0" marginwidth="0"
+            title="Contact Form" class="w-full" allowfullscreen
+            style="display:block;">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <p class="footer-text">© 2025 Abhishek Singh · All Rights Reserved · Built with AI + Discipline</p>
+    <div class="footer-links">
+      <a href="#consulting">Consulting</a>
+      <a href="#technical">Tech Stack</a>
+      <a href="#experience">Experience</a>
+      <a href="python_lms.html">🐍 Python LMS</a>
+      <a href="https://github.com/abhishek-singh-pm" target="_blank">GitHub</a>
+    </div>
+  </div>
+</footer>
+
+<!-- N8N CHAT -->
+<script type="module">
+  import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+  createChat({ webhookUrl: 'https://n8n.srv980852.hstgr.cloud/webhook/465bc199-cacc-4a3c-a91f-fc348ca5ce4e/chat' });
+</script>
+
+<!-- SCROLL REVEAL -->
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+</script>
 
 </body>
 </html>
