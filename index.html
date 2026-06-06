@@ -1,1160 +1,1068 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Abhishek Singh | Senior PM · AI Architect · SAP S/4HANA</title>
+<title>Abhishek Singh — Cloud AI & Transformation PM</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #060912;
-    --surface: #0d1526;
-    --surface2: #111c32;
-    --border: rgba(99,179,237,0.12);
-    --border2: rgba(99,179,237,0.06);
-    --gold: #f0b429;
-    --gold2: #ffd97d;
-    --cyan: #4dd9e0;
-    --blue: #4a9eff;
-    --purple: #9b8df8;
-    --text: #e8edf5;
-    --muted: #7a8ba8;
-    --dim: #3d4f6a;
-    --font-display: 'Syne', sans-serif;
-    --font-body: 'Outfit', sans-serif;
-    --font-mono: 'DM Mono', monospace;
-  }
+:root {
+  --ink: #0a0d14;
+  --ink2: #1c2233;
+  --ink3: #2e3a50;
+  --paper: #f7f6f3;
+  --paper2: #edecea;
+  --paper3: #e2e0dc;
+  --line: rgba(10,13,20,0.1);
+  --line2: rgba(10,13,20,0.06);
+  --gold: #c9a227;
+  --gold2: #f0c653;
+  --teal: #0f7b6c;
+  --teal2: #14a896;
+  --sky: #2563eb;
+  --sky2: #60a5fa;
+  --ember: #c2410c;
+  --serif: 'Instrument Serif', Georgia, serif;
+  --sans: 'Geist', system-ui, sans-serif;
+  --mono: 'Geist Mono', monospace;
+}
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
 
-  html { scroll-behavior: smooth; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.55;
+  min-height: 100vh;
+}
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--font-body);
-    font-size: 16px;
-    line-height: 1.6;
-    overflow-x: hidden;
-  }
+/* ─── TOPBAR ─── */
+.topbar {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(247,246,243,0.92);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+  height: 60px;
+  display: flex; align-items: center;
+}
+.topbar-inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 24px;
+  display: flex; align-items: center; justify-content: space-between; width: 100%;
+}
+.topbar-brand {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--serif); font-size: 1.15rem;
+  color: var(--ink); text-decoration: none; font-style: italic;
+  letter-spacing: -0.01em;
+}
+.brand-mark {
+  width: 30px; height: 30px; border-radius: 6px;
+  background: var(--ink); color: var(--paper);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--sans); font-weight: 700; font-size: 0.78rem;
+  letter-spacing: 0.05em; font-style: normal;
+}
+.topbar-nav { display: flex; align-items: center; gap: 28px; }
+.topbar-nav a {
+  font-size: 0.78rem; font-weight: 500; color: var(--ink3);
+  text-decoration: none; letter-spacing: 0.04em; text-transform: uppercase;
+  transition: color 0.2s;
+}
+.topbar-nav a:hover { color: var(--ink); }
+.btn-hire {
+  padding: 8px 20px;
+  background: var(--ink); color: var(--paper);
+  font-size: 0.78rem; font-weight: 600;
+  border-radius: 100px; text-decoration: none;
+  letter-spacing: 0.03em; transition: all 0.2s;
+  border: 1.5px solid var(--ink);
+}
+.btn-hire:hover { background: transparent; color: var(--ink); }
 
-  /* ── NOISE OVERLAY ── */
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
-    opacity: 0.025;
-    pointer-events: none;
-    z-index: 9999;
-  }
+/* ─── HERO CARD ─── */
+.hero-wrapper {
+  max-width: 1200px; margin: 0 auto; padding: 40px 24px 0;
+}
+.hero-card {
+  background: var(--ink);
+  border-radius: 24px;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+}
+.hero-banner {
+  height: 180px;
+  background: linear-gradient(135deg, #0f1a2e 0%, #1e3a5f 35%, #0a4a3a 65%, #0f2a1a 100%);
+  position: relative; overflow: hidden;
+}
+.hero-banner::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.03) 39px, rgba(255,255,255,0.03) 40px),
+    repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(255,255,255,0.03) 59px, rgba(255,255,255,0.03) 60px);
+}
+.hero-banner-text {
+  position: absolute; bottom: 24px; left: 200px;
+  font-family: var(--serif); font-size: 0.88rem; font-style: italic;
+  color: rgba(247,246,243,0.5); letter-spacing: 0.02em;
+}
+.hero-banner-badge {
+  position: absolute; top: 20px; right: 20px;
+  display: flex; align-items: center; gap: 6px;
+  padding: 6px 14px; border-radius: 100px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  font-size: 0.68rem; font-weight: 600; color: rgba(247,246,243,0.7);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  font-family: var(--mono);
+}
+.live-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #22c55e;
+  animation: pulse-green 2s infinite;
+  box-shadow: 0 0 6px rgba(34,197,94,0.6);
+}
+@keyframes pulse-green { 0%,100%{opacity:1}50%{opacity:0.4} }
 
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: rgba(6,9,18,0.85);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border2);
-    height: 68px;
-    display: flex; align-items: center;
-  }
-  .nav-inner {
-    max-width: 1280px; margin: 0 auto; padding: 0 2rem;
-    display: flex; align-items: center; justify-content: space-between;
-    width: 100%;
-  }
-  .nav-logo {
-    display: flex; align-items: center; gap: 10px;
-    font-family: var(--font-display); font-weight: 800; font-size: 1.1rem;
-    letter-spacing: -0.02em; color: var(--text); text-decoration: none;
-  }
-  .logo-mark {
-    width: 34px; height: 34px;
-    background: linear-gradient(135deg, var(--blue), var(--purple));
-    border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.9rem; font-weight: 800; color: #fff;
-    box-shadow: 0 0 20px rgba(74,158,255,0.3);
-  }
-  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-  .nav-links a {
-    font-size: 0.8rem; font-weight: 500; color: var(--muted);
-    text-decoration: none; letter-spacing: 0.05em; text-transform: uppercase;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--text); }
-  .nav-cta {
-    padding: 8px 20px;
-    background: var(--gold);
-    color: #0a0a0a;
-    font-family: var(--font-display); font-weight: 700; font-size: 0.8rem;
-    border-radius: 6px; text-decoration: none; letter-spacing: 0.02em;
-    transition: all 0.2s;
-    box-shadow: 0 0 24px rgba(240,180,41,0.25);
-  }
-  .nav-cta:hover { background: var(--gold2); transform: translateY(-1px); box-shadow: 0 0 32px rgba(240,180,41,0.4); }
+.hero-body { padding: 0 32px 32px; position: relative; }
+.hero-avatar-row { display: flex; align-items: flex-end; justify-content: space-between; margin-top: -52px; margin-bottom: 20px; }
+.avatar-wrap {
+  width: 104px; height: 104px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--teal), var(--sky));
+  border: 4px solid var(--ink);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-size: 2.4rem; color: #fff; font-style: italic;
+  flex-shrink: 0;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+.hero-ctas { display: flex; gap: 10px; padding-bottom: 4px; }
+.btn-outline-light {
+  padding: 9px 20px;
+  border: 1.5px solid rgba(247,246,243,0.2);
+  color: rgba(247,246,243,0.8); font-size: 0.78rem; font-weight: 600;
+  border-radius: 100px; text-decoration: none; letter-spacing: 0.02em;
+  transition: all 0.2s; white-space: nowrap;
+  background: rgba(255,255,255,0.05);
+}
+.btn-outline-light:hover { border-color: rgba(247,246,243,0.5); color: var(--paper); }
+.btn-solid-teal {
+  padding: 9px 20px;
+  background: var(--teal2); color: #fff;
+  font-size: 0.78rem; font-weight: 700;
+  border-radius: 100px; text-decoration: none;
+  transition: all 0.2s; white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(20,168,150,0.3);
+  border: 1.5px solid var(--teal2);
+  letter-spacing: 0.02em;
+}
+.btn-solid-teal:hover { background: #10c4ae; box-shadow: 0 6px 24px rgba(20,168,150,0.45); }
 
-  /* ── HERO ── */
-  .hero {
-    min-height: 100vh;
-    display: flex; flex-direction: column; justify-content: center;
-    position: relative; overflow: hidden;
-    padding: 120px 2rem 80px;
-  }
-  .hero-bg {
-    position: absolute; inset: 0; pointer-events: none;
-  }
-  .orb {
-    position: absolute; border-radius: 50%;
-    filter: blur(80px); opacity: 0.5;
-    animation: float 8s ease-in-out infinite;
-  }
-  .orb-1 { width: 600px; height: 600px; background: radial-gradient(circle, rgba(74,158,255,0.15), transparent 70%); top: -10%; left: -10%; animation-delay: 0s; }
-  .orb-2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(155,141,248,0.12), transparent 70%); bottom: 0; right: 10%; animation-delay: -3s; }
-  .orb-3 { width: 300px; height: 300px; background: radial-gradient(circle, rgba(77,217,224,0.08), transparent 70%); top: 30%; left: 50%; animation-delay: -6s; }
-  @keyframes float { 0%,100% { transform: translateY(0px) scale(1); } 50% { transform: translateY(-30px) scale(1.05); } }
+.hero-name {
+  font-family: var(--serif); font-size: 2.4rem;
+  color: var(--paper); letter-spacing: -0.02em; line-height: 1.05;
+  margin-bottom: 4px;
+}
+.hero-title-line {
+  font-size: 0.88rem; font-weight: 500; color: rgba(247,246,243,0.55);
+  margin-bottom: 12px; letter-spacing: 0.01em;
+}
+.hero-title-line span { color: var(--gold2); }
+.hero-loc {
+  display: flex; align-items: center; gap: 14px;
+  font-size: 0.76rem; color: rgba(247,246,243,0.4);
+  font-family: var(--mono); letter-spacing: 0.04em;
+}
+.hero-loc span { display: flex; align-items: center; gap: 4px; }
 
-  /* Grid lines */
-  .hero-grid {
-    position: absolute; inset: 0;
-    background-image:
-      linear-gradient(to right, rgba(99,179,237,0.04) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(99,179,237,0.04) 1px, transparent 1px);
-    background-size: 60px 60px;
-  }
+/* ─── CONTENT AREA ─── */
+.content-wrapper {
+  max-width: 1200px; margin: 0 auto; padding: 28px 24px 60px;
+  display: grid; grid-template-columns: 1fr 360px; gap: 24px;
+  align-items: start;
+}
 
-  .hero-inner { max-width: 1280px; margin: 0 auto; position: relative; z-index: 2; }
+/* ─── LEFT COLUMN ─── */
+.left-col { display: flex; flex-direction: column; gap: 20px; }
 
-  .hero-eyebrow {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 6px 14px; border-radius: 100px;
-    border: 1px solid rgba(240,180,41,0.25);
-    background: rgba(240,180,41,0.06);
-    font-family: var(--font-mono); font-size: 0.7rem; color: var(--gold);
-    letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 28px;
-  }
-  .eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: pulse 2s infinite; }
-  @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }
+.card {
+  background: #fff; border: 1px solid var(--line);
+  border-radius: 16px; overflow: hidden;
+  transition: box-shadow 0.25s;
+}
+.card:hover { box-shadow: 0 8px 32px rgba(10,13,20,0.07); }
 
-  .hero-title {
-    font-family: var(--font-display);
-    font-size: clamp(3.2rem, 7vw, 6.5rem);
-    font-weight: 800;
-    line-height: 1.0;
-    letter-spacing: -0.03em;
-    color: var(--text);
-    margin-bottom: 28px;
-  }
-  .hero-title .line2 { display: block; }
-  .hero-title .accent {
-    background: linear-gradient(90deg, var(--cyan) 0%, var(--blue) 40%, var(--purple) 80%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .hero-title .gold-accent {
-    background: linear-gradient(90deg, var(--gold) 0%, var(--gold2) 100%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
+.card-header {
+  padding: 20px 24px 0;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.card-label {
+  font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--ink3);
+  font-family: var(--mono);
+  display: flex; align-items: center; gap: 6px;
+}
+.card-label::before { content:''; display:inline-block; width:8px; height:8px; border-radius:2px; background:var(--gold); }
+.card-body { padding: 16px 24px 24px; }
 
-  .hero-sub {
-    max-width: 640px; font-size: 1.1rem; color: var(--muted); line-height: 1.7;
-    margin-bottom: 40px; font-weight: 400;
-  }
-  .hero-sub strong { color: var(--text); font-weight: 500; }
+/* About */
+.about-lead {
+  font-family: var(--serif); font-size: 1.32rem; line-height: 1.45;
+  color: var(--ink); margin-bottom: 14px; font-style: italic;
+  letter-spacing: -0.01em;
+}
+.about-body { font-size: 0.86rem; color: var(--ink3); line-height: 1.7; }
+.about-body strong { color: var(--ink); font-weight: 600; }
 
-  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 64px; }
-  .btn-primary {
-    padding: 14px 32px; background: var(--blue);
-    color: #fff; font-family: var(--font-display); font-weight: 700; font-size: 0.9rem;
-    border-radius: 8px; text-decoration: none; letter-spacing: 0.02em;
-    transition: all 0.25s; display: flex; align-items: center; gap: 10px;
-    box-shadow: 0 8px 32px rgba(74,158,255,0.25);
-  }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(74,158,255,0.4); background: #5eabff; }
-  .btn-ghost {
-    padding: 14px 32px;
-    border: 1px solid var(--border);
-    color: var(--text); font-family: var(--font-display); font-weight: 600; font-size: 0.9rem;
-    border-radius: 8px; text-decoration: none; letter-spacing: 0.02em;
-    transition: all 0.25s; display: flex; align-items: center; gap: 10px;
-    background: rgba(255,255,255,0.02);
-  }
-  .btn-ghost:hover { border-color: var(--blue); background: rgba(74,158,255,0.06); transform: translateY(-2px); }
-  .btn-gold {
-    padding: 14px 32px; background: transparent;
-    border: 1.5px solid var(--gold);
-    color: var(--gold); font-family: var(--font-display); font-weight: 700; font-size: 0.9rem;
-    border-radius: 8px; text-decoration: none; letter-spacing: 0.02em;
-    transition: all 0.25s; display: flex; align-items: center; gap: 10px;
-  }
-  .btn-gold:hover { background: rgba(240,180,41,0.1); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(240,180,41,0.2); }
+/* Capabilities */
+.cap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.cap-item {
+  padding: 16px; border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  transition: all 0.2s;
+}
+.cap-item:hover { border-color: var(--teal2); background: rgba(20,168,150,0.04); }
+.cap-icon {
+  width: 36px; height: 36px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; margin-bottom: 10px;
+}
+.cap-name { font-size: 0.82rem; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+.cap-desc { font-size: 0.73rem; color: var(--ink3); line-height: 1.5; }
 
-  /* Stats bar */
-  .stats-bar {
-    display: flex; gap: 0; flex-wrap: wrap;
-    border: 1px solid var(--border);
-    border-radius: 12px; overflow: hidden;
-    background: rgba(13,21,38,0.6);
-    backdrop-filter: blur(12px);
-    max-width: 780px;
-  }
-  .stat {
-    flex: 1; min-width: 140px; padding: 20px 24px;
-    border-right: 1px solid var(--border);
-    transition: background 0.2s;
-  }
-  .stat:last-child { border-right: none; }
-  .stat:hover { background: rgba(74,158,255,0.04); }
-  .stat-num {
-    font-family: var(--font-display); font-size: 1.8rem; font-weight: 800;
-    color: var(--text); letter-spacing: -0.04em; line-height: 1;
-    margin-bottom: 4px;
-  }
-  .stat-num span { color: var(--gold); }
-  .stat-label { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.05em; text-transform: uppercase; font-weight: 500; }
+/* Experience timeline */
+.exp-list { display: flex; flex-direction: column; }
+.exp-item {
+  display: grid; grid-template-columns: 140px 1fr;
+  gap: 0; border-bottom: 1px solid var(--line2); padding: 20px 0;
+  position: relative;
+}
+.exp-item:last-child { border-bottom: none; }
+.exp-left { padding-right: 20px; }
+.exp-period { font-family: var(--mono); font-size: 0.68rem; color: var(--ink3); letter-spacing: 0.04em; margin-bottom: 4px; }
+.exp-comp { font-size: 0.75rem; font-weight: 700; }
+.exp-comp-pwc { color: #d4380d; }
+.exp-comp-hpe { color: #0171ad; }
+.exp-comp-del { color: #86bc25; }
+.exp-comp-kpmg { color: #00338d; }
+.exp-comp-army { color: #4a7c59; }
+.exp-lpa { font-family: var(--mono); font-size: 0.65rem; color: var(--teal); background: rgba(20,168,150,0.08); padding: 2px 7px; border-radius: 4px; display: inline-block; margin-top: 4px; }
+.exp-right {}
+.exp-role { font-size: 0.9rem; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+.exp-client { font-size: 0.74rem; color: var(--ink3); font-style: italic; margin-bottom: 8px; }
+.exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+.exp-bullets li { font-size: 0.78rem; color: var(--ink3); line-height: 1.55; display: flex; gap: 8px; }
+.exp-bullets li::before { content:'▸'; color: var(--teal2); flex-shrink:0; margin-top:1px; font-size:0.68rem; }
+.exp-bullets li strong { color: var(--ink); font-weight: 600; }
+.exp-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
 
-  /* ── CERT STRIP ── */
-  .cert-strip {
-    padding: 24px 2rem;
-    background: var(--surface2);
-    border-top: 1px solid var(--border2); border-bottom: 1px solid var(--border2);
-    overflow: hidden; position: relative;
-  }
-  .cert-track {
-    display: flex; gap: 24px;
-    animation: scroll 30s linear infinite;
-    width: max-content;
-  }
-  @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-  .cert-item {
-    display: flex; align-items: center; gap: 10px; white-space: nowrap;
-    padding: 8px 20px; border-radius: 100px;
-    border: 1px solid var(--border);
-    background: rgba(74,158,255,0.05);
-    font-size: 0.78rem; font-family: var(--font-mono); color: var(--cyan);
-    letter-spacing: 0.04em;
-  }
-  .cert-item i { font-size: 0.7rem; }
+/* Projects */
+.proj-list { display: flex; flex-direction: column; gap: 12px; }
+.proj-item {
+  padding: 16px 18px; border-radius: 10px;
+  border: 1px solid var(--line);
+  display: flex; gap: 14px; align-items: flex-start;
+  transition: all 0.2s; background: var(--paper);
+}
+.proj-item:hover { border-color: var(--sky); background: rgba(37,99,235,0.03); }
+.proj-num { font-family: var(--mono); font-size: 0.62rem; color: var(--ink3); letter-spacing: 0.08em; flex-shrink: 0; padding-top: 2px; }
+.proj-info {}
+.proj-name { font-size: 0.85rem; font-weight: 700; color: var(--ink); margin-bottom: 3px; }
+.proj-desc { font-size: 0.76rem; color: var(--ink3); line-height: 1.55; margin-bottom: 8px; }
+.proj-chips { display: flex; flex-wrap: wrap; gap: 5px; }
 
-  /* ── SECTIONS ── */
-  section { padding: 100px 2rem; }
-  .section-inner { max-width: 1280px; margin: 0 auto; }
-  .section-label {
-    font-family: var(--font-mono); font-size: 0.7rem;
-    color: var(--gold); letter-spacing: 0.15em; text-transform: uppercase;
-    margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
-  }
-  .section-label::before { content: '//'; opacity: 0.5; }
-  .section-title {
-    font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 800; letter-spacing: -0.03em; color: var(--text); line-height: 1.1;
-    margin-bottom: 16px;
-  }
-  .section-sub { color: var(--muted); font-size: 1.05rem; max-width: 560px; line-height: 1.7; margin-bottom: 60px; }
+/* ─── RIGHT COLUMN ─── */
+.right-col { display: flex; flex-direction: column; gap: 16px; }
 
-  /* ── CARDS ── */
-  .glass {
-    background: rgba(13,21,38,0.5);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    backdrop-filter: blur(8px);
-    transition: all 0.3s;
-  }
-  .glass:hover { border-color: rgba(74,158,255,0.25); background: rgba(13,21,38,0.7); transform: translateY(-4px); box-shadow: 0 24px 48px rgba(0,0,0,0.3); }
+/* Stats card */
+.stats-card {
+  background: var(--ink); border-radius: 16px; padding: 24px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.stats-label { font-family: var(--mono); font-size: 0.62rem; color: rgba(247,246,243,0.35); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; }
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.stat-item { padding: 14px; background: rgba(255,255,255,0.04); border-radius: 10px; border: 1px solid rgba(255,255,255,0.06); }
+.stat-val { font-family: var(--serif); font-size: 1.8rem; color: var(--paper); line-height: 1; margin-bottom: 3px; }
+.stat-val em { font-size: 1rem; color: var(--gold2); }
+.stat-lbl { font-size: 0.66rem; color: rgba(247,246,243,0.35); letter-spacing: 0.04em; text-transform: uppercase; font-family: var(--mono); }
 
-  /* ── CONSULTING GRID ── */
-  .consult-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-  .consult-card {
-    padding: 36px 32px;
-    position: relative; overflow: hidden;
-  }
-  .consult-card::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-    background: linear-gradient(90deg, transparent, var(--blue), transparent);
-    opacity: 0; transition: opacity 0.3s;
-  }
-  .consult-card:hover::before { opacity: 1; }
-  .card-icon {
-    width: 48px; height: 48px; border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.2rem; margin-bottom: 24px;
-  }
-  .icon-blue { background: rgba(74,158,255,0.12); color: var(--blue); border: 1px solid rgba(74,158,255,0.2); }
-  .icon-purple { background: rgba(155,141,248,0.12); color: var(--purple); border: 1px solid rgba(155,141,248,0.2); }
-  .icon-cyan { background: rgba(77,217,224,0.12); color: var(--cyan); border: 1px solid rgba(77,217,224,0.2); }
-  .icon-gold { background: rgba(240,180,41,0.12); color: var(--gold); border: 1px solid rgba(240,180,41,0.2); }
-  .card-title { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: 12px; }
-  .card-body { color: var(--muted); font-size: 0.88rem; line-height: 1.7; margin-bottom: 20px; }
-  .card-tags { display: flex; flex-wrap: wrap; gap: 8px; }
-  .tag {
-    padding: 4px 12px; border-radius: 100px; font-size: 0.72rem; font-weight: 500;
-    font-family: var(--font-mono);
-  }
-  .tag-blue { background: rgba(74,158,255,0.08); color: var(--blue); border: 1px solid rgba(74,158,255,0.15); }
-  .tag-purple { background: rgba(155,141,248,0.08); color: var(--purple); border: 1px solid rgba(155,141,248,0.15); }
-  .tag-cyan { background: rgba(77,217,224,0.08); color: var(--cyan); border: 1px solid rgba(77,217,224,0.15); }
-  .tag-gold { background: rgba(240,180,41,0.08); color: var(--gold); border: 1px solid rgba(240,180,41,0.15); }
-  .tag-green { background: rgba(52,211,153,0.08); color: #34d399; border: 1px solid rgba(52,211,153,0.15); }
+/* Skills */
+.skill-group { margin-bottom: 16px; }
+.skill-group:last-child { margin-bottom: 0; }
+.skill-group-name { font-size: 0.67rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink3); font-family: var(--mono); margin-bottom: 8px; }
+.chips-wrap { display: flex; flex-wrap: wrap; gap: 6px; }
 
-  /* ── TECH STACK ── */
-  #technical { background: var(--surface); }
-  .tech-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
-  .tech-group { margin-bottom: 36px; }
-  .tech-group-label {
-    font-family: var(--font-mono); font-size: 0.68rem; color: var(--dim);
-    letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 14px;
-    display: flex; align-items: center; gap: 8px;
-  }
-  .tech-group-label::after { content: ''; flex: 1; height: 1px; background: var(--border2); }
-  .tech-chips { display: flex; flex-wrap: wrap; gap: 8px; }
-  .chip {
-    padding: 6px 14px; border-radius: 6px; font-family: var(--font-mono);
-    font-size: 0.72rem; font-weight: 500; cursor: default; transition: all 0.2s;
-    white-space: nowrap;
-  }
-  .chip:hover { transform: translateY(-2px); }
-  .chip-blue { background: rgba(74,158,255,0.1); color: #6fb3ff; border: 1px solid rgba(74,158,255,0.2); }
-  .chip-purple { background: rgba(155,141,248,0.1); color: #b4a9f9; border: 1px solid rgba(155,141,248,0.2); }
-  .chip-cyan { background: rgba(77,217,224,0.1); color: #6ddfe5; border: 1px solid rgba(77,217,224,0.2); }
-  .chip-green { background: rgba(52,211,153,0.1); color: #5eddb6; border: 1px solid rgba(52,211,153,0.2); }
-  .chip-gold { background: rgba(240,180,41,0.1); color: var(--gold); border: 1px solid rgba(240,180,41,0.2); }
-  .chip-red { background: rgba(252,129,74,0.1); color: #fc9a74; border: 1px solid rgba(252,129,74,0.2); }
+/* Certifications */
+.cert-list { display: flex; flex-direction: column; gap: 8px; }
+.cert-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px; border-radius: 8px;
+  border: 1px solid var(--line); background: var(--paper);
+  font-size: 0.77rem;
+}
+.cert-icon { width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; flex-shrink: 0; }
+.cert-name { font-weight: 600; color: var(--ink); }
+.cert-issuer { font-size: 0.68rem; color: var(--ink3); }
 
-  /* Highlight cards on right */
-  .tech-highlight { display: flex; flex-direction: column; gap: 20px; }
-  .hl-card { padding: 24px 28px; border-radius: 14px; border-left: 3px solid; }
-  .hl-blue { border-left-color: var(--blue); background: linear-gradient(135deg, rgba(74,158,255,0.06), transparent); border: 1px solid rgba(74,158,255,0.12); border-left: 3px solid var(--blue); }
-  .hl-purple { border-left-color: var(--purple); background: linear-gradient(135deg, rgba(155,141,248,0.06), transparent); border: 1px solid rgba(155,141,248,0.12); border-left: 3px solid var(--purple); }
-  .hl-cyan { border-left-color: var(--cyan); background: linear-gradient(135deg, rgba(77,217,224,0.06), transparent); border: 1px solid rgba(77,217,224,0.12); border-left: 3px solid var(--cyan); }
-  .hl-gold { border-left-color: var(--gold); background: linear-gradient(135deg, rgba(240,180,41,0.06), transparent); border: 1px solid rgba(240,180,41,0.12); border-left: 3px solid var(--gold); }
-  .hl-card h4 { font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; color: var(--text); margin-bottom: 8px; }
-  .hl-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.65; }
-  .hl-card p strong { color: var(--text); }
+/* Availability */
+.avail-card { background: linear-gradient(135deg, rgba(15,123,108,0.08), rgba(37,99,235,0.05)); border: 1px solid rgba(15,123,108,0.2); border-radius: 16px; padding: 20px; }
+.avail-head { font-family: var(--serif); font-size: 1.1rem; font-style: italic; color: var(--ink); margin-bottom: 6px; }
+.avail-sub { font-size: 0.76rem; color: var(--ink3); margin-bottom: 14px; line-height: 1.5; }
+.avail-types { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.avail-type { display: flex; align-items: center; gap: 8px; font-size: 0.76rem; color: var(--ink3); }
+.avail-type::before { content:'✓'; color: var(--teal); font-weight: 700; font-size: 0.8rem; }
+.btn-contact {
+  width: 100%; padding: 12px;
+  background: var(--teal); color: #fff;
+  font-size: 0.8rem; font-weight: 700; letter-spacing: 0.03em;
+  border-radius: 10px; text-decoration: none; text-align: center;
+  display: block; transition: all 0.2s;
+  box-shadow: 0 4px 16px rgba(15,123,108,0.3);
+}
+.btn-contact:hover { background: var(--teal2); box-shadow: 0 6px 24px rgba(15,123,108,0.45); }
 
-  /* ── EXPERIENCE TIMELINE ── */
-  #experience { background: var(--bg); }
-  .timeline { position: relative; padding-left: 40px; }
-  .timeline::before {
-    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
-    width: 1px; background: linear-gradient(to bottom, transparent, var(--border), var(--border), transparent);
-  }
-  .tl-item { position: relative; margin-bottom: 56px; }
-  .tl-dot {
-    position: absolute; left: -46px; top: 6px;
-    width: 14px; height: 14px; border-radius: 50%;
-    border: 2px solid var(--bg);
-    box-shadow: 0 0 0 1px currentColor;
-    transition: all 0.3s;
-  }
-  .tl-dot-gold { background: var(--gold); color: var(--gold); box-shadow: 0 0 12px rgba(240,180,41,0.5), 0 0 0 1px var(--gold); }
-  .tl-dot-blue { background: var(--blue); color: var(--blue); box-shadow: 0 0 12px rgba(74,158,255,0.5), 0 0 0 1px var(--blue); }
-  .tl-dot-purple { background: var(--purple); color: var(--purple); box-shadow: 0 0 12px rgba(155,141,248,0.5), 0 0 0 1px var(--purple); }
-  .tl-dot-cyan { background: var(--cyan); color: var(--cyan); box-shadow: 0 0 12px rgba(77,217,224,0.5), 0 0 0 1px var(--cyan); }
-  .tl-dot-green { background: #34d399; color: #34d399; box-shadow: 0 0 12px rgba(52,211,153,0.5), 0 0 0 1px #34d399; }
+/* Roadmap / upskilling */
+.roadmap-list { display: flex; flex-direction: column; gap: 0; }
+.rm-item {
+  display: flex; gap: 12px; padding: 12px 0;
+  border-bottom: 1px solid var(--line2);
+}
+.rm-item:last-child { border-bottom: none; }
+.rm-timeline { font-family: var(--mono); font-size: 0.62rem; color: var(--ink3); white-space: nowrap; padding-top: 2px; min-width: 54px; }
+.rm-content {}
+.rm-title { font-size: 0.8rem; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+.rm-desc { font-size: 0.73rem; color: var(--ink3); line-height: 1.45; }
+.rm-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  flex-shrink: 0; margin-top: 5px;
+}
 
-  .tl-card { padding: 32px; border-radius: 16px; }
-  .tl-card:hover .tl-dot { transform: scale(1.3); }
-  .tl-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; margin-bottom: 6px; }
-  .tl-title { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; color: var(--text); }
-  .tl-period { font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); padding: 4px 10px; border-radius: 100px; border: 1px solid var(--border); white-space: nowrap; }
-  .tl-company { font-size: 0.85rem; font-weight: 600; margin-bottom: 4px; }
-  .tl-client { font-size: 0.78rem; color: var(--muted); margin-bottom: 20px; font-style: italic; }
-  .tl-points { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-  .tl-points li {
-    display: flex; align-items: flex-start; gap: 10px;
-    font-size: 0.85rem; color: #9ab0c8; line-height: 1.65;
-  }
-  .tl-points li::before { content: '▸'; color: var(--blue); margin-top: 2px; flex-shrink: 0; font-size: 0.7rem; }
-  .tl-points li strong { color: var(--text); font-weight: 500; }
+/* Reusable badges */
+.badge {
+  display: inline-flex; align-items: center;
+  padding: 3px 9px; border-radius: 100px;
+  font-size: 0.67rem; font-weight: 600; font-family: var(--mono);
+  white-space: nowrap;
+}
+.badge-teal { background: rgba(15,123,108,0.1); color: var(--teal); border: 1px solid rgba(15,123,108,0.2); }
+.badge-sky { background: rgba(37,99,235,0.08); color: var(--sky); border: 1px solid rgba(37,99,235,0.15); }
+.badge-gold { background: rgba(201,162,39,0.1); color: var(--gold); border: 1px solid rgba(201,162,39,0.2); }
+.badge-ember { background: rgba(194,65,12,0.08); color: var(--ember); border: 1px solid rgba(194,65,12,0.15); }
+.badge-ink { background: rgba(10,13,20,0.07); color: var(--ink3); border: 1px solid var(--line); }
 
-  /* Impact badges */
-  .impact-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
-  .impact-badge {
-    padding: 4px 12px; border-radius: 100px; font-size: 0.7rem; font-weight: 600;
-    font-family: var(--font-mono); display: flex; align-items: center; gap: 6px;
-  }
+.chip-sm {
+  padding: 4px 10px; border-radius: 6px; font-family: var(--mono);
+  font-size: 0.67rem; font-weight: 500;
+  background: var(--paper2); color: var(--ink3); border: 1px solid var(--line);
+  white-space: nowrap; display: inline-block;
+}
+.chip-teal { background: rgba(15,123,108,0.07); color: var(--teal); border-color: rgba(15,123,108,0.18); }
+.chip-sky { background: rgba(37,99,235,0.06); color: var(--sky); border-color: rgba(37,99,235,0.15); }
+.chip-gold { background: rgba(201,162,39,0.08); color: var(--gold); border-color: rgba(201,162,39,0.2); }
+.chip-ink { background: var(--paper2); color: var(--ink3); border-color: var(--line); }
 
-  /* ── AI CHATBOT SECTION ── */
-  #ai-bot { background: var(--surface2); }
-  .bot-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-  .bot-feature { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
-  .bot-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.9rem; }
-  .bot-feature h4 { font-family: var(--font-display); font-weight: 700; font-size: 0.9rem; color: var(--text); margin-bottom: 4px; }
-  .bot-feature p { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+/* Divider */
+.divider { border: none; border-top: 1px solid var(--line2); margin: 0; }
 
-  /* ── PYTHON LMS CTA ── */
-  .lms-banner {
-    background: linear-gradient(135deg, rgba(77,217,224,0.08) 0%, rgba(74,158,255,0.06) 50%, rgba(155,141,248,0.08) 100%);
-    border: 1px solid rgba(77,217,224,0.2);
-    border-radius: 20px; padding: 48px 48px;
-    display: flex; align-items: center; justify-content: space-between; gap: 32px;
-    flex-wrap: wrap;
-    position: relative; overflow: hidden;
-  }
-  .lms-banner::before {
-    content: ''; position: absolute; top: -60px; right: -60px;
-    width: 220px; height: 220px;
-    background: radial-gradient(circle, rgba(77,217,224,0.12), transparent 70%);
-    border-radius: 50%;
-  }
-  .lms-banner-text h3 {
-    font-family: var(--font-display); font-size: 1.8rem; font-weight: 800;
-    color: var(--text); letter-spacing: -0.03em; margin-bottom: 10px;
-  }
-  .lms-banner-text h3 span { color: var(--cyan); }
-  .lms-banner-text p { color: var(--muted); font-size: 0.9rem; max-width: 480px; line-height: 1.7; }
-  .lms-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
-  .btn-lms {
-    padding: 16px 36px;
-    background: linear-gradient(135deg, var(--cyan), var(--blue));
-    color: #fff; font-family: var(--font-display); font-weight: 800; font-size: 1rem;
-    border-radius: 10px; text-decoration: none; letter-spacing: 0.01em;
-    display: flex; align-items: center; gap: 12px; white-space: nowrap;
-    transition: all 0.25s; flex-shrink: 0;
-    box-shadow: 0 8px 32px rgba(74,158,255,0.25);
-    border: none; cursor: pointer;
-  }
-  .btn-lms:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(74,158,255,0.4); }
-  .btn-lms .snake { font-size: 1.3rem; }
+/* Awards row */
+.award-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.award-pill {
+  display: flex; align-items: center; gap: 6px;
+  padding: 7px 12px; border-radius: 8px;
+  background: var(--paper); border: 1px solid var(--line);
+  font-size: 0.74rem; transition: all 0.2s;
+}
+.award-pill:hover { border-color: var(--gold); background: rgba(201,162,39,0.04); }
+.award-emoji { font-size: 1rem; }
+.award-text {}
+.award-title { font-weight: 700; color: var(--ink); font-size: 0.74rem; }
+.award-sub { font-size: 0.64rem; color: var(--ink3); }
 
-  /* ── PROJECTS ── */
-  #projects { background: var(--surface); }
-  .proj-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-  .proj-card { padding: 28px; border-radius: 14px; }
-  .proj-num { font-family: var(--font-mono); font-size: 0.65rem; color: var(--dim); margin-bottom: 16px; letter-spacing: 0.1em; }
-  .proj-name { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; color: var(--text); margin-bottom: 8px; }
-  .proj-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.65; margin-bottom: 16px; }
-  .proj-stack { display: flex; flex-wrap: wrap; gap: 6px; }
+/* GitHub link */
+.github-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 18px; border-radius: 10px;
+  background: var(--ink); color: var(--paper);
+  text-decoration: none; transition: all 0.2s;
+  border: 1px solid transparent;
+}
+.github-bar:hover { background: #1a2333; }
+.github-bar-left { display: flex; align-items: center; gap: 10px; }
+.github-bar-icon { font-size: 1.1rem; }
+.github-bar-text { font-size: 0.8rem; font-weight: 600; }
+.github-bar-sub { font-size: 0.68rem; color: rgba(247,246,243,0.45); font-family: var(--mono); }
+.github-arrow { font-size: 0.9rem; color: rgba(247,246,243,0.4); }
 
-  /* ── AWARDS ── */
-  #awards { background: var(--bg); }
-  .awards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-  .award-card { padding: 28px; border-radius: 14px; text-align: center; }
-  .award-emoji { font-size: 2.5rem; margin-bottom: 16px; display: block; }
-  .award-title { font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; color: var(--text); margin-bottom: 6px; }
-  .award-org { font-size: 0.78rem; color: var(--muted); margin-bottom: 4px; }
-  .award-year { font-family: var(--font-mono); font-size: 0.68rem; color: var(--gold); letter-spacing: 0.08em; }
+/* Contact links */
+.contact-links-row { display: flex; flex-direction: column; gap: 6px; }
+.contact-link-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px; border-radius: 8px;
+  border: 1px solid var(--line); text-decoration: none; color: var(--ink);
+  font-size: 0.78rem; transition: all 0.2s; background: var(--paper);
+}
+.contact-link-item:hover { border-color: var(--sky); background: rgba(37,99,235,0.04); }
+.contact-link-icon { font-size: 0.9rem; width: 20px; text-align: center; }
+.contact-link-label { font-weight: 600; font-size: 0.76rem; }
+.contact-link-val { font-size: 0.68rem; color: var(--ink3); font-family: var(--mono); }
 
-  /* ── CONTACT ── */
-  #contact { background: linear-gradient(180deg, var(--surface2) 0%, var(--bg) 100%); }
-  .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
-  .contact-info h2 { font-family: var(--font-display); font-size: 2.8rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 20px; }
-  .contact-info p { color: var(--muted); line-height: 1.7; margin-bottom: 40px; }
-  .contact-links { display: flex; flex-direction: column; gap: 16px; }
-  .contact-link {
-    display: flex; align-items: center; gap: 16px; padding: 20px 24px;
-    border-radius: 12px; text-decoration: none; color: var(--text);
-    border: 1px solid var(--border); transition: all 0.2s;
-    background: rgba(13,21,38,0.4);
-  }
-  .contact-link:hover { border-color: var(--blue); background: rgba(74,158,255,0.06); transform: translateX(4px); }
-  .contact-link-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .contact-link h4 { font-weight: 600; font-size: 0.88rem; margin-bottom: 2px; }
-  .contact-link p { font-size: 0.78rem; color: var(--muted); margin: 0; }
+/* Responsive */
+@media (max-width: 960px) {
+  .content-wrapper { grid-template-columns: 1fr; }
+  .right-col { order: -1; }
+  .cap-grid { grid-template-columns: 1fr 1fr; }
+  .topbar-nav { display: none; }
+}
+@media (max-width: 640px) {
+  .hero-body { padding: 0 20px 24px; }
+  .hero-ctas { flex-wrap: wrap; }
+  .cap-grid { grid-template-columns: 1fr; }
+  .exp-item { grid-template-columns: 1fr; }
+  .exp-left { margin-bottom: 4px; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+}
 
-  .tally-wrap {
-    border-radius: 16px; overflow: hidden; border: 1px solid var(--border);
-    background: rgba(13,21,38,0.6); backdrop-filter: blur(12px);
-  }
-
-  /* ── FOOTER ── */
-  footer {
-    padding: 32px 2rem; border-top: 1px solid var(--border2);
-    background: var(--bg);
-  }
-  .footer-inner {
-    max-width: 1280px; margin: 0 auto;
-    display: flex; justify-content: space-between; align-items: center; flex-wrap: gap;
-  }
-  .footer-text { font-size: 0.78rem; color: var(--dim); }
-  .footer-links { display: flex; gap: 24px; }
-  .footer-links a { font-size: 0.78rem; color: var(--dim); text-decoration: none; transition: color 0.2s; }
-  .footer-links a:hover { color: var(--blue); }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 1024px) {
-    .consult-grid, .proj-grid, .awards-grid { grid-template-columns: 1fr 1fr; }
-    .tech-layout, .bot-layout, .contact-layout { grid-template-columns: 1fr; }
-    .tech-layout { gap: 40px; }
-  }
-  @media (max-width: 768px) {
-    .nav-links, .nav-cta { display: none; }
-    .consult-grid, .proj-grid, .awards-grid { grid-template-columns: 1fr; }
-    .stats-bar { flex-direction: column; }
-    .stat { border-right: none; border-bottom: 1px solid var(--border); }
-    .stat:last-child { border-bottom: none; }
-    .lms-banner { padding: 32px 28px; }
-    .contact-layout { grid-template-columns: 1fr; gap: 40px; }
-    section { padding: 72px 1.25rem; }
-  }
-
-  /* Scroll reveal */
-  .reveal { opacity: 0; transform: translateY(32px); transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-  .reveal-delay-1 { transition-delay: 0.1s; }
-  .reveal-delay-2 { transition-delay: 0.2s; }
-  .reveal-delay-3 { transition-delay: 0.3s; }
+/* Scroll fade */
+.fade-in {
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-in.visible { opacity: 1; transform: none; }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-inner">
-    <a href="#" class="nav-logo">
-      <div class="logo-mark">A</div>
-      Abhishek<span style="color:var(--muted);">Singh</span>
+<!-- TOPBAR -->
+<nav class="topbar">
+  <div class="topbar-inner">
+    <a href="#" class="topbar-brand">
+      <div class="brand-mark">AS</div>
+      Abhishek Singh
     </a>
-    <ul class="nav-links">
-      <li><a href="#consulting">Consulting</a></li>
-      <li><a href="#technical">Tech Stack</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#projects">AI Projects</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    <a href="#contact" class="nav-cta">Hire for Impact</a>
+    <div class="topbar-nav">
+      <a href="#capabilities">Capabilities</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+      <a href="mailto:abhishektes3188@gmail.com" class="btn-hire">Open to Work</a>
+    </div>
   </div>
 </nav>
 
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-bg">
-    <div class="hero-grid"></div>
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-  </div>
-  <div class="hero-inner">
-    <div class="hero-eyebrow">
-      <span class="eyebrow-dot"></span>
-      Indian Army · Big 4 · Agentic AI · Open for Consulting
+<!-- HERO CARD -->
+<div class="hero-wrapper">
+  <div class="hero-card">
+    <div class="hero-banner">
+      <div class="hero-banner-text">Cloud · AI · Enterprise Transformation · SAP S/4HANA</div>
+      <div class="hero-banner-badge">
+        <span class="live-dot"></span>
+        Available Now
+      </div>
     </div>
-    <h1 class="hero-title">
-      The PM Who<br>
-      <span class="accent">Reads the Code.</span><br>
-      <span class="line2 gold-accent">Builds the Future.</span>
-    </h1>
-    <p class="hero-sub">
-      Senior Program Manager with <strong>7+ years at PwC, Deloitte & KPMG</strong>.
-      I don't just manage delivery — I architect <strong>AI-augmented governance systems</strong>,
-      deploy enterprise chatbots, and build agentic workflows that make teams 40–60% faster.
-      <br><br>
-      <strong>INR 50+ Cr programs. 22,000+ test cases. Zero critical data loss.</strong>
-    </p>
-    <div class="hero-actions">
-      <a href="#consulting" class="btn-primary"><i class="fas fa-chess"></i> Strategic Consulting</a>
-      <a href="#technical" class="btn-ghost"><i class="fas fa-code"></i> Tech Stack</a>
-      <a href="python_lms.html" class="btn-gold"><span>🐍</span> Python AI Learning Path</a>
-      <a href="Abhishek Singh PM 2026_compressed.pdf" class="btn-gold">Latest Profile</a>
-    </div>
-    <div class="stats-bar">
-      <div class="stat">
-        <div class="stat-num">50<span>+Cr</span></div>
-        <div class="stat-label">Budget Managed</div>
+    <div class="hero-body">
+      <div class="hero-avatar-row">
+        <div class="avatar-wrap">A</div>
+        <div class="hero-ctas">
+          <a href="https://github.com/upd8ai-spec" target="_blank" class="btn-outline-light">⌥ GitHub</a>
+          <a href="https://linkedin.com/in/abhishek-singh-9452a9180" target="_blank" class="btn-outline-light">↗ LinkedIn</a>
+          <a href="mailto:abhishektes3188@gmail.com" class="btn-solid-teal">✦ Engage Me</a>
+        </div>
       </div>
-      <div class="stat">
-        <div class="stat-num">22<span>K+</span></div>
-        <div class="stat-label">Test Cases (SIT/UAT)</div>
+      <div class="hero-name">Abhishek Singh</div>
+      <div class="hero-title-line">
+        Senior Program Manager · <span>Cloud, AI & Enterprise Transformation</span> · SAP S/4HANA · Big 4 · HPE
       </div>
-      <div class="stat">
-        <div class="stat-num">11<span>TB</span></div>
-        <div class="stat-label">Data Migrated</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">7<span>+yr</span></div>
-        <div class="stat-label">Big 4 Delivery</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">700<span>+</span></div>
-        <div class="stat-label">Custom Developments</div>
+      <div class="hero-loc">
+        <span>📍 Bengaluru, India</span>
+        <span>🌐 Global Remote</span>
+        <span>⚡ 7+ Years Delivery</span>
+        <span>🎖️ Indian Army Veteran</span>
       </div>
     </div>
   </div>
 </div>
 
-<!-- CERT STRIP -->
-<div class="cert-strip">
-  <div class="cert-track">
-    <div class="cert-item"><i class="fas fa-certificate"></i> ICP-ACC Agile Coach</div>
-    <div class="cert-item"><i class="fas fa-award"></i> ITIL v4 Foundation</div>
-    <div class="cert-item"><i class="fas fa-star"></i> Certified Scrum Master®</div>
-    <div class="cert-item"><i class="fas fa-bolt"></i> SAFe® 6 Agilist</div>
-    <div class="cert-item"><i class="fas fa-robot"></i> AI Generalist</div>
-    <div class="cert-item"><i class="fas fa-brain"></i> Generative AI Fundamentals</div>
-    <div class="cert-item"><i class="fas fa-shield-alt"></i> Indian Army — OTA Gaya</div>
-    <div class="cert-item"><i class="fas fa-graduation-cap"></i> B.Com (Hons.) Financial Markets</div>
-    <div class="cert-item"><i class="fas fa-code-branch"></i> GitHub Copilot Practitioner</div>
-    <!-- duplicate for infinite loop -->
-    <div class="cert-item"><i class="fas fa-certificate"></i> ICP-ACC Agile Coach</div>
-    <div class="cert-item"><i class="fas fa-award"></i> ITIL v4 Foundation</div>
-    <div class="cert-item"><i class="fas fa-star"></i> Certified Scrum Master®</div>
-    <div class="cert-item"><i class="fas fa-bolt"></i> SAFe® 6 Agilist</div>
-    <div class="cert-item"><i class="fas fa-robot"></i> AI Generalist</div>
-    <div class="cert-item"><i class="fas fa-brain"></i> Generative AI Fundamentals</div>
-    <div class="cert-item"><i class="fas fa-shield-alt"></i> Indian Army — OTA Gaya</div>
-    <div class="cert-item"><i class="fas fa-graduation-cap"></i> B.Com (Hons.) Financial Markets</div>
-    <div class="cert-item"><i class="fas fa-code-branch"></i> GitHub Copilot Practitioner</div>
-  </div>
-</div>
+<!-- MAIN CONTENT -->
+<div class="content-wrapper">
 
-<!-- CONSULTING -->
-<section id="consulting">
-  <div class="section-inner">
-    <div class="section-label">Management Consulting</div>
-    <h2 class="section-title">Boardroom Strategy.<br>Engineering Reality.</h2>
-    <p class="section-sub">Delivering predictability in high-stakes environments — from Greenfield SAP programs to AI-augmented PMO governance.</p>
-    <div class="consult-grid">
-      <div class="glass consult-card reveal">
-        <div class="card-icon icon-blue"><i class="fas fa-chess-king"></i></div>
-        <div class="card-title">Strategic Program Management</div>
-        <div class="card-body">Orchestrating complex SAP S/4HANA Greenfield & Brownfield implementations across geographies. Specializing in recovering stalled programs and driving them to Go-Live on budget.</div>
-        <div class="card-tags">
-          <span class="tag tag-blue">SAP S/4HANA</span>
-          <span class="tag tag-blue">Agile Release Train</span>
-          <span class="tag tag-blue">Cross-functional</span>
-          <span class="tag tag-blue">Cutover Management</span>
-        </div>
+  <!-- LEFT -->
+  <div class="left-col">
+
+    <!-- ABOUT -->
+    <div class="card fade-in" id="about">
+      <div class="card-header">
+        <div class="card-label">How I'd Describe Myself</div>
       </div>
-      <div class="glass consult-card reveal reveal-delay-1">
-        <div class="card-icon icon-gold"><i class="fas fa-chart-bar"></i></div>
-        <div class="card-title">Financial Governance & FP&A</div>
-        <div class="card-body">Managing INR 50+ Cr budgets with rigorous WIP/OPEX tracking, profitability analysis, and financial controls that prevent scope creep and protect ROI on every digital dollar.</div>
-        <div class="card-tags">
-          <span class="tag tag-gold">Budget >INR 50 Cr</span>
-          <span class="tag tag-gold">WIP/OPEX Tracking</span>
-          <span class="tag tag-gold">BPC Forecasting</span>
-        </div>
-      </div>
-      <div class="glass consult-card reveal reveal-delay-2">
-        <div class="card-icon icon-cyan"><i class="fas fa-rocket"></i></div>
-        <div class="card-title">AI-Driven GTM & Process Engineering</div>
-        <div class="card-body">Accelerating time-to-market using AI research, competitive analysis, and customer segmentation. Structuring Mission Command style operational processes for startups and scale-ups.</div>
-        <div class="card-tags">
-          <span class="tag tag-cyan">AI GTM Execution</span>
-          <span class="tag tag-cyan">Process Lineage</span>
-          <span class="tag tag-cyan">Data Governance</span>
-        </div>
-      </div>
-      <div class="glass consult-card reveal">
-        <div class="card-icon icon-purple"><i class="fas fa-balance-scale"></i></div>
-        <div class="card-title">Regulatory Compliance (BFSI)</div>
-        <div class="card-body">Deep expertise in MiFID II, EMIR, and SFTR regulatory reporting. Translating complex regulations into actionable business processes, BRDs, and audit-ready documentation for global clients.</div>
-        <div class="card-tags">
-          <span class="tag tag-purple">MiFID II</span>
-          <span class="tag tag-purple">EMIR / SFTR</span>
-          <span class="tag tag-purple">NFRR</span>
-          <span class="tag tag-purple">RegTech</span>
-        </div>
-      </div>
-      <div class="glass consult-card reveal reveal-delay-1">
-        <div class="card-icon icon-blue"><i class="fas fa-vial"></i></div>
-        <div class="card-title">FS, TS & Testing Governance (AI)</div>
-        <div class="card-body">Enabled & managed FS, TS, Transport Management, and Testing Documentation using AI-proprietary tools — automating test script creation, transport tracking, and SIT/UAT lifecycle governance at scale.</div>
-        <div class="card-tags">
-          <span class="tag tag-blue">Functional Spec (FS)</span>
-          <span class="tag tag-blue">Technical Spec (TS)</span>
-          <span class="tag tag-blue">Transport Mgmt</span>
-          <span class="tag tag-blue">22,000+ Test Cases</span>
-        </div>
-      </div>
-      <div class="glass consult-card reveal reveal-delay-2">
-        <div class="card-icon icon-gold"><i class="fas fa-sitemap"></i></div>
-        <div class="card-title">PMO Setup & Stakeholder Governance</div>
-        <div class="card-body">Building enterprise PMO frameworks with RAID logs, RACI matrices, project charters, and executive dashboards (Power BI/SQL) that deliver audit-readiness and senior leadership confidence.</div>
-        <div class="card-tags">
-          <span class="tag tag-gold">RAID Log / RACI</span>
-          <span class="tag tag-gold">Power BI</span>
-          <span class="tag tag-gold">WSR / Steer Co</span>
-        </div>
+      <div class="card-body">
+        <p class="about-lead">"The PM who reads the code, ships the AI, and closes the program on budget."</p>
+        <p class="about-body">
+          Indian Army-trained Senior Program Manager with 7+ years delivering
+          <strong>complex SAP S/4HANA transformations (INR 50+ Cr)</strong> across
+          PwC, Deloitte, KPMG, and now HPE. I sit at the intersection of
+          <strong>enterprise programme governance</strong>, <strong>cloud architecture</strong>, and
+          <strong>agentic AI deployment</strong> — not as a generalist, but as someone who has
+          actually shipped all three in production environments.
+          <br><br>
+          My edge: I build the AI tools I govern. From <strong>RAG pipelines and n8n automations</strong>
+          to <strong>enterprise chatbots</strong> deployed inside global Pharma programs — I reduce
+          documentation effort by 40–60%, manage 22,000+ test cases with AI assist, and
+          migrate 11 TB with zero critical data loss. Now at HPE, I'm building toward
+          <strong>Solution Architect-level technical depth</strong> in SAP BTP + Azure + AI.
+        </p>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- TECHNICAL -->
-<section id="technical">
-  <div class="section-inner">
-    <div class="section-label">Technical Acumen</div>
-    <h2 class="section-title">Hands-On Engineering.<br>Not Just Oversight.</h2>
-    <p class="section-sub">I build the tools I govern — from AI automation pipelines to GitHub-powered QA systems.</p>
-    <div class="tech-layout">
-      <div>
-        <div class="tech-group">
-          <div class="tech-group-label">AI & Agentic Systems</div>
-          <div class="tech-chips">
-            <span class="chip chip-blue">LLMs (OpenAI · Gemini · Claude)</span>
-            <span class="chip chip-blue">LangChain</span>
-            <span class="chip chip-blue">Multi-Agent MCP</span>
-            <span class="chip chip-blue">Agentic RAG</span>
-            <span class="chip chip-blue">n8n</span>
-            <span class="chip chip-blue">Zapier</span>
-            <span class="chip chip-blue">Google AI Studio</span>
-            <span class="chip chip-blue">Prompt Engineering</span>
-          </div>
-        </div>
-        <div class="tech-group">
-          <div class="tech-group-label">GitHub & DevOps</div>
-          <div class="tech-chips">
-            <span class="chip chip-green">GitHub Copilot</span>
-            <span class="chip chip-green">GitHub Actions</span>
-            <span class="chip chip-green">CodeRabbit</span>
-            <span class="chip chip-green">Azure DevOps</span>
-            <span class="chip chip-green">CI/CD Pipelines</span>
-            <span class="chip chip-green">Pull Request QA</span>
-          </div>
-        </div>
-        <div class="tech-group">
-          <div class="tech-group-label">SAP Architecture</div>
-          <div class="tech-chips">
-            <span class="chip chip-purple">SAP S/4HANA</span>
-            <span class="chip chip-purple">PP · MM · SD · FICO</span>
-            <span class="chip chip-purple">QM · EWM · GRC</span>
-            <span class="chip chip-purple">SAP Cloud ALM</span>
-            <span class="chip chip-purple">BTP · SAC · DWC</span>
-            <span class="chip chip-purple">BPC · FS · TS</span>
-          </div>
-        </div>
-        <div class="tech-group">
-          <div class="tech-group-label">Data, Analytics & Automation</div>
-          <div class="tech-chips">
-            <span class="chip chip-cyan">Power BI</span>
-            <span class="chip chip-cyan">SQL</span>
-            <span class="chip chip-cyan">Python</span>
-            <span class="chip chip-cyan">Postman (API)</span>
-            <span class="chip chip-cyan">Anaplan</span>
-            <span class="chip chip-cyan">Alteryx</span>
-          </div>
-        </div>
-        <div class="tech-group">
-          <div class="tech-group-label">PM & Collaboration Tools</div>
-          <div class="tech-chips">
-            <span class="chip chip-gold">JIRA · Confluence</span>
-            <span class="chip chip-gold">Notion</span>
-            <span class="chip chip-gold">MS Project · Planview</span>
-            <span class="chip chip-gold">Slack</span>
-            <span class="chip chip-gold">Supabase</span>
-          </div>
-        </div>
+    <!-- CAPABILITIES -->
+    <div class="card fade-in" id="capabilities">
+      <div class="card-header">
+        <div class="card-label">Core Capabilities</div>
       </div>
-      <div class="tech-highlight">
-        <div class="hl-card hl-blue">
-          <h4><i class="fas fa-code-branch" style="color:var(--blue);margin-right:8px"></i>GitHub Copilot & CodeRabbit</h4>
-          <p>Applied for AI-assisted <strong>code review, test case generation, script refactoring</strong>, and clean technical documentation. CodeRabbit deployed for PR quality analysis and defect triaging across engineering teams.</p>
-        </div>
-        <div class="hl-card hl-purple">
-          <h4><i class="fas fa-brain" style="color:var(--purple);margin-right:8px"></i>AI-Driven Project Governance</h4>
-          <p>Built systems with <strong>predictive task tracking, automated risk scoring, milestone forecasting</strong>, and schedule variance analysis via Azure DevOps and SAP CALM — no manual status chasing.</p>
-        </div>
-        <div class="hl-card hl-cyan">
-          <h4><i class="fas fa-vials" style="color:var(--cyan);margin-right:8px"></i>AI Testing Accelerators</h4>
-          <p>Deployed AI-based test case generation, defect triaging, and impact analysis to manage <strong>22,000+ SIT/UAT cases</strong> — reducing cycle time significantly and improving defect leakage control.</p>
-        </div>
-        <div class="hl-card hl-gold">
-          <h4><i class="fas fa-database" style="color:var(--gold);margin-right:8px"></i>Data Migration at Scale</h4>
-          <p>Managed <strong>11 TB of structured data migration</strong> using AI-based validation for master data cleansing, deduplication, and cutover readiness — achieving zero critical data loss.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- EXPERIENCE TIMELINE -->
-<section id="experience">
-  <div class="section-inner">
-    <div class="section-label">Experience</div>
-    <h2 class="section-title">The Execution<br>Track Record.</h2>
-    <p class="section-sub">Every program. Every delivery. Every impact — documented.</p>
-
-    <div class="timeline">
-
-      <!-- PwC -->
-      <div class="tl-item reveal">
-        <span class="tl-dot tl-dot-gold"></span>
-        <div class="glass tl-card">
-          <div class="tl-header">
-            <div class="tl-title">Senior Consultant — SAP & Technical PM</div>
-            <span class="tl-period">Jun 2025 – Present</span>
+      <div class="card-body">
+        <div class="cap-grid">
+          <div class="cap-item">
+            <div class="cap-icon" style="background:rgba(15,123,108,0.1);color:var(--teal);">☁️</div>
+            <div class="cap-name">Cloud Architecture & BTP</div>
+            <div class="cap-desc">SAP BTP, Azure AZ-900/104, Tailscale zero-trust, hybrid deployment patterns, cloud resilience & DR design for S/4HANA</div>
           </div>
-          <div class="tl-company" style="color:var(--gold)">PricewaterhouseCoopers India (PwC)</div>
-          <div class="tl-client">Client 1: Global Pharmaceutical MNC — Greenfield S/4HANA (INR 50+ Cr) &nbsp;|&nbsp; Client 2: Cement & Manufacturing Group — AMS, Enhancements & Upgrade</div>
-          <ul class="tl-points">
-            <li>Leading <strong>SAP S/4HANA Greenfield end-to-end</strong> for a Pharma MNC — Project Preparation → Fit/Gap → Blueprint → Realization → SIT/UAT → Cutover → Go-Live → Hypercare across PP, MM, QM, SD, EWM, FICO, GRC, BTP, SAC, DWC with GxP/CSV pharma compliance.</li>
-            <li>Enabled & managed <strong>FS, TS, Transport Management, and Testing Documentation</strong> using AI-proprietary tools developed with the internal AI team — automating test scripts, transport tracking, FS/TS authoring, and SIT/UAT governance; reduced manual documentation effort ~50%.</li>
-            <li><strong>Collaborating with PwC AI Team</strong> to deploy an enterprise AI Chatbot for business users — covering Ticket Handling, Intelligent Redirection, Issue Resolution, Escalation Management, Stakeholder Communication, and quick TAT optimization via LLM-backed conversational workflows; projected 40%+ helpdesk resolution time reduction.</li>
-            <li>Implemented <strong>AI-driven project governance</strong> — predictive task tracking, automated risk scoring, milestone forecasting via Azure DevOps & SAP CALM; GenAI for Blueprint drafting, BRD/FS/TS documentation, improving efficiency by <strong>40–60%</strong>.</li>
-            <li>Applied <strong>GitHub Copilot & CodeRabbit</strong> for AI-assisted code review, test case generation, script refactoring, and PR quality assurance — accelerating delivery quality and reducing review cycle time.</li>
-            <li>Managing AMS cycles for Cement MNC — CR delivery, system upgrades, periodic releases with AI-augmented root cause analysis ensuring business continuity.</li>
-          </ul>
-          <div class="impact-row">
-            <span class="impact-badge tag-gold">🏆 INR 50+ Cr Program</span>
-            <span class="impact-badge tag-blue">🤖 AI Chatbot Deployment</span>
-            <span class="impact-badge tag-cyan">40-60% Doc Efficiency</span>
-            <span class="impact-badge tag-green">GxP/CSV Compliant</span>
+          <div class="cap-item">
+            <div class="cap-icon" style="background:rgba(37,99,235,0.1);color:var(--sky);">🤖</div>
+            <div class="cap-name">Agentic AI & LLM Systems</div>
+            <div class="cap-desc">LangChain, n8n, MCP servers, RAG pipelines, Claude API, enterprise chatbot deployment, prompt engineering, AI governance</div>
           </div>
-        </div>
-      </div>
-
-      <!-- Deloitte -->
-      <div class="tl-item reveal">
-        <span class="tl-dot tl-dot-blue"></span>
-        <div class="glass tl-card">
-          <div class="tl-header">
-            <div class="tl-title">Consultant — Technical PM & Business Analyst</div>
-            <span class="tl-period">Oct 2023 – May 2025</span>
+          <div class="cap-item">
+            <div class="cap-icon" style="background:rgba(201,162,39,0.1);color:var(--gold);">🏗️</div>
+            <div class="cap-name">SAP S/4HANA End-to-End</div>
+            <div class="cap-desc">Greenfield/Brownfield/AMS delivery. PP, MM, SD, FICO, EWM, GRC, BTP, SAC, DWC — full lifecycle from Blueprint to Hypercare</div>
           </div>
-          <div class="tl-company" style="color:var(--blue)">Deloitte South Asia Limited</div>
-          <div class="tl-client">Client: Large-Scale Retail Conglomerate — India & UAE &nbsp;|&nbsp; SAP S/4HANA Program (INR 50+ Cr · 5,000+ Resources · Multi-Geography)</div>
-          <ul class="tl-points">
-            <li>Led <strong>end-to-end SAP S/4HANA</strong> across PP, MM, SD, FICO, DM, GRC, SAC, LE, EWM, DWC, BPC, FS, TS — standardizing business processes across India & UAE and enabling a single source of truth for financial and operational data.</li>
-            <li>Enabled & managed <strong>FS, TS, Transport Management & Testing Documentation</strong> using AI-proprietary tools — automated test case management (22,000+ cases), transport tracking, FS/TS creation — significantly reducing defect leakage and testing cycle time.</li>
-            <li>Delivered <strong>S/4HANA data migration of 11 TB</strong> with 5,000+ impacted resources using structured configuration checks, WSR tracking, and AI-based risk mitigation — achieving zero critical data loss and clean cutover within committed timelines.</li>
-            <li>Delivered <strong>700+ custom developments</strong> in Design & Build phase; managed budgets >INR 50 Cr; executed full lifecycle Preparation → Hypercare. Recognized with <strong>Dot of Fame award (×2)</strong> for exceptional delivery performance.</li>
-            <li>Implemented <strong>BPC planning & forecasting, financial modelling, performance dashboards</strong> and automated reporting — giving finance leadership real-time visibility into WIP, OPEX, and profitability.</li>
-          </ul>
-          <div class="impact-row">
-            <span class="impact-badge tag-blue">⭐ Dot of Fame ×2</span>
-            <span class="impact-badge tag-gold">700+ Custom Dev</span>
-            <span class="impact-badge tag-cyan">11 TB — Zero Data Loss</span>
-            <span class="impact-badge tag-purple">22K+ Test Cases</span>
+          <div class="cap-item">
+            <div class="cap-icon" style="background:rgba(194,65,12,0.1);color:var(--ember);">📊</div>
+            <div class="cap-name">Enterprise PMO & Governance</div>
+            <div class="cap-desc">AI-augmented RAID/RACI, SAP CALM, Azure DevOps, Power BI dashboards, budget FP&A >INR 50 Cr, stakeholder governance</div>
           </div>
-        </div>
-      </div>
-
-      <!-- KPMG -->
-      <div class="tl-item reveal">
-        <span class="tl-dot tl-dot-purple"></span>
-        <div class="glass tl-card">
-          <div class="tl-header">
-            <div class="tl-title">Associate Consultant — Technical PMO</div>
-            <span class="tl-period">Jul 2022 – Oct 2023</span>
+          <div class="cap-item">
+            <div class="cap-icon" style="background:rgba(15,123,108,0.1);color:var(--teal);">🔬</div>
+            <div class="cap-name">Regulatory Compliance</div>
+            <div class="cap-desc">MiFID II, EMIR, SFTR trade reporting. GxP/CSV pharma compliance. Audit-ready documentation and RegTech delivery</div>
           </div>
-          <div class="tl-company" style="color:var(--purple)">KPMG Global Services Private Limited</div>
-          <div class="tl-client">Client 1: Asset Management & PE Firm (UK) · International Bank (USA) &nbsp;|&nbsp; Client 2: Healthcare Firm (AUS) — SAP DWC & FICO with Trade OMS & DMS Integration</div>
-          <ul class="tl-points">
-            <li>Managed <strong>MiFID II Trade Reporting, Data Forensics, and NFRR</strong> regulatory compliance — translating complex regulations into actionable business processes, enabling accurate regulatory submissions and reducing compliance risk exposure.</li>
-            <li>Delivered <strong>large-scale programs >$5M</strong> within timelines using RAID logs, RACI matrices, PMO frameworks — establishing governance standards that improved reporting accuracy and senior stakeholder confidence.</li>
-            <li>Supported <strong>SAP DWC & FICO</strong> with in-house Trade OMS and DMS integration for Australian Healthcare client — reducing reconciliation time and manual intervention across trading and operational systems.</li>
-          </ul>
-          <div class="impact-row">
-            <span class="impact-badge tag-purple">⭐ Rising Star 2022</span>
-            <span class="impact-badge tag-gold">$5M+ Delivered</span>
-            <span class="impact-badge tag-blue">MiFID II / EMIR</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Erznfield -->
-      <div class="tl-item reveal">
-        <span class="tl-dot tl-dot-cyan"></span>
-        <div class="glass tl-card">
-          <div class="tl-header">
-            <div class="tl-title">Business Consultant — PM & Business Analyst</div>
-            <span class="tl-period">Apr 2021 – Apr 2022</span>
-          </div>
-          <div class="tl-company" style="color:var(--cyan)">Erznfield Private Limited</div>
-          <div class="tl-client">In-house ERP Implementation — HR, Inventory, Cash Flow, Records Management</div>
-          <ul class="tl-points">
-            <li>Delivered full ERP implementation with ZOHO custom modules — retiring legacy manual processes, improving data accuracy, and reducing operational overhead across the organization.</li>
-            <li>Developed comprehensive change management strategy, UAT oversight, vendor coordination, and post-implementation support ensuring smooth end-user adoption.</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Indian Army -->
-      <div class="tl-item reveal">
-        <span class="tl-dot tl-dot-green"></span>
-        <div class="glass tl-card" style="border-left: 3px solid #34d399;">
-          <div class="tl-header">
-            <div class="tl-title">Officer Cadet — Technology Transformation</div>
-            <span class="tl-period">Jan 2017 – May 2019</span>
-          </div>
-          <div class="tl-company" style="color:#34d399">Indian Army — OTA Gaya & Military College of EME, Secunderabad</div>
-          <ul class="tl-points">
-            <li>Specialized in technical operations, project management, and resource management within the Indian Army's technology transformation division — delivering initiatives within strict budget and operational constraints.</li>
-            <li>Built high-performing teams through structured communication, Mission Command leadership, and operational readiness — the foundation of every Big 4 delivery approach since.</li>
-            <li>Selected in merit at Service Selection Board (SSB): <strong>NDA (31 SSB) & Army TES (19 SSB)</strong>.</li>
-          </ul>
-          <div class="impact-row">
-            <span class="impact-badge tag-green">🎖️ SSB Merit — NDA & TES</span>
-            <span class="impact-badge tag-gold">Mission Command</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- AI CHATBOT / ENTERPRISE AI SECTION -->
-<section id="ai-bot">
-  <div class="section-inner">
-    <div class="section-label">Enterprise AI Deployment</div>
-    <h2 class="section-title">AI That Works.<br>Not Just Demos.</h2>
-    <p class="section-sub">Currently deploying production AI systems inside a global Pharma enterprise — real business impact, not proofs of concept.</p>
-    <div class="bot-layout">
-      <div>
-        <div class="bot-feature">
-          <div class="bot-icon icon-blue"><i class="fas fa-headset"></i></div>
-          <div>
-            <h4>Intelligent Ticket Handling</h4>
-            <p>AI Chatbot triages incoming support tickets, classifies urgency, and routes to the correct team — eliminating human bottlenecks in first-line IT support.</p>
-          </div>
-        </div>
-        <div class="bot-feature">
-          <div class="bot-icon icon-purple"><i class="fas fa-network-wired"></i></div>
-          <div>
-            <h4>Automated Redirection & Resolution</h4>
-            <p>LLM-backed workflows auto-resolve common SAP system issues, provide step-by-step guidance, and escalate to Tier-2 only when genuinely needed.</p>
-          </div>
-        </div>
-        <div class="bot-feature">
-          <div class="bot-icon icon-cyan"><i class="fas fa-escalator" style="font-family:inherit">⬆</i></div>
-          <div>
-            <h4>Escalation Management & Communication</h4>
-            <p>Automated escalation chains with proactive stakeholder communication — ensuring SLA compliance and reducing mean time to resolution by 40%+.</p>
-          </div>
-        </div>
-        <div class="bot-feature">
-          <div class="bot-icon icon-gold"><i class="fas fa-tachometer-alt"></i></div>
-          <div>
-            <h4>Quick TAT Optimization</h4>
-            <p>Conversational AI front-end reduces ticket-to-resolution time, freeing human agents for high-complexity issues while improving end-user satisfaction scores.</p>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div class="glass" style="padding:36px; border-radius:16px;">
-          <div style="display:flex;align-items:center;gap:12px;margin-bottom:28px;">
-            <div class="card-icon icon-blue" style="margin:0;width:40px;height:40px;"><i class="fas fa-robot"></i></div>
-            <div>
-              <div style="font-family:var(--font-display);font-weight:700;color:var(--text);font-size:1rem;">Enterprise AI Architecture</div>
-              <div style="font-size:0.75rem;color:var(--muted);font-family:var(--font-mono);">PwC Client Environment — Active Deployment</div>
-            </div>
-            <span class="impact-badge tag-green" style="margin-left:auto;white-space:nowrap;"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#34d399;margin-right:6px;animation:pulse 2s infinite;"></span>LIVE</span>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:12px;">
-            <div style="padding:14px 18px;background:rgba(74,158,255,0.06);border:1px solid rgba(74,158,255,0.15);border-radius:10px;">
-              <div style="font-size:0.72rem;font-family:var(--font-mono);color:var(--blue);margin-bottom:4px;">STACK</div>
-              <div style="font-size:0.82rem;color:var(--text);">LLMs (OpenAI) · LangChain · n8n Workflows · MCP Agents · SAP Integration Layer</div>
-            </div>
-            <div style="padding:14px 18px;background:rgba(155,141,248,0.06);border:1px solid rgba(155,141,248,0.15);border-radius:10px;">
-              <div style="font-size:0.72rem;font-family:var(--font-mono);color:var(--purple);margin-bottom:4px;">USE CASES LIVE</div>
-              <div style="font-size:0.82rem;color:var(--text);">Ticket Triage · Auto-Resolution · Escalation Chains · Stakeholder Comms · TAT Reporting</div>
-            </div>
-            <div style="padding:14px 18px;background:rgba(77,217,224,0.06);border:1px solid rgba(77,217,224,0.15);border-radius:10px;">
-              <div style="font-size:0.72rem;font-family:var(--font-mono);color:var(--cyan);margin-bottom:4px;">PROJECTED IMPACT</div>
-              <div style="font-size:0.82rem;color:var(--text);">40%+ reduction in helpdesk resolution time · Tier-1 ticket deflection · 24/7 availability</div>
-            </div>
-            <div style="padding:14px 18px;background:rgba(240,180,41,0.06);border:1px solid rgba(240,180,41,0.15);border-radius:10px;">
-              <div style="font-size:0.72rem;font-family:var(--font-mono);color:var(--gold);margin-bottom:4px;">GOVERNANCE</div>
-              <div style="font-size:0.82rem;color:var(--text);">AI Explainability · Audit Logs · Ethical AI Framework · GxP-aware design</div>
-            </div>
+          <div class="cap-item">
+            <div class="cap-icon" style="background:rgba(37,99,235,0.1);color:var(--sky);">⚙️</div>
+            <div class="cap-name">DevOps & Quality Engineering</div>
+            <div class="cap-desc">GitHub Copilot, CodeRabbit, CI/CD pipelines, AI-driven test case generation, transport management, SIT/UAT governance</div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- PYTHON LMS BANNER -->
-<section style="padding:60px 2rem; background:var(--bg);">
-  <div class="section-inner">
-    <div class="lms-banner reveal">
-      <div class="lms-banner-text">
-        <h3>🐍 <span>Python AI</span> Learning Path</h3>
-        <p>A structured curriculum designed for consultants, PMs, and professionals who want to master Python, AI automation, and agentic systems — without a CS degree. Build real tools. Ship real automations.</p>
-        <div class="lms-tags">
-          <span class="chip chip-cyan">Python Fundamentals</span>
-          <span class="chip chip-blue">LLM Integration</span>
-          <span class="chip chip-purple">n8n & Automation</span>
-          <span class="chip chip-green">LangChain Agents</span>
-          <span class="chip chip-gold">Hands-On Projects</span>
+    <!-- EXPERIENCE -->
+    <div class="card fade-in" id="experience">
+      <div class="card-header">
+        <div class="card-label">Experience Track Record</div>
+      </div>
+      <div class="card-body" style="padding-top:8px;">
+        <div class="exp-list">
+
+          <!-- HPE -->
+          <div class="exp-item">
+            <div class="exp-left">
+              <div class="exp-period">Jul 2026 – Now</div>
+              <div class="exp-comp exp-comp-hpe">HPE</div>
+
+            </div>
+            <div class="exp-right">
+              <div class="exp-role">Specialist — Technical Project Manager</div>
+              <div class="exp-client">Hewlett Packard Enterprise · Bengaluru</div>
+              <ul class="exp-bullets">
+                <li>Leading enterprise technical program delivery within HPE's global portfolio with <strong>AI-augmented PMO practices</strong></li>
+                <li>Deploying Claude AI, n8n automation, Tailscale zero-trust connectivity for distributed global delivery teams</li>
+                <li>Building cloud resilience on <strong>SAP BTP + Azure</strong> toward Solution Architect positioning</li>
+              </ul>
+              <div class="exp-badges">
+                <span class="badge badge-sky">Cloud Resilience</span>
+                <span class="badge badge-teal">AI PMO</span>
+                <span class="badge badge-ink">HPE Global</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- PwC -->
+          <div class="exp-item">
+            <div class="exp-left">
+              <div class="exp-period">Jun 2025 – May 2026</div>
+              <div class="exp-comp exp-comp-pwc">PwC India</div>
+
+            </div>
+            <div class="exp-right">
+              <div class="exp-role">Senior Consultant — SAP & Technical PM</div>
+              <div class="exp-client">Global Pharma MNC (Greenfield · INR 50+ Cr) + Cement MNC (AMS)</div>
+              <ul class="exp-bullets">
+                <li>Orchestrated SAP S/4HANA Greenfield: PP, MM, QM, SD, EWM, FICO, GRC, BTP, SAC, DWC with full <strong>GxP/CSV compliance</strong></li>
+                <li>Co-built enterprise AI Chatbot with PwC AI Team — ticket triage, escalation chains, LLM-backed workflows; <strong>40%+ helpdesk time reduction</strong></li>
+                <li>AI-driven governance via Azure DevOps + SAP CALM; <strong>40–60% documentation efficiency</strong> gain</li>
+              </ul>
+              <div class="exp-badges">
+                <span class="badge badge-gold">INR 50+ Cr</span>
+                <span class="badge badge-teal">AI Chatbot Live</span>
+                <span class="badge badge-sky">GxP Compliant</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Deloitte -->
+          <div class="exp-item">
+            <div class="exp-left">
+              <div class="exp-period">Oct 2023 – May 2025</div>
+              <div class="exp-comp exp-comp-del">Deloitte</div>
+
+            </div>
+            <div class="exp-right">
+              <div class="exp-role">Consultant — Technical PMO & Business Analyst</div>
+              <div class="exp-client">Retail Conglomerate India & UAE · INR 50+ Cr · 5,000+ Resources</div>
+              <ul class="exp-bullets">
+                <li><strong>11 TB data migration</strong> — zero critical data loss, clean cutover within committed timelines</li>
+                <li>AI-automated <strong>22,000+ SIT/UAT test cases</strong>; 700+ custom developments in Design & Build</li>
+                <li>Awarded <strong>Dot of Fame ×2</strong> for exceptional multi-geography delivery</li>
+              </ul>
+              <div class="exp-badges">
+                <span class="badge badge-sky">⭐ Dot of Fame ×2</span>
+                <span class="badge badge-teal">11 TB Migrated</span>
+                <span class="badge badge-gold">700+ Custom Dev</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- KPMG -->
+          <div class="exp-item">
+            <div class="exp-left">
+              <div class="exp-period">Jul 2022 – Oct 2023</div>
+              <div class="exp-comp exp-comp-kpmg">KPMG</div>
+
+            </div>
+            <div class="exp-right">
+              <div class="exp-role">Associate Consultant — Technical PMO</div>
+              <div class="exp-client">Asset Management (UK/USA) · Healthcare (AUS) · MiFID II & SAP DWC</div>
+              <ul class="exp-bullets">
+                <li>Delivered <strong>>$5M programs</strong> in regulatory compliance — MiFID II, EMIR, NFRR across UK/US/AUS geographies</li>
+                <li>Awarded <strong>Rising Star 2022</strong> for NFRR adoption</li>
+              </ul>
+              <div class="exp-badges">
+                <span class="badge badge-ember">⭐ Rising Star 2022</span>
+                <span class="badge badge-sky">MiFID II / EMIR</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Army -->
+          <div class="exp-item">
+            <div class="exp-left">
+              <div class="exp-period">Jan 2017 – May 2019</div>
+              <div class="exp-comp exp-comp-army" style="color:#4a7c59;">Indian Army</div>
+              <div class="exp-lpa" style="background:rgba(74,124,89,0.1);color:#4a7c59;">SSB Merit</div>
+            </div>
+            <div class="exp-right">
+              <div class="exp-role">Officer Cadet — Technology Transformation</div>
+              <div class="exp-client">OTA Gaya & Military College of EME, Secunderabad</div>
+              <ul class="exp-bullets">
+                <li>Technical operations, program management within Army technology transformation division</li>
+                <li>Selected on merit: <strong>NDA (31 SSB) & Army TES (19 SSB)</strong></li>
+              </ul>
+            </div>
+          </div>
+
         </div>
       </div>
-      <a href="python_lms.html" class="btn-lms">
-        <span class="snake">🐍</span> Start Learning
-      </a>
     </div>
-  </div>
-</section>
 
-<!-- AI PROJECTS -->
-<section id="projects">
-  <div class="section-inner">
-    <div class="section-label">AI Project Portfolio</div>
-    <h2 class="section-title">Built. Not Just<br>Theorized.</h2>
-    <p class="section-sub">Real prototypes. Real automation. Hosted on GitHub.</p>
-    <div class="proj-grid">
-      <div class="glass proj-card reveal">
-        <div class="proj-num">01 / AutoBrief</div>
-        <div class="proj-name">AI Daily Assistant</div>
-        <div class="proj-desc">LLM-powered daily briefing assistant using n8n workflow automation to auto-generate summaries, action items, and decision logs from meeting notes and emails. Zero manual effort.</div>
-        <div class="proj-stack">
-          <span class="chip chip-blue">LLMs</span><span class="chip chip-blue">n8n</span><span class="chip chip-blue">Prompt Engineering</span><span class="chip chip-green">GitHub</span>
+    <!-- AI PROJECTS -->
+    <div class="card fade-in" id="projects">
+      <div class="card-header">
+        <div class="card-label">AI Project Portfolio</div>
+        <a href="https://github.com/upd8ai-spec" target="_blank" style="font-size:0.72rem;color:var(--sky);text-decoration:none;font-family:var(--mono);">github.com/upd8ai-spec ↗</a>
+      </div>
+      <div class="card-body">
+        <div class="proj-list">
+          <div class="proj-item">
+            <div class="proj-num">01</div>
+            <div class="proj-info">
+              <div class="proj-name">AI PMO SaaS MVP</div>
+              <div class="proj-desc">AI-native program management platform targeting SAP delivery teams — RAID automation, stakeholder reporting, risk scoring. In active development as a 2026 product exit vehicle.</div>
+              <div class="proj-chips">
+                <span class="chip-sm chip-sky">Claude API</span>
+                <span class="chip-sm chip-teal">n8n</span>
+                <span class="chip-sm chip-sky">SAP BTP</span>
+                <span class="chip-sm chip-ink">React</span>
+              </div>
+            </div>
+          </div>
+          <div class="proj-item">
+            <div class="proj-num">02</div>
+            <div class="proj-info">
+              <div class="proj-name">Harvey AI — LegalTech RAG</div>
+              <div class="proj-desc">Retrieval-Augmented Generation prototype for contract analysis and regulatory document Q&A. Built on LangChain with custom document indexing and Pinecone vector store.</div>
+              <div class="proj-chips">
+                <span class="chip-sm chip-teal">RAG</span>
+                <span class="chip-sm chip-sky">LangChain</span>
+                <span class="chip-sm chip-ink">OpenAI</span>
+                <span class="chip-sm chip-ink">Pinecone</span>
+              </div>
+            </div>
+          </div>
+          <div class="proj-item">
+            <div class="proj-num">03</div>
+            <div class="proj-info">
+              <div class="proj-name">AutoBrief — AI Daily Assistant</div>
+              <div class="proj-desc">LLM-powered briefing assistant via n8n — aggregates project signals, risks, blockers into executive-ready summaries. Zero manual effort. Deployed across live SAP programs.</div>
+              <div class="proj-chips">
+                <span class="chip-sm chip-sky">LLMs</span>
+                <span class="chip-sm chip-teal">n8n</span>
+                <span class="chip-sm chip-gold">Slack API</span>
+              </div>
+            </div>
+          </div>
+          <div class="proj-item">
+            <div class="proj-num">04</div>
+            <div class="proj-info">
+              <div class="proj-name">AI PMO Toolkit</div>
+              <div class="proj-desc">GitHub-hosted prompt libraries + n8n automations for RAID logging, WSR generation, meeting intelligence. Reusable across SAP delivery teams at scale.</div>
+              <div class="proj-chips">
+                <span class="chip-sm chip-ink">Prompt Library</span>
+                <span class="chip-sm chip-teal">n8n</span>
+                <span class="chip-sm chip-sky">GitHub Actions</span>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="glass proj-card reveal reveal-delay-1">
-        <div class="proj-num">02 / Harvey AI</div>
-        <div class="proj-name">LegalTech RAG Prototype</div>
-        <div class="proj-desc">LegalTech AI prototype for document analysis and compliance flagging using Retrieval-Augmented Generation (RAG) architecture. Built on LangChain and OpenAI with custom document indexing.</div>
-        <div class="proj-stack">
-          <span class="chip chip-purple">RAG</span><span class="chip chip-purple">LangChain</span><span class="chip chip-purple">OpenAI</span><span class="chip chip-green">GitHub</span>
-        </div>
-      </div>
-      <div class="glass proj-card reveal reveal-delay-2">
-        <div class="proj-num">03 / AI PMO Toolkit</div>
-        <div class="proj-name">GitHub-Hosted PM Automation</div>
-        <div class="proj-desc">Reusable prompt libraries and n8n/Zapier automation templates for RAID log management, status report generation, risk scoring, and stakeholder communication — deployed across SAP delivery programs.</div>
-        <div class="proj-stack">
-          <span class="chip chip-gold">Prompt Library</span><span class="chip chip-gold">Zapier</span><span class="chip chip-gold">n8n</span><span class="chip chip-green">GitHub Actions</span>
-        </div>
-      </div>
-    </div>
-    <div style="margin-top:32px;text-align:center;">
-      <a href="https://github.com/abhishek-singh-pm" target="_blank" class="btn-ghost" style="display:inline-flex;width:auto;">
-        <i class="fab fa-github"></i> View All Projects on GitHub
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- AWARDS -->
-<section id="awards">
-  <div class="section-inner">
-    <div class="section-label">Recognition</div>
-    <h2 class="section-title">Recognized.<br>Rewarded. Repeated.</h2>
-    <div class="awards-grid">
-      <div class="glass award-card reveal">
-        <span class="award-emoji">⭐</span>
-        <div class="award-title">Dot of Fame (×2)</div>
-        <div class="award-org">Deloitte South Asia</div>
-        <div class="award-year">2024 · Exceptional Delivery</div>
-      </div>
-      <div class="glass award-card reveal reveal-delay-1">
-        <span class="award-emoji">🚀</span>
-        <div class="award-title">Rising Star</div>
-        <div class="award-org">KPMG Global Services</div>
-        <div class="award-year">2022 · Successful NFRR Adoption</div>
-      </div>
-      <div class="glass award-card reveal reveal-delay-2">
-        <span class="award-emoji">🎓</span>
-        <div class="award-title">Graduation Medallist</div>
-        <div class="award-org">Invertis University</div>
-        <div class="award-year">2021 · Top 5 Batch</div>
-      </div>
-      <div class="glass award-card reveal">
-        <span class="award-emoji">🎖️</span>
-        <div class="award-title">Designation Holder Cadet</div>
-        <div class="award-org">Officers Training Academy, Gaya</div>
-        <div class="award-year">2017 · Excellent Performer</div>
-      </div>
-      <div class="glass award-card reveal reveal-delay-1">
-        <span class="award-emoji">🏅</span>
-        <div class="award-title">SSB Merit — NDA & TES</div>
-        <div class="award-org">Services Selection Board</div>
-        <div class="award-year">2016 · NDA (31 SSB) & Army TES (19 SSB)</div>
-      </div>
-      <div class="glass award-card reveal reveal-delay-2">
-        <span class="award-emoji">📖</span>
-        <div class="award-title">Published Author</div>
-        <div class="award-org">Power Publisher</div>
-        <div class="award-year">2019 · 200+ Copies Sold</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="section-inner">
-    <div class="contact-layout">
-      <div class="contact-info">
-        <div class="section-label">Get in Touch</div>
-        <h2>Ready to<br><span style="background:linear-gradient(90deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Scale?</span></h2>
-        <p>Available for Management Consulting engagements — startups and enterprises requiring high-impact program leadership, AI automation architecture, and technical precision.</p>
-        <div class="contact-links">
-          <a href="mailto:abhishektes3188@gmail.com" class="contact-link">
-            <div class="contact-link-icon icon-blue"><i class="fas fa-envelope"></i></div>
-            <div>
-              <h4>Email</h4>
-              <p>abhishektes3188@gmail.com</p>
+        <div style="margin-top:14px;">
+          <a href="https://github.com/upd8ai-spec" target="_blank" class="github-bar">
+            <div class="github-bar-left">
+              <span class="github-bar-icon">⌥</span>
+              <div>
+                <div class="github-bar-text">View All Projects</div>
+                <div class="github-bar-sub">github.com/upd8ai-spec</div>
+              </div>
             </div>
-          </a>
-          <a href="https://linkedin.com/in/abhishek-singh-9452a9180/" target="_blank" class="contact-link">
-            <div class="contact-link-icon" style="background:rgba(0,119,181,0.15);color:#0a66c2;border:1px solid rgba(0,119,181,0.2);"><i class="fab fa-linkedin"></i></div>
-            <div>
-              <h4>LinkedIn</h4>
-              <p>linkedin.com/in/abhishek-singh-9452a9180</p>
-            </div>
-          </a>
-          <a href="https://github.com/abhishek-singh-pm" target="_blank" class="contact-link">
-            <div class="contact-link-icon" style="background:rgba(255,255,255,0.06);color:#f0f6fc;border:1px solid rgba(255,255,255,0.1);"><i class="fab fa-github"></i></div>
-            <div>
-              <h4>GitHub</h4>
-              <p>github.com/abhishek-singh-pm</p>
-            </div>
-          </a>
-          <a href="python_lms.html" class="contact-link" style="border-color:rgba(77,217,224,0.2);">
-            <div class="contact-link-icon icon-cyan"><span style="font-size:1.1rem;">🐍</span></div>
-            <div>
-              <h4>Python AI Learning Path</h4>
-              <p>Structured curriculum for AI-powered consulting</p>
-            </div>
+            <span class="github-arrow">↗</span>
           </a>
         </div>
-        <div style="margin-top:24px;padding:16px 20px;background:rgba(255,255,255,0.02);border:1px solid var(--border2);border-radius:10px;display:flex;gap:16px;flex-wrap:wrap;">
-          <span style="font-size:0.78rem;color:var(--muted);"><i class="fas fa-map-marker-alt" style="color:var(--blue);margin-right:6px;"></i>Bengaluru, India</span>
-          <span style="font-size:0.78rem;color:var(--muted);"><i class="fas fa-globe" style="color:var(--cyan);margin-right:6px;"></i>Global Remote Capable</span>
-          <span style="font-size:0.78rem;color:var(--muted);"><i class="fas fa-phone" style="color:var(--gold);margin-right:6px;"></i>+91-7620098235</span>
-        </div>
       </div>
-      <div>
-        <div class="tally-wrap">
-          <iframe
-            src="https://tally.so/embed/mZqJ7z?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
-            width="100%" height="520" frameborder="0"
-            marginheight="0" marginwidth="0"
-            title="Contact Form" class="w-full" allowfullscreen
-            style="display:block;">
-          </iframe>
+    </div>
+
+    <!-- AWARDS -->
+    <div class="card fade-in">
+      <div class="card-header">
+        <div class="card-label">Recognition</div>
+      </div>
+      <div class="card-body">
+        <div class="award-row">
+          <div class="award-pill">
+            <span class="award-emoji">⭐</span>
+            <div class="award-text">
+              <div class="award-title">Dot of Fame ×2</div>
+              <div class="award-sub">Deloitte · 2024</div>
+            </div>
+          </div>
+          <div class="award-pill">
+            <span class="award-emoji">🚀</span>
+            <div class="award-text">
+              <div class="award-title">Rising Star</div>
+              <div class="award-sub">KPMG · 2022</div>
+            </div>
+          </div>
+          <div class="award-pill">
+            <span class="award-emoji">🎓</span>
+            <div class="award-text">
+              <div class="award-title">Graduation Medallist</div>
+              <div class="award-sub">Invertis Univ · Top 5</div>
+            </div>
+          </div>
+          <div class="award-pill">
+            <span class="award-emoji">🎖️</span>
+            <div class="award-text">
+              <div class="award-title">Designation Cadet</div>
+              <div class="award-sub">OTA Gaya · 2017</div>
+            </div>
+          </div>
+          <div class="award-pill">
+            <span class="award-emoji">🏅</span>
+            <div class="award-text">
+              <div class="award-title">SSB Merit</div>
+              <div class="award-sub">NDA · TES · 2016</div>
+            </div>
+          </div>
+          <div class="award-pill">
+            <span class="award-emoji">📖</span>
+            <div class="award-text">
+              <div class="award-title">Published Author</div>
+              <div class="award-sub">200+ Copies · 2019</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+
+  </div><!-- /left-col -->
+
+  <!-- RIGHT -->
+  <div class="right-col" id="contact">
+
+    <!-- STATS -->
+    <div class="stats-card fade-in">
+      <div class="stats-label">// Career Metrics</div>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-val">50<em>+Cr</em></div>
+          <div class="stat-lbl">Budget Led</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-val">22<em>K+</em></div>
+          <div class="stat-lbl">Test Cases</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-val">11<em>TB</em></div>
+          <div class="stat-lbl">Data Migrated</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-val">7<em>+yr</em></div>
+          <div class="stat-lbl">Big 4 + HPE</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-val">700<em>+</em></div>
+          <div class="stat-lbl">Custom Devs</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-val">24<em>LPA</em></div>
+          <div class="stat-lbl">Current CTC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AVAILABILITY -->
+    <div class="avail-card fade-in">
+      <div class="avail-head">Open for Consulting & Advisory</div>
+      <div class="avail-sub">Available for high-impact engagements requiring SAP, Cloud, and AI expertise in parallel with HPE role.</div>
+      <div class="avail-types">
+        <div class="avail-type">SAP S/4HANA Program Recovery & AMS</div>
+        <div class="avail-type">AI-Augmented PMO Setup & Advisory</div>
+        <div class="avail-type">Enterprise AI Transformation (BTP + Cloud)</div>
+        <div class="avail-type">RegTech / MiFID II Compliance Programs</div>
+        <div class="avail-type">Global Remote · Part-time Consulting</div>
+      </div>
+      <a href="mailto:abhishektes3188@gmail.com" class="btn-contact">✦ Book a Discovery Call</a>
+    </div>
+
+    <!-- SKILLS -->
+    <div class="card fade-in">
+      <div class="card-header">
+        <div class="card-label">Best Skills</div>
+      </div>
+      <div class="card-body">
+        <div class="skill-group">
+          <div class="skill-group-name">Cloud & AI</div>
+          <div class="chips-wrap">
+            <span class="chip-sm chip-sky">SAP BTP</span>
+            <span class="chip-sm chip-sky">Azure AZ-900</span>
+            <span class="chip-sm chip-teal">LangChain</span>
+            <span class="chip-sm chip-teal">n8n</span>
+            <span class="chip-sm chip-sky">MCP Agents</span>
+            <span class="chip-sm chip-teal">RAG Pipelines</span>
+            <span class="chip-sm chip-sky">Claude API</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-name">SAP Modules</div>
+          <div class="chips-wrap">
+            <span class="chip-sm chip-gold">PP · MM · SD</span>
+            <span class="chip-sm chip-gold">FICO · EWM</span>
+            <span class="chip-sm chip-gold">GRC · BTP</span>
+            <span class="chip-sm chip-gold">SAC · DWC</span>
+            <span class="chip-sm chip-gold">QM · BPC</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-name">Programme Governance</div>
+          <div class="chips-wrap">
+            <span class="chip-sm chip-ink">SAP CALM</span>
+            <span class="chip-sm chip-ink">Azure DevOps</span>
+            <span class="chip-sm chip-ink">RAID / RACI</span>
+            <span class="chip-sm chip-ink">Power BI</span>
+            <span class="chip-sm chip-ink">FP&A</span>
+          </div>
+        </div>
+        <div class="skill-group" style="margin-bottom:0">
+          <div class="skill-group-name">DevOps & Quality</div>
+          <div class="chips-wrap">
+            <span class="chip-sm chip-teal">GitHub Copilot</span>
+            <span class="chip-sm chip-teal">CodeRabbit</span>
+            <span class="chip-sm chip-sky">CI/CD</span>
+            <span class="chip-sm chip-ink">SIT/UAT</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CERTIFICATIONS -->
+    <div class="card fade-in">
+      <div class="card-header">
+        <div class="card-label">Certifications</div>
+      </div>
+      <div class="card-body">
+        <div class="cert-list">
+          <div class="cert-row">
+            <div class="cert-icon" style="background:rgba(37,99,235,0.1);color:var(--sky);">🎯</div>
+            <div>
+              <div class="cert-name">ICP-ACC Agile Coach</div>
+              <div class="cert-issuer">ICAgile · Active</div>
+            </div>
+          </div>
+          <div class="cert-row">
+            <div class="cert-icon" style="background:rgba(201,162,39,0.1);color:var(--gold);">⚡</div>
+            <div>
+              <div class="cert-name">SAFe® 6 Agilist</div>
+              <div class="cert-issuer">Scaled Agile · Active</div>
+            </div>
+          </div>
+          <div class="cert-row">
+            <div class="cert-icon" style="background:rgba(15,123,108,0.1);color:var(--teal);">🌀</div>
+            <div>
+              <div class="cert-name">Certified Scrum Master®</div>
+              <div class="cert-issuer">Scrum Alliance · Active</div>
+            </div>
+          </div>
+          <div class="cert-row">
+            <div class="cert-icon" style="background:rgba(194,65,12,0.08);color:var(--ember);">🛡️</div>
+            <div>
+              <div class="cert-name">ITIL v4 Foundation</div>
+              <div class="cert-issuer">PeopleCert · Active</div>
+            </div>
+          </div>
+          <div class="cert-row">
+            <div class="cert-icon" style="background:rgba(37,99,235,0.08);color:var(--sky);">🤖</div>
+            <div>
+              <div class="cert-name">AI Generalist</div>
+              <div class="cert-issuer">Continuous · 2024–Present</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2026-2027 ROADMAP -->
+    <div class="card fade-in">
+      <div class="card-header">
+        <div class="card-label">Upskilling Roadmap</div>
+        <span class="badge badge-teal">2026–2027</span>
+      </div>
+      <div class="card-body" style="padding-top:8px;">
+        <div class="roadmap-list">
+          <div class="rm-item">
+            <div class="rm-timeline">Q3 2026</div>
+            <div class="rm-dot" style="background:var(--teal2);box-shadow:0 0 6px rgba(20,168,150,0.5);"></div>
+            <div class="rm-content">
+              <div class="rm-title">Azure AZ-900 + SAP BTP Fundamentals</div>
+              <div class="rm-desc">Cloud foundations, SAP Integration Suite basics, Tailscale zero-trust (active)</div>
+            </div>
+          </div>
+          <div class="rm-item">
+            <div class="rm-timeline">Q4 2026</div>
+            <div class="rm-dot" style="background:var(--sky);box-shadow:0 0 6px rgba(37,99,235,0.4);"></div>
+            <div class="rm-content">
+              <div class="rm-title">Azure AZ-104 + SAP Joule / AI Core</div>
+              <div class="rm-desc">SAP BTP Extension Suite, SAP CALM cloud governance, MCP server architecture</div>
+            </div>
+          </div>
+          <div class="rm-item">
+            <div class="rm-timeline">Q1–Q2 '27</div>
+            <div class="rm-dot" style="background:var(--gold);box-shadow:0 0 6px rgba(201,162,39,0.4);"></div>
+            <div class="rm-content">
+              <div class="rm-title">SAP BTP Solution Architect Cert</div>
+              <div class="rm-desc">Agentic PMO SaaS MVP launch, LLM-backed RAID automation, enterprise AI advisory</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="card fade-in">
+      <div class="card-header">
+        <div class="card-label">Get in Touch</div>
+      </div>
+      <div class="card-body">
+        <div class="contact-links-row">
+          <a href="mailto:abhishektes3188@gmail.com" class="contact-link-item">
+            <span class="contact-link-icon">✉</span>
+            <div>
+              <div class="contact-link-label">Email</div>
+              <div class="contact-link-val">abhishektes3188@gmail.com</div>
+            </div>
+          </a>
+          <a href="https://linkedin.com/in/abhishek-singh-9452a9180" target="_blank" class="contact-link-item">
+            <span class="contact-link-icon">in</span>
+            <div>
+              <div class="contact-link-label">LinkedIn</div>
+              <div class="contact-link-val">abhishek-singh-9452a9180</div>
+            </div>
+          </a>
+          <a href="https://github.com/upd8ai-spec" target="_blank" class="contact-link-item">
+            <span class="contact-link-icon">⌥</span>
+            <div>
+              <div class="contact-link-label">GitHub</div>
+              <div class="contact-link-val">github.com/upd8ai-spec</div>
+            </div>
+          </a>
+          <div class="contact-link-item" style="cursor:default;">
+            <span class="contact-link-icon">📱</span>
+            <div>
+              <div class="contact-link-label">Phone</div>
+              <div class="contact-link-val">+91-7620098235</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WHAT MOTIVATES ME -->
+    <div class="card fade-in">
+      <div class="card-header">
+        <div class="card-label">What Motivates Me</div>
+      </div>
+      <div class="card-body">
+        <div class="chips-wrap">
+          <span class="chip-sm chip-teal">MAANG by 2029</span>
+          <span class="chip-sm chip-sky">AI-native Delivery</span>
+          <span class="chip-sm chip-gold">Product Exit</span>
+          <span class="chip-sm chip-teal">Technical Depth</span>
+          <span class="chip-sm chip-sky">Global Impact</span>
+          <span class="chip-sm chip-ink">Military Discipline</span>
+          <span class="chip-sm chip-gold">Financial Freedom</span>
+          <span class="chip-sm chip-teal">Building Leverage</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /right-col -->
+</div><!-- /content-wrapper -->
 
 <!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <p class="footer-text">© 2025 Abhishek Singh · All Rights Reserved · Built with AI + Discipline</p>
-    <div class="footer-links">
-      <a href="#consulting">Consulting</a>
-      <a href="#technical">Tech Stack</a>
-      <a href="#experience">Experience</a>
-      <a href="python_lms.html">🐍 Python LMS</a>
-      <a href="https://github.com/abhishek-singh-pm" target="_blank">GitHub</a>
-    </div>
-  </div>
+<footer style="border-top:1px solid var(--line);padding:20px 24px;max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+  <span style="font-size:0.72rem;color:var(--ink3);font-family:var(--mono);">© 2026 Abhishek Singh · Built with AI + Military Discipline</span>
+  <span style="font-size:0.72rem;color:var(--ink3);font-family:var(--mono);">Bengaluru · Open to Global Opportunities</span>
 </footer>
 
-<!-- N8N CHAT -->
-<script type="module">
-  import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
-  createChat({ webhookUrl: 'https://n8n.srv980852.hstgr.cloud/webhook/465bc199-cacc-4a3c-a91f-fc348ca5ce4e/chat' });
-</script>
-
-<!-- SCROLL REVEAL -->
 <script>
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-  reveals.forEach(el => observer.observe(el));
+  const fades = document.querySelectorAll('.fade-in');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 60);
+      }
+    });
+  }, { threshold: 0.08 });
+  fades.forEach(el => obs.observe(el));
 </script>
-
 </body>
 </html>
